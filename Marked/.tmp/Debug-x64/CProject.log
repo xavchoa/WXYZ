@@ -1,15 +1,13 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\.tmp\Debug-x64\) contains files shared from another project (cars.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (C:\Users\xavch\Documents\GitHub\WXYZ\Marked\.tmp\Debug-x64\) contains files shared from another project (cars.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   level.c
-C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\Src\level.c(6,1): warning C4005: 'FALSE': macro redefinition
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(6,1): warning C4005: 'FALSE': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(71): message : see previous definition of 'FALSE'
-C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\Src\level.c(7,1): warning C4005: 'TRUE': macro redefinition
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(7,1): warning C4005: 'TRUE': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(75): message : see previous definition of 'TRUE'
-C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\Src\level.c(84,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\Src\level.c(85,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\Src\level.c(86,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-  mainmenu.c
-  Generating Code...
-  CProject.vcxproj -> C:\Users\Vest\OneDrive - DigiPen Institute of Technology\1401 repos\Marked\bin\Debug-x64\Marked.exe
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(99,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(100,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(101,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+  CProject.vcxproj -> C:\Users\xavch\Documents\GitHub\WXYZ\Marked\bin\Debug-x64\Marked.exe
   1 File(s) copied
   1 File(s) copied
   1 File(s) copied

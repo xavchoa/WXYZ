@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "utils.h"
 #include "mainmenu.h"
-
+//test
 #define FALSE 0;
 #define TRUE 1;
 
@@ -30,7 +30,22 @@ typedef struct Player{
 	CP_Color color;
 } Player;
 
+typedef struct Rect {
+	float x;
+	float y;
+	float width;
+	float height;
+} Rect;
+
 Player player;
+
+CP_BOOL RectCollision(Rect *r1, Rect *r2) {
+	if (r1->x + r1->width >= r2->x && r1->x <= r2->x + r2->width &&
+		r1->y + r1->height >= r2->height && r1->y <= r2->y + r2->height) {
+		return TRUE;
+	}
+	return FALSE;
+}
 
 void CreatePlatform(float x, float y, float width, float height) {
 	CP_Settings_Fill(CP_Color_Create(0,0,0,255));
