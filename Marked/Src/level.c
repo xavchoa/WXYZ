@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "utils.h"
 #include "mainmenu.h"
-//test hahaha
+
 #define FALSE 0;
 #define TRUE 1;
 
@@ -11,6 +11,7 @@ float const gravity = 750.f;
 CP_BOOL isGrounded = FALSE;
 CP_BOOL rightPressed = FALSE;
 CP_BOOL leftPressed = FALSE;
+CP_BOOL isShooting = FALSE;
 
 typedef struct Velocity {
 	float x;
@@ -30,6 +31,13 @@ typedef struct Player{
 	CP_Color color;
 } Player;
 
+typedef struct Projectile {
+	float width;
+	float height;
+	Position pos;
+	Velocity vel;
+} Projectile;
+
 typedef struct Rect {
 	float x;
 	float y;
@@ -38,6 +46,7 @@ typedef struct Rect {
 } Rect;
 
 Player player;
+Projectile proj;
 
 CP_BOOL RectCollision(Rect *r1, Rect *r2) {
 	if (r1->x + r1->width >= r2->x && r1->x <= r2->x + r2->width &&
@@ -78,9 +87,14 @@ void DrawPlayer(Player *player) {
 
 } 
 
+void DrawProjectile(Projectile *proj) {
+	CP_Settings_Fill(CP_Color_Create(120, 0, 0, 255));
+	CP_Settings_RectMode(CP_POSITION_CENTER);
+	CP_Graphics_DrawRect(proj->pos.x, proj->pos.y, 20.f, 20.f);
+}
+
 void Level_Init()
 {
-
 	player.pos.x = 300.f;
 	player.pos.y = 100.f;
 	player.width = 50.f;
@@ -88,12 +102,17 @@ void Level_Init()
 	player.vel.x = 0.f;
 	player.vel.y = 500.f;
 	player.color = CP_Color_Create(255,255,255,255);
+
+	proj.width = 20.f;
+	proj.height = 20.f;
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 
 }
 
 void Level_Update()
 {
+	proj.pos.x = player.pos.x + player.width + 10;
+	proj.pos.y = player.pos.y + player.height / 2;
 	CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 
 	CreatePlatform(500.f, windowHeight * 0.9, 5000.f,200.f);
@@ -129,6 +148,15 @@ void Level_Update()
 	}
 	if (CP_Input_KeyReleased(KEY_D)) {
 		rightPressed = FALSE;
+	}
+	//shoot
+	if (CP_Input_KeyTriggered(KEY_X)) {
+		isShooting = !isShooting;
+
+	}
+	
+	if (isShooting) {
+		DrawProjectile(&proj);
 	}
 	
 	if (rightPressed) {
