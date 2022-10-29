@@ -14,6 +14,15 @@ CP_BOOL leftPressed = FALSE;
 CP_BOOL throwPressed = FALSE;
 CP_BOOL isThrowing = FALSE;
 
+typedef struct GameObject {
+	float width;
+	float height;
+	CP_Vector pos;
+	CP_BOOL hasCollider;
+	CP_BOOL isMarkable;
+	void* extData;
+} GameObject;
+
 typedef struct Player {
 	float width;
 	float height;
@@ -57,6 +66,15 @@ void PlayerInit(Player *player, CP_Vector p, CP_Vector v, float w, float h) {
 	player->vel.y = v.y;
 	player->color = CP_Color_Create(255, 255, 255, 255);
 }
+
+void ProjectileInit(Projectile *projectile, CP_Vector p, CP_Vector v, float w, float h, float r) {
+	projectile->pos.x = p.x;
+	projectile->pos.y = p.y;
+	projectile->width = w;
+	projectile->height = h;
+	projectile->vel.x = v.x;
+	projectile->range = r;
+}
 void DrawProjectile(Projectile* proj) {
 	CP_Settings_Fill(CP_Color_Create(120, 0, 0, 255));
 	CP_Settings_RectMode(CP_POSITION_CENTER);
@@ -87,7 +105,7 @@ void CreatePlatform(float x, float y, float width, float height) {
 }
 
 
-void SetProjSpawn(float x, float y) {
+void SetProjectileSpawn(float x, float y) {
 	if (isThrowing == 0) {
 		projectile.pos.x = x;
 		projectile.pos.y = y;
@@ -109,13 +127,7 @@ void DrawPlayer(Player* player) {
 void Level_Init()
 {
 	PlayerInit(&player, CP_Vector_Set(300,100), CP_Vector_Set(0,500), 50, 50);
-
-	projectile.pos.x = -100.f;
-	projectile.pos.y = -100.f;
-	projectile.width = 20.f;
-	projectile.height = 20.f;
-	projectile.vel.x = 7000.f;
-	projectile.range = 1000.f;
+	ProjectileInit(&projectile, CP_Vector_Set(-100,-100), CP_Vector_Set(7000,1000), 20, 20, 1000);
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 
@@ -132,10 +144,11 @@ void Level_Update()
 	player.pos.y += player.vel.y * CP_System_GetDt(); 	//simulate gravity
 	player.pos.x += player.vel.x * CP_System_GetDt();
 
-	if ((player.height + player.pos.y + player.vel.y * CP_System_GetDt()) <= windowHeight) {
+	if ((player.height + player.pos.y + player.vel.y * CP_System_GetDt()) <= windowHeight+ player.height+50) {
 		player.vel.y += gravity * CP_System_GetDt();
 	}
 	else {
+		//GAMEOVER
 		player.vel.y = 0.f;
 		isGrounded = TRUE;
 	}
@@ -189,7 +202,7 @@ void Level_Update()
 		}
 	}
 	if (throwPressed) {
-		SetProjSpawn(player.pos.x + player.width, player.pos.y + player.height / 2);
+		SetProjectileSpawn(player.pos.x + player.width, player.pos.y + player.height / 2);
 	}
 	DrawProjectile(&projectile);
 
