@@ -1,8 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (C:\Users\xavch\Documents\GitHub\WXYZ\Marked\.tmp\Debug-x64\) contains files shared from another project (cars.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   level.c
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(135,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(136,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
 C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(137,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(138,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(139,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
   CProject.vcxproj -> C:\Users\xavch\Documents\GitHub\WXYZ\Marked\bin\Debug-x64\Marked.exe
   1 File(s) copied
   1 File(s) copied

@@ -14,21 +14,11 @@ CP_BOOL leftPressed = FALSE;
 CP_BOOL throwPressed = FALSE;
 CP_BOOL isThrowing = FALSE;
 
-typedef struct Velocity {
-	float x;
-	float y;
-} Velocity;
-
-typedef struct Position {
-	float x;
-	float y;
-} Position;
-
 typedef struct Player {
 	float width;
 	float height;
-	Position pos;
-	Velocity vel;
+	CP_Vector pos;
+	CP_Vector vel;
 	CP_Color color;
 } Player;
 
@@ -36,28 +26,37 @@ typedef struct Projectile {
 	float width;
 	float height;
 	float range;
-	Position pos;
-	Velocity vel;
+	CP_Vector pos;
+	CP_Vector vel;
 } Projectile;
 
 typedef struct Rect {
-	float x;
-	float y;
 	float width;
 	float height;
+	CP_Vector pos;
 } Rect;
+
 
 Player player;
 Projectile projectile;
 
 CP_BOOL RectCollision(Rect* r1, Rect* r2) {
-	if (r1->x + r1->width >= r2->x && r1->x <= r2->x + r2->width &&
-		r1->y + r1->height >= r2->height && r1->y <= r2->y + r2->height) {
+	if (r1->pos.x + r1->width >= r2->pos.x && r1->pos.x <= r2->pos.x + r2->width &&
+		r1->pos.y + r1->height >= r2->height && r1->pos.y <= r2->pos.y + r2->height) {
 		return TRUE;
 	}
 	return FALSE;
 }
 
+void PlayerInit(Player *player, CP_Vector p, CP_Vector v, float w, float h) {
+	player->pos.x = p.x;
+	player->pos.y = p.y;
+	player->width = w;
+	player->height = h;
+	player->vel.x = v.x;
+	player->vel.y = v.y;
+	player->color = CP_Color_Create(255, 255, 255, 255);
+}
 void DrawProjectile(Projectile* proj) {
 	CP_Settings_Fill(CP_Color_Create(120, 0, 0, 255));
 	CP_Settings_RectMode(CP_POSITION_CENTER);
@@ -109,13 +108,7 @@ void DrawPlayer(Player* player) {
 
 void Level_Init()
 {
-	player.pos.x = 300.f;
-	player.pos.y = 100.f;
-	player.width = 50.f;
-	player.height = 50.f;
-	player.vel.x = 0.f;
-	player.vel.y = 500.f;
-	player.color = CP_Color_Create(255, 255, 255, 255);
+	PlayerInit(&player, CP_Vector_Set(300,100), CP_Vector_Set(0,500), 50, 50);
 
 	projectile.pos.x = -100.f;
 	projectile.pos.y = -100.f;
@@ -136,8 +129,7 @@ void Level_Update()
 	CreatePlatform(1000.f, windowHeight * 0.8, 100, 100.f);
 	CreatePlatform(200.f, windowHeight * 0.8, 100, 100.f);
 
-	//simulate gravity
-	player.pos.y += player.vel.y * CP_System_GetDt();
+	player.pos.y += player.vel.y * CP_System_GetDt(); 	//simulate gravity
 	player.pos.x += player.vel.x * CP_System_GetDt();
 
 	if ((player.height + player.pos.y + player.vel.y * CP_System_GetDt()) <= windowHeight) {
@@ -199,12 +191,12 @@ void Level_Update()
 	if (throwPressed) {
 		SetProjSpawn(player.pos.x + player.width, player.pos.y + player.height / 2);
 	}
+	DrawProjectile(&projectile);
 
 	if (CP_Input_KeyDown(KEY_Q)) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 
-	DrawProjectile(&projectile);
 }
 
 void Level_Exit()
