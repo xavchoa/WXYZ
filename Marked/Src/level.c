@@ -118,17 +118,72 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
 		switch (go2->type) {
-			//case Type_Platform:	
-			//	float intwidth = go->pos.x + go->size.x - go2->pos.x;
-			//	float intheight = go->pos.y + go->size.y - go2->size.y;
+			case Type_Platform:	
+				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+					float intwidth = go->pos.x + go->size.x - go2->pos.x;
 
-			//	if (intwidth < intheight) {
-			//		go->pos.x -= intwidth;
-			//	} else {
-			//		player->vel.y = 0.f;
-			//		go->pos.y -= intheight;
-			//	}
-			//	break;
+					if (go->pos.y > go2->pos.y) {
+						float intheight = go2->pos.y + go2->size.y - go->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x -= intwidth;
+						}
+						else {
+							player->vel.y = 0.f;
+							go->pos.y += intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							//isGrounded = TRUE;
+						}
+					}
+					else {
+						float intheight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x -= intwidth;
+						}
+						else {
+							player->vel.y = 0.f;
+							go->pos.y -= intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							isGrounded = TRUE;
+						}
+					}
+				}
+				else {
+					float intwidth = go2->pos.x + go2->size.x - go->pos.x;
+
+					if (go->pos.y > go2->pos.y) {
+						float intheight = go2->pos.y + go2->size.y - go->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x += intwidth;
+						}
+						else {
+							player->vel.y = 0.f;
+							go->pos.y += intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							//isGrounded = TRUE;
+						}
+					}
+					else {
+						float intheight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x += intwidth;
+						}
+						else {
+							player->vel.y = 0.f;
+							go->pos.y -= intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							isGrounded = TRUE;
+						}
+					}
+				}
+				break;
 		case Type_EndPoint:
 			endPoint = (EndPoint*)go2->childData;
 			if (endPoint->winCondition == TRUE) {
@@ -173,91 +228,6 @@ CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 
 	CP_BOOL collisionY = go->pos.y + go->size.y >= go2->pos.y &&
 		go2->pos.y + go2->size.y >= go->pos.y;
-
-	//if (collisionX && collisionY) {
-	//	if (go->pos.x < go2->pos.x) {
-	//		float dist = (go->pos.x + go->size.x) - go2->pos.x;
-	//		go->pos.x -= dist;
-	//	}
-	//	else if (go->pos.x > go2->pos.x) {
-	//		float dist = (go2->pos.x + go2->size.x) - go->pos.x;
-	//		go->pos.x += dist;
-	//	}
-	//}
-
-
-
-	//if (go->pos.x + go->size.x >= go2->pos.x &&
-	//	go2->pos.x + go2->size.x >= go->pos.x && 
-	//	go->pos.y + go->size.y >= go2->pos.y &&
-	//	go2->pos.y + go2->size.y >= go->pos.y) {
-
-	//	float intwidth = go->pos.x + go->size.x - go2->pos.x;
-	//	float intheight = go->pos.y + go->size.y - go2->pos.y;
-
-	//	if (intwidth < intheight) {
-	//		go->pos.x -= intwidth;
-	//	} else {
-	//		player->vel.y = 0.f;
-	//		go->pos.y -= intheight;
-	//	}
-	//}
-
-	//
-	//float intwidth = go->pos.x + go->size.x - go2->pos.x;
-	//float intheight = go->pos.y + go->size.y - go2->pos.y;
-
-	//if (go2->size.x < go2->size.y) {
-	//	if (go->pos.x + go->size.x > go2->pos.x) {
-	//		go->pos.x
-	//	}
-	//}
-
-
-	//if () {
-	//	if (go->pos.y > go2->pos.y) {
-	//		go->pos.y = go2->pos.y - go->size.y;
-	//		printf("%f", go->pos.x);
-	//	}
-	//}
-
-	//if (player.pos.y + player.height <= y && player.pos.y + player.height + player.vel.y * CP_System_GetDt() >= y &&
-	//	player.pos.x + player.width >= x && player.pos.x <= x+width) {
-	//	player.vel.y = 0.f;
-	//	isGrounded = TRUE;
-	//}
-	//if (player.pos.y <= y + height && player.pos.y - player.vel.y * CP_System_GetDt() >= y + height &&
-	//	player.pos.x + player.width >= x && player.pos.x <= x + width) {
-	//		player.vel.y = 0.f;
-	//}
-
-	//if (player.pos.x + player.width >= x && player.pos.x <= x+ width &&
-	//	player.pos.y + player.height >= y && player.pos.y <= y + height &&
-	//	player.pos.x + player.width + player.vel.x * CP_System_GetDt() >= x && player.pos.x + player.vel.x * CP_System_GetDt() <= x + width) {
-	//		player.vel.x = 0.f;
-	//}
-
-	if (go->type == Type_Player && go2->type == Type_Platform) {
-		if (go->pos.y + go->size.y <= go2->pos.y && go->pos.y + go->size.y + player->vel.y * CP_System_GetDt() >= go2->pos.y &&
-			go->pos.x + go->size.x >= go2->pos.x && go->pos.x <= go2->pos.x + go2->size.x) {
-			player->vel.y = 0.f;
-			isGrounded = TRUE;
-		}
-		if (go->pos.y <= go2->pos.y + go2->size.y && go->pos.y - player->vel.y * CP_System_GetDt() >= go2->pos.y + go2->size.y &&
-			go->pos.x + go->size.x >= go2->size.x && go->pos.x <= go2->pos.x + go2->size.x) {
-			player->vel.y = 0.f;
-		}
-
-		if (go->pos.x + go->size.x >= go2->pos.x && go->pos.x <= go2->pos.x + go2->size.x &&
-			go->pos.y + go->size.y >= go2->pos.y && go->pos.y <= go2->pos.y + go2->size.y &&
-			go->pos.x + go->size.x + player->vel.x * CP_System_GetDt() >= go2->pos.x && go->pos.x + player->vel.x * CP_System_GetDt() <= go2->pos.x + go2->size.x) {
-
-			player->vel.x = 0;
-		}
-		return;
-	}
-
-
 
 	return collisionX && collisionY;
 }
