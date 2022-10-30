@@ -1,12 +1,14 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (C:\Users\xavch\Documents\GitHub\WXYZ\Marked\.tmp\Debug-x64\) contains files shared from another project (cars.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: The intermediate directory (D:\Users\Vest\Documents\GitHub\WXYZ\Marked\.tmp\Debug-x64\) contains files shared from another project (cars.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   level.c
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(178,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(179,39): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(180,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(227,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(228,39): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\xavch\Documents\GitHub\WXYZ\Marked\Src\level.c(229,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-  CProject.vcxproj -> C:\Users\xavch\Documents\GitHub\WXYZ\Marked\bin\Debug-x64\Marked.exe
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(105,2): warning C4033: 'GetGameObject' must return a value
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(257,3): warning C4033: 'CheckCollision' must return a value
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(383,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(384,38): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(385,37): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(423,23): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(106): warning C4715: 'GetGameObject': not all control paths return a value
+D:\Users\Vest\Documents\GitHub\WXYZ\Marked\Src\level.c(263): warning C4715: 'CheckCollision': not all control paths return a value
+  CProject.vcxproj -> D:\Users\Vest\Documents\GitHub\WXYZ\Marked\bin\Debug-x64\Marked.exe
   1 File(s) copied
   1 File(s) copied
   1 File(s) copied
