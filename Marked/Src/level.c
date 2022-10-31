@@ -10,12 +10,13 @@
 #define GOARRAY_SIZE 20
 
 int windowWidth, windowHeight;
-float const gravity = 750.f;
+float const gravity = 1000.f;
 CP_BOOL isGrounded = FALSE;
 CP_BOOL rightPressed = FALSE;
 CP_BOOL leftPressed = FALSE;
 CP_BOOL shootPressed = FALSE;
 CP_BOOL projAlive = FALSE;
+CP_BOOL isPlatformCollided = FALSE;
 
 enum GAMEOBJECT_TYPE {
 	Type_Player,
@@ -105,6 +106,26 @@ GameObject* GetGameObject() {
 	return;
 }
 
+void PlayerMovement() {
+	//player movement
+	if (CP_Input_KeyDown(KEY_SPACE) && isGrounded) {
+		player->vel.y -= 15000.f * CP_System_GetDt();
+		isGrounded = FALSE;
+	}
+	if (CP_Input_KeyDown(KEY_LEFT)) {
+		leftPressed = TRUE;
+	}
+	if (CP_Input_KeyReleased(KEY_LEFT)) {
+		leftPressed = FALSE;
+	}
+
+	if (CP_Input_KeyDown(KEY_RIGHT)) {
+		rightPressed = TRUE;
+	}
+	if (CP_Input_KeyReleased(KEY_RIGHT)) {
+		rightPressed = FALSE;
+	}
+}
 void DespawnGameObject(GameObject* go) {
 	go->isActive = FALSE;
 	go->hasCollider = FALSE;
@@ -119,6 +140,7 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	case Type_Player:
 		switch (go2->type) {
 			case Type_Platform:	
+				isPlatformCollided = TRUE;
 				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
 					float intwidth = go->pos.x + go->size.x - go2->pos.x;
 
@@ -192,6 +214,8 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			}
 			break;
 		}
+	default:
+		isPlatformCollided = FALSE;
 		break;
 	case Type_Proj:
 		switch (go2->type) {
@@ -364,7 +388,6 @@ void UpdateProjectile(GameObject* self) {
 
 void Level_Update() {
 	CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
-
 	for (int x = 0; x < GOARRAY_SIZE; ++x) {
 		if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
 			for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
@@ -381,10 +404,16 @@ void Level_Update() {
 		if ((goPtr + i)->isActive) {
 			if ((goPtr + i)->type == Type_Player)
 				DrawPlayer((goPtr + i));
-			else if ((goPtr + i)->type == Type_Platform)
+			else if ((goPtr + i)->type == Type_Platform) {
+				if (rightPressed && !isPlatformCollided) { //side scrolling
+					//(goPtr + i)->pos.x -= player->vel.x * CP_System_GetDt();
+				}
 				DrawPlatform((goPtr + i));
-			else if ((goPtr + i)->type == Type_Enemy)
+			}
+			else if ((goPtr + i)->type == Type_Enemy) {
 				DrawEnemy(goPtr + i);
+				//goPtr->pos.y += gravity * CP_System_GetDt();
+			}
 			else if ((goPtr + i)->type == Type_EndPoint)
 				DrawEndPoint(goPtr + i);
 			else if ((goPtr + i)->type == Type_Proj && projAlive) {
@@ -411,24 +440,7 @@ void Level_Update() {
 		isGrounded = TRUE;
 	}
 
-	//player movement
-	if (CP_Input_KeyTriggered(KEY_SPACE) && isGrounded) {
-		player->vel.y -= 15000.f * CP_System_GetDt();
-		isGrounded = FALSE;
-	}
-	if (CP_Input_KeyDown(KEY_LEFT)) {
-		leftPressed = TRUE;
-	}
-	if (CP_Input_KeyReleased(KEY_LEFT)) {
-		leftPressed = FALSE;
-	}
-
-	if (CP_Input_KeyDown(KEY_RIGHT)) {
-		rightPressed = TRUE;
-	}
-	if (CP_Input_KeyReleased(KEY_RIGHT)) {
-		rightPressed = FALSE;
-	}
+	PlayerMovement();
 
 	if (CP_Input_KeyTriggered(KEY_X)) {
 		shootPressed = TRUE;
@@ -454,6 +466,7 @@ void Level_Update() {
 	else {
 		player->vel.x = 0.f;
 	}
+
 
 	//if (rightPressed && player->goPlayer->pos.x )
 
