@@ -481,7 +481,7 @@ void Level_Init() {
 }
 
 void SideScrolling(GameObject* self) {
-	if (player->goPlayer->pos.x >= 1600 && rightPressed) {
+	if (player->goPlayer->pos.x >= 800 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
 	}
@@ -527,7 +527,11 @@ void Level_Update() {
 				SideScrolling((goPtr + i));
 			}
 			else if ((goPtr + i)->type == Type_Enemy) {
+				SideScrolling((goPtr + i));
 				UpdateEnemy(goPtr + i);
+			}
+			else if ((goPtr + i)->type == Type_EndPoint) {
+				SideScrolling((goPtr + i));
 			}
 			else if ((goPtr + i)->type == Type_Proj && projAlive) {
 				UpdateProjectile(goPtr + i);
