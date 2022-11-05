@@ -31,6 +31,7 @@ enum GAMEOBJECT_TYPE {
 	Type_Button,
 	Type_Door,
 	Type_Platform,
+	Type_Obstacle,
 	Type_EndPoint,
 	Type_None
 };
@@ -263,7 +264,10 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			}
 			break;
 		}
-		case 1:
+		case Type_Obstacle: {
+			Enemy* e = (Enemy*)go->childData;
+			e->dir.x = -e->dir.x;
+			}
 			break;
 		}
 		break;
@@ -364,7 +368,8 @@ void CreateEnemy(float x, float y) {
 	goEnemy->size = CP_Vector_Set(50.f, 50.f);
 	goEnemy->color = CP_Color_Create(100, 100, 100, 255);
 	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
-	enemy->vel = CP_Vector_Set(0, 0);
+	enemy->vel = CP_Vector_Set(100, 0);
+	enemy->dir = CP_Vector_Set(1, 0);
 	enemy->collidedWithPlatform = FALSE;
 	enemy->goEnemy = goEnemy;
 	goEnemy->childData = enemy;
@@ -413,7 +418,7 @@ void UpdateEnemy(GameObject* self) {
 		e->vel.y += gravity * CP_System_GetDt();
 
 	self->pos.y += e->vel.y * CP_System_GetDt();
-	//self->pos.x += e->vel.x * CP_System_GetDt();
+	self->pos.x += e->dir.x * e->vel.x * CP_System_GetDt();
 }
 
 void Level_Init() {
@@ -471,6 +476,7 @@ void Level_Init() {
 	// Platforms
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(5000.f, 200.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 
 	// Enemies
@@ -531,6 +537,9 @@ void Level_Update() {
 				UpdateEnemy(goPtr + i);
 			}
 			else if ((goPtr + i)->type == Type_EndPoint) {
+				SideScrolling((goPtr + i));
+			}
+			else if ((goPtr + i)->type == Type_Obstacle) {
 				SideScrolling((goPtr + i));
 			}
 			else if ((goPtr + i)->type == Type_Proj && projAlive) {
