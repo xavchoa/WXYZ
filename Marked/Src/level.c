@@ -20,6 +20,7 @@ CP_BOOL leftPressed = FALSE;
 CP_BOOL shootPressed = FALSE;
 CP_BOOL projAlive = FALSE;
 CP_BOOL isPlatformCollided = FALSE;
+CP_BOOL isGameOver = FALSE;
 
 enum GAMEOBJECT_TYPE {
 	Type_Player,
@@ -477,7 +478,7 @@ void Level_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(5000.f, 200.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 
 	// Enemies
 	//CreateGameElement(TRUE, Type_Enemy, CP_Vector_Set(1000.f, 300.f), CP_Vector_Set(50.f, 50.f), ENEMY_COLOR);
@@ -513,91 +514,102 @@ void RenderScene() {
 
 
 void Level_Update() {
-	CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
-	for (int x = 0; x < GOARRAY_SIZE; ++x) {
-		if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
+	if (isGameOver == FALSE) {
+		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
+		for (int x = 0; x < GOARRAY_SIZE; ++x) {
+			if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
 
-			for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
-				if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
-					if (CheckCollision((goPtr + x), (goPtr + y))) {
-						CollisionResponse((goPtr + x), (goPtr + y));
+				for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
+					if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
+						if (CheckCollision((goPtr + x), (goPtr + y))) {
+							CollisionResponse((goPtr + x), (goPtr + y));
+						}
 					}
 				}
 			}
 		}
-	}
 
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		if ((goPtr + i)->isActive) {
-			if ((goPtr + i)->type == Type_Platform) {
-				SideScrolling((goPtr + i));
-			}
-			else if ((goPtr + i)->type == Type_Enemy) {
-				SideScrolling((goPtr + i));
-				UpdateEnemy(goPtr + i);
-			}
-			else if ((goPtr + i)->type == Type_EndPoint) {
-				SideScrolling((goPtr + i));
-			}
-			else if ((goPtr + i)->type == Type_Obstacle) {
-				SideScrolling((goPtr + i));
-			}
-			else if ((goPtr + i)->type == Type_Proj && projAlive) {
-				UpdateProjectile(goPtr + i);
+		for (int i = 0; i < GOARRAY_SIZE; ++i) {
+			if ((goPtr + i)->isActive) {
+				if ((goPtr + i)->type == Type_Platform) {
+					SideScrolling((goPtr + i));
+				}
+				else if ((goPtr + i)->type == Type_Enemy) {
+					SideScrolling((goPtr + i));
+					UpdateEnemy(goPtr + i);
+				}
+				else if ((goPtr + i)->type == Type_EndPoint) {
+					SideScrolling((goPtr + i));
+				}
+				else if ((goPtr + i)->type == Type_Obstacle) {
+					SideScrolling((goPtr + i));
+				}
+				else if ((goPtr + i)->type == Type_Proj && projAlive) {
+					UpdateProjectile(goPtr + i);
+				}
 			}
 		}
-	}
 
-	RenderScene();
+		RenderScene();
 
-	//simulate gravity
-	player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
-	player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
+		//simulate gravity
+		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
+		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
 
-	if (player->goPlayer->size.y + player->goPlayer->pos.y <= windowHeight) {
-		player->vel.y += gravity * CP_System_GetDt();
+		if (player->goPlayer->size.y + player->goPlayer->pos.y <= windowHeight + 3*player->goPlayer->size.y) {
+			player->vel.y += gravity * CP_System_GetDt();
+		}
+		else {
+			isGameOver = TRUE;
+			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
+			/*player->vel.y = 0.f;
+			isGrounded = TRUE;*/
+		}
+
+		PlayerMovement();
+
+		if (CP_Input_KeyTriggered(KEY_X)) {
+			shootPressed = TRUE;
+
+		}
+		if (CP_Input_KeyReleased(KEY_X)) {
+			shootPressed = FALSE;
+		}
+		if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL) {
+			SwapPositions();
+			Enemy* e = (Enemy*)player->markedObject->childData;
+			e->collidedWithPlatform = FALSE;
+			player->markedObject = NULL;
+		}
+
+		if (rightPressed) {
+			player->dir.x = 1.f;
+			player->vel.x = player->speed * CP_System_GetDt();
+		}
+		else if (leftPressed) {
+			player->dir.x = -1.f;
+			player->vel.x = -player->speed * CP_System_GetDt();
+		}
+		else {
+			player->vel.x = 0.f;
+		}
+
+		if (shootPressed && !projAlive) {
+			projectile->vel.x = player->dir.x * projectile->speed;
+			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
+		}
 	}
 	else {
-		player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-		player->vel.y = 0.f;
-		isGrounded = TRUE;
-	}
-
-	PlayerMovement();
-
-	if (CP_Input_KeyTriggered(KEY_X)) {
-		shootPressed = TRUE;
-
-	}
-	if (CP_Input_KeyReleased(KEY_X)) {
-		shootPressed = FALSE;
-	}
-	if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL) {
-		SwapPositions();
-		Enemy* e = (Enemy*)player->markedObject->childData;
-		e->collidedWithPlatform = FALSE;
-		player->markedObject = NULL;
-	}
-
-	if (rightPressed) {
-		player->dir.x = 1.f;
-		player->vel.x = player->speed * CP_System_GetDt();
-	}
-	else if (leftPressed) {
-		player->dir.x = -1.f;
-		player->vel.x = -player->speed * CP_System_GetDt();
-	}
-	else {
-		player->vel.x = 0.f;
-	}
-
-	if (shootPressed && !projAlive) {
-		projectile->vel.x = player->dir.x * projectile->speed;
-		SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
+		//gameover screen
+		CP_Graphics_ClearBackground(CP_Color_Create(128,0,0,120));
+		RenderScene();
 	}
 
 	if (CP_Input_KeyDown(KEY_Q)) {
+		rightPressed = FALSE;
+		leftPressed = FALSE;
+		isGameOver = FALSE;
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 }
