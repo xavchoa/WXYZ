@@ -10,6 +10,7 @@
 #define TRUE 1
 #define GOARRAY_SIZE 20
 #define PLATFORM_COLOR CP_Color_Create(0, 0, 0, 50)
+#define OBSTACLE_COLOR CP_Color_Create(128, 0, 0, 50)
 #define ENEMY_COLOR CP_Color_Create(100, 100, 100, 255)
 
 int windowWidth, windowHeight;
@@ -100,8 +101,14 @@ typedef struct Platform {
 
 typedef struct Button {
 	CP_BOOL isPushed;
+	GameObject* goDoor;
 
 } Button;
+
+typedef struct Door {
+	CP_BOOL isOpened;
+
+} Door;
 
 GameObject* goPtr;
 
@@ -235,6 +242,14 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 
 			}
 			break;
+		case Type_Button: {
+
+			//Button* b = (Button*)go->childData;
+			//b->isPushed;
+			//b->goDoor->door
+
+		}
+			
 
 		}
 		break;
@@ -389,6 +404,19 @@ void CreateButton(float x, float y) {
 	goButton->childData = button;
 }
 
+void CreateDoor(float x, float y) {
+	GameObject* goDoor = GetGameObject();
+	goDoor->isActive = TRUE;
+	goDoor->hasCollider = TRUE;
+	goDoor->type = Type_Enemy;
+	goDoor->pos = CP_Vector_Set(x, y);
+	goDoor->size = CP_Vector_Set(70.f, 20.f);
+	goDoor->color = CP_Color_Create(100, 100, 100, 255);
+	Door* door = (Door*)malloc(sizeof(Door));
+	door->isOpened = FALSE;
+	goDoor->childData = door;
+}
+
 #endif
 
 
@@ -477,7 +505,7 @@ void Level_Init() {
 	// Platforms
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(5000.f, 200.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 
 	// Enemies
