@@ -14,7 +14,7 @@
 #define ENEMY_COLOR CP_Color_Create(100, 100, 100, 255)
 
 int windowWidth, windowHeight;
-float const gravity = 1000.f;
+float const gravity = 980.f;
 CP_BOOL isGrounded = FALSE;
 CP_BOOL rightPressed = FALSE;
 CP_BOOL leftPressed = FALSE;
@@ -129,7 +129,7 @@ GameObject* GetGameObject() {
 void PlayerMovement() {
 	//player movement
 	if (CP_Input_KeyDown(KEY_SPACE) && isGrounded) {
-		player->vel.y -= 13000.f * CP_System_GetDt();
+		player->vel.y -= 500.f;
 		isGrounded = FALSE;
 	}
 	if (CP_Input_KeyDown(KEY_LEFT)) {
@@ -160,86 +160,86 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
 		switch (go2->type) {
-			case Type_Platform: {
-				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
-					float intWidth = go->pos.x + go->size.x - go2->pos.x;
+		case Type_Platform: {
+			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+				float intWidth = go->pos.x + go->size.x - go2->pos.x;
 
-					if (go->pos.y > go2->pos.y) {
-						float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
 
-						if (intWidth < intHeight) {
-							go->pos.x -= intWidth;
-						} else {
-							player->vel.y = 0.f;
-							go->pos.y += intHeight + 1;
-						}
+					if (intWidth < intHeight) {
+						go->pos.x -= intWidth;
 					} else {
-						float intHeight = go->pos.y + go->size.y - go2->pos.y;
-
-						if (intWidth < intHeight) {
-							go->pos.x -= intWidth;
-						} else {
-							player->vel.y = 0.f;
-							go->pos.y -= intHeight + 1;
-							isGrounded = TRUE;
-						}
+						player->vel.y = 0.f;
+						go->pos.y += intHeight + 0.1f;
 					}
 				} else {
-					float intWidth = go2->pos.x + go2->size.x - go->pos.x;
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
 
-					if (go->pos.y > go2->pos.y) {
-						float intHeight = go2->pos.y + go2->size.y - go->pos.y;
-
-						if (intWidth < intHeight) {
-							go->pos.x += intWidth;
-						} else {
-							player->vel.y = 0.f;
-							go->pos.y += intHeight + 1;
-						}
+					if (intWidth < intHeight) {
+						go->pos.x -= intWidth;
 					} else {
-						float intHeight = go->pos.y + go->size.y - go2->pos.y;
-
-						if (intWidth < intHeight) {
-							go->pos.x += intWidth;
-						} else {
-							player->vel.y = 0.f;
-							go->pos.y -= intHeight + 1;
-							isGrounded = TRUE;
-						}
+						player->vel.y = 0.f;
+						go->pos.y -= intHeight + 0.1f;
+						isGrounded = TRUE;
 					}
 				}
-				break;
-			}
-			case Type_EndPoint: {
-				endPoint = (EndPoint*)go2->childData;
-				if (endPoint->enemyCount == 0) {
-					printf("you win");
-					//next level
+			} else {
+				float intWidth = go2->pos.x + go2->size.x - go->pos.x;
 
-					//todo: go next level when player is inbetween the box aka door
-					//CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
 
-					//if (player->goPlayer->pos.x + player->goPlayer->size.x > endPoint->goEndPoint->pos.x + endPoint->goEndPoint->size.x/2) {
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					} else {
+						player->vel.y = 0.f;
+						go->pos.y += intHeight + 0.1f;
+					}
+				} else {
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
 
-					//	CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
-
-					//}
-
-					break;
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					} else {
+						player->vel.y = 0.f;
+						go->pos.y -= intHeight + 0.1f;
+						isGrounded = TRUE;
+					}
 				}
 			}
 			break;
-			case Type_Button: { //player-button collision
-				Button* b = (Button*)go->childData;
-				//b->isPushed;
-				Door* door = b->linkedDoor;
-				door->isOpened = TRUE;
+		}
+		case Type_EndPoint: {
+			endPoint = (EndPoint*)go2->childData;
+			if (endPoint->enemyCount == 0) {
+				printf("you win");
+				//next level
+
+				//todo: go next level when player is inbetween the box aka door
+				//CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+
+				//if (player->goPlayer->pos.x + player->goPlayer->size.x > endPoint->goEndPoint->pos.x + endPoint->goEndPoint->size.x/2) {
+
+				//	CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+
+				//}
+
 				break;
 			}
-			case Type_EnemyProj: {
-				isGameOver = TRUE;
-				break;
-			}
+		}
+						  break;
+		case Type_Button: { //player-button collision
+			Button* b = (Button*)go->childData;
+			//b->isPushed;
+			Door* door = b->linkedDoor;
+			door->isOpened = TRUE;
+			break;
+		}
+		case Type_EnemyProj: {
+			isGameOver = TRUE;
+			break;
+		}
 		}
 		break;
 	case Type_Platform:
@@ -267,11 +267,50 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		switch (go2->type) {
 		case Type_Platform: { //enemy - platform collision
 			Enemy* e = (Enemy*)go->childData;
-			e->collidedWithPlatform = TRUE;
+			//e->collidedWithPlatform = TRUE;
 			e->vel.y = 0;
-			if (go->pos.y < go2->pos.y) {
-				float intheight = go->pos.y + go->size.y - go2->pos.y;
-				go->pos.y -= intheight - 1;
+			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+				float intWidth = go->pos.x + go->size.x - go2->pos.x;
+
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+					if (intWidth < intHeight)
+						go->pos.x -= intWidth;
+					else {
+						e->vel.y = 0.f;
+						go->pos.y += intHeight;
+					}
+				} else {
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+					if (intWidth < intHeight)
+						go->pos.x -= intWidth;
+					else
+						go->pos.y -= intHeight;
+				}
+			} else {
+				float intWidth = go2->pos.x + go2->size.x - go->pos.x;
+
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					} else {
+						e->vel.y = 0.f;
+						go->pos.y += intHeight;
+					}
+				} else {
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					} else {
+						e->vel.y = 0.f;
+						go->pos.y -= intHeight;
+					}
+				}
 			}
 			break;
 		}
@@ -279,7 +318,7 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			Enemy* e = (Enemy*)go->childData;
 			e->dir.x = -e->dir.x;
 		}
-			break;
+						  break;
 		case Type_EnemyProj:
 			DespawnGameObject(go);
 			--endPoint->enemyCount;
@@ -518,7 +557,7 @@ void Level_Init() {
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
 	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
 	player = (Player*)malloc(sizeof(Player));
-	player->speed = 7000.f;
+	player->speed = 10000.f;
 	player->vel.x = 0.f;
 	player->vel.y = 500.f;
 	player->dir.x = 1.f;
@@ -573,6 +612,9 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
 }
 
 void Level_Update() {
+	CP_System_SetFrameRate(60);
+	//printf("%f\n", CP_System_GetDt());
+	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {
@@ -596,7 +638,7 @@ void Level_Update() {
 					SideScrolling((goPtr + i));
 					UpdateEnemy(goPtr + i);
 					if ((goPtr + i)->pos.y > windowHeight) {
-						DespawnGameObject(goPtr+i);
+						DespawnGameObject(goPtr + i);
 						endPoint->enemyCount--;
 					}
 				} else if ((goPtr + i)->type == Type_EndPoint) {
@@ -615,7 +657,6 @@ void Level_Update() {
 		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
-
 
 		if (player->goPlayer->pos.y < windowHeight + 2 * player->goPlayer->size.y) {
 			player->vel.y += gravity * CP_System_GetDt();
