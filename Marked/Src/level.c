@@ -14,12 +14,11 @@
 #define ENEMY_COLOR CP_Color_Create(100, 100, 100, 255)
 
 int windowWidth, windowHeight;
-float const gravity = 1200.f;
+float const gravity = 1000.f;
 CP_BOOL isGrounded = FALSE;
 CP_BOOL rightPressed = FALSE;
 CP_BOOL leftPressed = FALSE;
 CP_BOOL shootPressed = FALSE;
-CP_BOOL projAlive = FALSE;
 CP_BOOL isPlatformCollided = FALSE;
 CP_BOOL isGameOver = FALSE;
 
@@ -82,17 +81,15 @@ typedef struct Projectile {
 	float range;
 	float speed;
 	GameObject* goProj;
-	//CP_BOOL projAlive;
+	CP_BOOL projAlive;
 
 } Projectile;
 
 typedef struct EndPoint {
-	CP_BOOL winCondition;
-
+	int enemyCount;
 } EndPoint;
 
 typedef struct Platform {
-	CP_BOOL isMovable;
 	CP_Vector vel;
 	float speed;
 } Platform;
@@ -163,130 +160,121 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
 		switch (go2->type) {
-		case Type_Platform:
-			//isPlatformCollided = TRUE;
-			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
-				float intwidth = go->pos.x + go->size.x - go2->pos.x;
+			case Type_Platform: {
+				//isPlatformCollided = TRUE;
+				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+					float intwidth = go->pos.x + go->size.x - go2->pos.x;
 
-				if (go->pos.y > go2->pos.y) {
-					float intheight = go2->pos.y + go2->size.y - go->pos.y;
+					if (go->pos.y > go2->pos.y) {
+						float intheight = go2->pos.y + go2->size.y - go->pos.y;
 
-					if (intwidth < intheight) {
-						go->pos.x -= intwidth;
+						if (intwidth < intheight) {
+							go->pos.x -= intwidth;
+						} else {
+							player->vel.y = 0.f;
+							go->pos.y += intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							//isGrounded = TRUE;
+						}
+					} else {
+						float intheight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x -= intwidth;
+						} else {
+							player->vel.y = 0.f;
+							go->pos.y -= intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							isGrounded = TRUE;
+						}
 					}
-					else {
-						player->vel.y = 0.f;
-						go->pos.y += intheight + 1;
-						//go->hasGravity = FALSE;
-						//go->hasCollider = FALSE;
-						//isGrounded = TRUE;
+				} else {
+					float intwidth = go2->pos.x + go2->size.x - go->pos.x;
+
+					if (go->pos.y > go2->pos.y) {
+						float intheight = go2->pos.y + go2->size.y - go->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x += intwidth;
+						} else {
+							player->vel.y = 0.f;
+							go->pos.y += intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							//isGrounded = TRUE;
+						}
+					} else {
+						float intheight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intwidth < intheight) {
+							go->pos.x += intwidth;
+						} else {
+							player->vel.y = 0.f;
+							go->pos.y -= intheight + 1;
+							//go->hasGravity = FALSE;
+							//go->hasCollider = FALSE;
+							isGrounded = TRUE;
+						}
 					}
 				}
-				else {
-					float intheight = go->pos.y + go->size.y - go2->pos.y;
+				break;
+			}
+			case Type_EndPoint: {
+				endPoint = (EndPoint*)go2->childData;
+				if (endPoint->enemyCount == 0) {
+					printf("you win");
+					//next level
 
-					if (intwidth < intheight) {
-						go->pos.x -= intwidth;
-					}
-					else {
-						player->vel.y = 0.f;
-						go->pos.y -= intheight + 1;
-						//go->hasGravity = FALSE;
-						//go->hasCollider = FALSE;
-						isGrounded = TRUE;
-					}
+					//todo: go next level when player is inbetween the box aka door
+					//CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+
+					//if (player->goPlayer->pos.x + player->goPlayer->size.x > endPoint->goEndPoint->pos.x + endPoint->goEndPoint->size.x/2) {
+
+					//	CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+
+					//}
+
+					break;
 				}
 			}
-			else {
-				float intwidth = go2->pos.x + go2->size.x - go->pos.x;
-
-				if (go->pos.y > go2->pos.y) {
-					float intheight = go2->pos.y + go2->size.y - go->pos.y;
-
-					if (intwidth < intheight) {
-						go->pos.x += intwidth;
-					}
-					else {
-						player->vel.y = 0.f;
-						go->pos.y += intheight + 1;
-						//go->hasGravity = FALSE;
-						//go->hasCollider = FALSE;
-						//isGrounded = TRUE;
-					}
-				}
-				else {
-					float intheight = go->pos.y + go->size.y - go2->pos.y;
-
-					if (intwidth < intheight) {
-						go->pos.x += intwidth;
-					}
-					else {
-						player->vel.y = 0.f;
-						go->pos.y -= intheight + 1;
-						//go->hasGravity = FALSE;
-						//go->hasCollider = FALSE;
-						isGrounded = TRUE;
-					}
-				}
+			break;
+			case Type_Button: { //player-button collision
+				Button* b = (Button*)go->childData;
+				//b->isPushed;
+				Door* door = b->linkedDoor;
+				door->isOpened = TRUE;
+				break;
 			}
-			break;
-
-		case Type_EndPoint:
-			endPoint = (EndPoint*)go2->childData;
-			if (endPoint->winCondition == TRUE) {
-				//next level
-				printf("you win");
-
-				//todo: go next level when player is inbetween the box aka door
-				//CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
-
-				//if (player->goPlayer->pos.x + player->goPlayer->size.x > endPoint->goEndPoint->pos.x + endPoint->goEndPoint->size.x/2) {
-
-				//	CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
-
-				//}
-
+			case Type_EnemyProj: {
+				isGameOver = TRUE;
+				break;
 			}
-			break;
-
-		case Type_Button: { //player-button collision
-
-			Button* b = (Button*)go->childData;
-			//b->isPushed;
-			Door* door = b->linkedDoor;
-			door->isOpened = TRUE;
-		}
-			break;
-
-		case Type_EnemyProj:
-			isGameOver = TRUE;
 		}
 		break;
-	case Type_EnemyProj:
+	case Type_Platform:
 		switch (go2->type) {
-		case Type_Platform: //enemy proj-platform collision
-			DespawnGameObject(go);
-			//eProjAlive = FALSE;
+		case Type_EnemyProj: //enemy proj-platform collision
+			DespawnGameObject(go2);
 			break;
 		}
 		break;
-
 	case Type_Proj:
 		switch (go2->type) {
 		case Type_Platform: //player proj-platform collision
-			//DespawnGameObject(go);
-			projAlive = FALSE;
+			projectile->projAlive = FALSE;
 			break;
 		case Type_Dummy:
 			break;
 		case Type_Enemy:	//player proj - enemy collision
 			player->markedObject = go2;
-			projAlive = FALSE;
+			projectile->projAlive = FALSE;
 			break;
 		}
 		projectile->range = 0;
 		break;
-	case Type_Enemy:	
+	case Type_Enemy:
 		switch (go2->type) {
 		case Type_Platform: { //enemy - platform collision
 			Enemy* e = (Enemy*)go->childData;
@@ -302,7 +290,11 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			Enemy* e = (Enemy*)go->childData;
 			e->dir.x = -e->dir.x;
 		}
-		break;
+			break;
+		case Type_EnemyProj:
+			DespawnGameObject(go);
+			--endPoint->enemyCount;
+			break;
 		}
 		break;
 	}
@@ -329,13 +321,13 @@ void SwapPositions() {
 void SetProjSpawn(float x, float y) {
 	projectile->goProj->pos.x = x;
 	projectile->goProj->pos.y = y;
-	projAlive = TRUE;
+	projectile->projAlive = TRUE;
 }
 void UpdateEnemyProj(GameObject* self) {
 	float speedScale = 2.f;
 	Projectile* proj = self->childData;
 	self->pos.x += proj->dir.x * proj->speed * speedScale * CP_System_GetDt();
-	proj->range += proj->dir.x * proj->speed * speedScale *CP_System_GetDt();
+	proj->range += proj->dir.x * proj->speed * speedScale * CP_System_GetDt();
 
 	if (abs(proj->range) >= proj->maxRange) {
 		proj->range = 0.f;
@@ -356,7 +348,7 @@ void EnemyShoot(GameObject* _enemy) {
 	proj->speed = 500.f;
 	proj->goProj = enemyProj;
 	proj->dir = enemy->dir;
-	if (enemy->dir.x > 0) 
+	if (enemy->dir.x > 0)
 		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(_enemy->size.x + 10.f, 10.f));
 	else
 		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(-10.f, 10.f));
@@ -422,6 +414,7 @@ void CreatePlatform(float x, float y, float width, float height) {
 }
 
 void CreateEnemy(float x, float y) {
+	endPoint->enemyCount++;
 	GameObject* goEnemy = GetGameObject();
 	goEnemy->hasCollider = TRUE;
 	goEnemy->type = Type_Enemy;
@@ -432,7 +425,7 @@ void CreateEnemy(float x, float y) {
 	enemy->vel = CP_Vector_Set(100, 0);
 	enemy->dir = CP_Vector_Set(1, 0);
 	enemy->collidedWithPlatform = FALSE;
-	enemy->bt = 0.f; 
+	enemy->bt = 0.f;
 	goEnemy->childData = enemy;
 }
 
@@ -466,8 +459,7 @@ void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
 	if (self->type == Type_Proj) {
 		CP_Settings_RectMode(CP_POSITION_CENTER);
-	}
-	else {
+	} else {
 		CP_Settings_RectMode(CP_POSITION_CORNER);
 	}
 	CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
@@ -476,7 +468,7 @@ void DrawGameElements(GameObject* self) {
 void UpdateProjectile(GameObject* self) {
 	if (abs(projectile->range) >= projectile->maxRange) {
 		projectile->range = 0.f;
-		projAlive = FALSE;
+		projectile->projAlive = FALSE;
 	}
 
 	self->pos.x += projectile->vel.x * CP_System_GetDt();
@@ -504,8 +496,7 @@ void SideScrolling(GameObject* self) {
 	if (player->goPlayer->pos.x >= 800 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
-	}
-	else if (player->goPlayer->pos.x <= 400 && leftPressed) {
+	} else if (player->goPlayer->pos.x <= 400 && leftPressed) {
 		self->pos.x += player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
 	}
@@ -515,10 +506,9 @@ void RenderScene() {
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		if ((goPtr + i)->isActive) {
 			if ((goPtr + i)->type == Type_Proj) {
-				if (projAlive)
+				if (projectile->projAlive)
 					DrawGameElements((goPtr + i));
-			}
-			else
+			} else
 				DrawGameElements((goPtr + i));
 		}
 
@@ -569,8 +559,8 @@ void Level_Init() {
 	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
 	goEndPoint->color = CP_Color_Create(250, 60, 60, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
-	endPoint->winCondition = TRUE;
 	goEndPoint->childData = endPoint;
+	endPoint->enemyCount = 0;
 
 	CreateEnemy(1000.f, 300.f);
 	CreateEnemy(700.f, 300.f);
@@ -613,21 +603,20 @@ void Level_Update() {
 			if ((goPtr + i)->isActive) {
 				if ((goPtr + i)->type == Type_Platform) {
 					SideScrolling((goPtr + i));
-				}
-				else if ((goPtr + i)->type == Type_Enemy) {
+				} else if ((goPtr + i)->type == Type_Enemy) {
 					SideScrolling((goPtr + i));
 					UpdateEnemy(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_EndPoint) {
+					if ((goPtr + i)->pos.y > windowHeight) {
+						DespawnGameObject(goPtr+i);
+						endPoint->enemyCount--;
+					}
+				} else if ((goPtr + i)->type == Type_EndPoint) {
 					SideScrolling((goPtr + i));
-				}
-				else if ((goPtr + i)->type == Type_Obstacle) {
+				} else if ((goPtr + i)->type == Type_Obstacle) {
 					SideScrolling((goPtr + i));
-				}
-				else if ((goPtr + i)->type == Type_Proj && projAlive) {
+				} else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_EnemyProj)
+				} else if ((goPtr + i)->type == Type_EnemyProj)
 					UpdateEnemyProj((goPtr + i));
 			}
 		}
@@ -639,10 +628,9 @@ void Level_Update() {
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
 
-		if (player->goPlayer->size.y + player->goPlayer->pos.y <= windowHeight + 3 * player->goPlayer->size.y) {
+		if (player->goPlayer->pos.y < windowHeight + 2 * player->goPlayer->size.y) {
 			player->vel.y += gravity * CP_System_GetDt();
-		}
-		else {
+		} else {
 			isGameOver = TRUE;
 			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
 			/*player->vel.y = 0.f;
@@ -658,7 +646,7 @@ void Level_Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-		if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL) {
+		if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
 			SwapPositions();
 			Enemy* e = (Enemy*)player->markedObject->childData;
 			e->collidedWithPlatform = FALSE;
@@ -668,21 +656,18 @@ void Level_Update() {
 		if (rightPressed) {
 			player->dir.x = 1.f;
 			player->vel.x = player->speed * CP_System_GetDt();
-		}
-		else if (leftPressed) {
+		} else if (leftPressed) {
 			player->dir.x = -1.f;
 			player->vel.x = -player->speed * CP_System_GetDt();
-		}
-		else {
+		} else {
 			player->vel.x = 0.f;
 		}
 
-		if (shootPressed && !projAlive) {
+		if (shootPressed && !projectile->projAlive) {
 			projectile->vel.x = player->dir.x * projectile->speed;
 			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
 		}
-	}
-	else {
+	} else {
 		//gameover screen
 		CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
 		RenderScene();
