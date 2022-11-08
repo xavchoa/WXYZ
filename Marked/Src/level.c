@@ -74,6 +74,9 @@ typedef struct Enemy {
 	float bt; //time between bullets
 } Enemy;
 
+typedef struct Dummy {
+	CP_Vector vel;
+} Dummy;
 typedef struct Projectile {
 	CP_Vector vel;
 	CP_Vector dir;
@@ -743,7 +746,7 @@ void Level_Init() {
 	goEndPoint->type = Type_EndPoint;
 	goEndPoint->pos = CP_Vector_Set(1500.f, 700.f);
 	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
-	goEndPoint->color = CP_Color_Create(250, 60, 60, 255);
+	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
 	goEndPoint->childData = endPoint;
 	endPoint->enemyCount = 0;
@@ -758,6 +761,7 @@ void Level_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Dummy, CP_Vector_Set(800.f, windowHeight * 0.8 + 40), CP_Vector_Set(50.f,50.f), CP_Color_Create(0, 0, 60, 255));
 
 	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710));
 
