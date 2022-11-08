@@ -22,7 +22,6 @@ CP_Color rect_color;
 
 void Main_Menu_Init()
 {
-
 	windowWidth = CP_System_GetDisplayWidth();
 	windowHeight = CP_System_GetDisplayHeight();
 	windowWidth = 1920;
