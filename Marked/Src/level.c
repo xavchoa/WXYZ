@@ -615,6 +615,7 @@ void EnemyShoot(GameObject* _enemy) {
 	enemyProj->childData = proj;
 }
 
+//	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
 	go->hasCollider = collider;
@@ -645,6 +646,9 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 	case Type_Platform: {
 		Platform* platform = (Platform*)malloc(sizeof(Platform));
 		go->childData = platform;
+		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y +10), CP_Vector_Set(size.x, size.y-10), OBSTACLE_COLOR);
+		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(1.f, 1.f), OBSTACLE_COLOR);
+		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(1.f, 1.f), OBSTACLE_COLOR);
 		break;
 	}
 	case Type_EndPoint:
@@ -711,6 +715,7 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
 	Door* door = (Door*)malloc(sizeof(Door));
 	door->isOpened = FALSE;
 	goDoor->childData = door;
+	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(doorPos.x, doorPos.y + 10), CP_Vector_Set(50.f, 90.f ), OBSTACLE_COLOR);
 
 	GameObject* goButton = GetGameObject();
 	goButton->hasCollider = TRUE;
@@ -847,9 +852,9 @@ void Level_Init() {
 
 	// Platforms
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(2000.f, 200.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(480.f, windowHeight * 0.8 + 10), CP_Vector_Set(20.f, 100.f), OBSTACLE_COLOR);
+	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(480.f, windowHeight * 0.8 + 10), CP_Vector_Set(20.f, 100.f), OBSTACLE_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
+	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 
 	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710));
