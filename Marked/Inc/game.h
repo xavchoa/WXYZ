@@ -3,7 +3,7 @@
 #define FALSE 0
 #define TRUE 1
 #define GOARRAY_SIZE 500
-#define PLATFORM_COLOR CP_Color_Create(0, 0, 0, 50)
+#define PLATFORM_COLOR CP_Color_Create(0, 0, 0, 255)
 #define OBSTACLE_COLOR CP_Color_Create(128, 0, 0, 50)
 #define ENEMY_COLOR CP_Color_Create(100, 100, 100, 255)
 
@@ -29,6 +29,7 @@ enum GAMEOBJECT_TYPE {
 	Type_Platform,
 	Type_Obstacle,
 	Type_EndPoint,
+	Type_Laser,
 	Type_None
 };
 
@@ -120,9 +121,6 @@ void PlayerMovement();
 void DespawnGameObject(GameObject* go);
 
 void CollisionResponse(GameObject* go, GameObject* go2);
-
-	
-	
 
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2);
 	

@@ -89,7 +89,6 @@ void Level1_Init() {
 
 
 void Level1_Update() {
-	printf("%d", level);
 	CP_System_SetFrameRate(60);
 	//printf("%f\n", CP_System_GetDt());
 	//printf("%f\n", CP_System_GetFrameRate());

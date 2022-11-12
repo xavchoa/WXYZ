@@ -112,7 +112,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		case Type_EndPoint: {
 			endPoint = (EndPoint*)go2->childData;
 			if (endPoint->enemyCount == 0) {
-				printf("Level: %d\n", level);
 				//next level
 				TransitScene(level);
 				break;
@@ -184,6 +183,10 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 					}
 				}
 			}
+			break;
+		}
+		case Type_Laser: {
+			isGameOver = TRUE;
 			break;
 		}
 		}
@@ -272,7 +275,11 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			}
 			break;
 		}
+
 			case Type_Obstacle: {
+				if (go2->pos.x > go->pos.x-1 && go2->pos.x + go2->size.x < go->pos.x + 1 + go->size.x) {
+					return;
+			}
 			Enemy* e = (Enemy*)go->childData;
 			e->dir.x = -e->dir.x;
 			break;
@@ -411,6 +418,17 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		}
 	}
 		break;
+	case Type_EnemyProj: {
+		switch (go2->type) {
+		case Type_Platform:
+			DespawnGameObject(go);
+			break;
+		case Type_Door:
+			DespawnGameObject(go);
+			break;
+		}
+	}
+		break;
 	}
 	
 }
@@ -526,8 +544,8 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 		Platform* platform = (Platform*)malloc(sizeof(Platform));
 		go->childData = platform;
 		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y +10), CP_Vector_Set(size.x, size.y-10), OBSTACLE_COLOR);
-		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(1.f, 1.f), OBSTACLE_COLOR);
-		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(1.f, 1.f), OBSTACLE_COLOR);
+		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
+		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
 		break;
 	}
 	case Type_EndPoint:
@@ -655,7 +673,7 @@ void UpdateEnemy(GameObject* self) {
 }
 
 void SideScrolling(GameObject* self) {
-	if (player->goPlayer->pos.x >= 1200 && rightPressed) {
+	if (player->goPlayer->pos.x >= 1000 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
 	} else if (player->goPlayer->pos.x <= 400 && leftPressed) {
