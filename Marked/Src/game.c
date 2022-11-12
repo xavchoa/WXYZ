@@ -52,6 +52,10 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
 		switch (go2->type) {
+		case Type_Enemy: {
+			isGameOver = TRUE;
+			break;
+		}
 		case Type_Platform: {
 			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
 				float intWidth = go->pos.x + go->size.x - go2->pos.x;
@@ -117,7 +121,7 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 				break;
 			}
 		}
-						  break;
+			break;
 		case Type_Button: { //player-button collision
 			Button* b = (Button*)go2->childData;
 			Door* door = b->linkedDoor;
@@ -199,7 +203,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		}
 		break;
 		
-	
 	case Type_Proj:
 		switch (go2->type) {
 		case Type_Platform: //player proj-platform collision
