@@ -292,6 +292,7 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			case Type_Door: {
 				Enemy* e = (Enemy*)go->childData;
 				//e->collidedWithPlatform = TRUE;
+				e->dir.x = -e->dir.x;
 				e->vel.y = 0;
 				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
 					float intWidth = go->pos.x + go->size.x - go2->pos.x; //intersecting width
@@ -612,7 +613,7 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
 	Door* door = (Door*)malloc(sizeof(Door));
 	door->isOpened = FALSE;
 	goDoor->childData = door;
-	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(doorPos.x, doorPos.y + 10), CP_Vector_Set(50.f, 90.f ), OBSTACLE_COLOR);
+	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(doorPos.x, doorPos.y + 10), CP_Vector_Set(50.f, 90.f ), OBSTACLE_COLOR);
 
 	GameObject* goButton = GetGameObject();
 	goButton->hasCollider = TRUE;
