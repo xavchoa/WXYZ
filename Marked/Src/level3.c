@@ -1,7 +1,3 @@
-//#include "game.h"
-//#include "scenes.h"
-//#include <cprocessing.h>
-//#include <stdio.h>
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,8 +8,7 @@
 #include "game.h"
 #include "scenes.h"
 
-void Level1_Init() {
-	level = Level2;
+void Level3_Init() {
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -23,7 +18,7 @@ void Level1_Init() {
 	goPlayer->isActive = TRUE;
 	goPlayer->hasCollider = TRUE;
 	goPlayer->type = Type_Player;
-	goPlayer->pos = CP_Vector_Set(0.f, 500.f);
+	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
 	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
 	player = (Player*)malloc(sizeof(Player));
@@ -53,7 +48,7 @@ void Level1_Init() {
 	goEndPoint->isActive = TRUE;
 	goEndPoint->hasCollider = TRUE;
 	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(2200.f, windowHeight * 0.55f);
+	goEndPoint->pos = CP_Vector_Set(2300.f, windowHeight * 0.58);
 	goEndPoint->size = CP_Vector_Set(50.f, 100.f);
 	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
@@ -61,26 +56,60 @@ void Level1_Init() {
 	endPoint->enemyCount = 0;
 
 
-	CreateEnemy(1900.f, windowHeight * 0.6f);
+
+	CreateEnemy(750.f, windowHeight * 0.1f);
+	CreateEnemy(1800.f, windowHeight * 0.1f);
+	//CreateEnemy(2300.f, windowHeight * 0.1f);
+
+	CreateDummy(860.f, windowHeight * 0.7f);
+	CreateDummy(2750.f, windowHeight * 0.19f);
+	//                           button                      door
+
+	CreateButtonDoorLink(CP_Vector_Set(1055.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.09));
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1050.f, 0.f), CP_Vector_Set(50, 95), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(2030.f, windowHeight * 0.27), CP_Vector_Set(3050, windowHeight * 0.12));
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3050.f, 0.f), CP_Vector_Set(50, 110), PLATFORM_COLOR);
+
+
 
 	// Platforms
-
+	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.9), CP_Vector_Set(200, 100.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(300.f, 200.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.8), CP_Vector_Set(100.f, 250.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(800.f, windowHeight * 0.7), CP_Vector_Set(100.f, 350.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900.f, windowHeight * 0.6), CP_Vector_Set(100.f, 450.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1100.f, windowHeight * 0.5), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1250.f, windowHeight * 0.4), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.3), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.65), CP_Vector_Set(200.f, 90.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.7), CP_Vector_Set(400, windowHeight * 0.7), PLATFORM_COLOR);
 
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1850.f, windowHeight * 0.65), CP_Vector_Set(400.f, 90.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(450.f, windowHeight * 0.58), CP_Vector_Set(200, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(750.f, windowHeight * 0.7), CP_Vector_Set(200, windowHeight * 0.7), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, windowHeight * 0.9), CP_Vector_Set(300, windowHeight * 0.9), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1250.f, windowHeight * 0.7), CP_Vector_Set(200, windowHeight * 0.7), PLATFORM_COLOR);
+
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.45), CP_Vector_Set(200, 80), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, windowHeight * 0.32), CP_Vector_Set(100, 80), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(320.f, windowHeight * 0.25), CP_Vector_Set(200, 100), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(750.f, windowHeight * 0.2), CP_Vector_Set(450, 100), PLATFORM_COLOR);
+
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1700.f, windowHeight * 0.2), CP_Vector_Set(200, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1900.f, windowHeight * 0.3), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, windowHeight * 0.2), CP_Vector_Set(200, 100), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, windowHeight * 0.5), CP_Vector_Set(50, windowHeight * 0.9), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2750.f, windowHeight * 0.2), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3000.f, windowHeight * 0.5), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2850.f, windowHeight * 0.7), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2400.f, windowHeight * 0.7), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+
+
+	// AFTER END 
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3150.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
@@ -88,8 +117,7 @@ void Level1_Init() {
 
 
 
-void Level1_Update() {
-	printf("%d", level);
+void Level3_Update() {
 	CP_System_SetFrameRate(60);
 	//printf("%f\n", CP_System_GetDt());
 	//printf("%f\n", CP_System_GetFrameRate());
@@ -211,14 +239,14 @@ void Level1_Update() {
 		isGameOver = FALSE;
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
-
 	if (CP_Input_KeyDown(KEY_R)) {
-		CP_Engine_SetNextGameStateForced(Level1_Init, Level1_Update, Level1_Exit);
+		CP_Engine_SetNextGameStateForced(Level3_Init, Level3_Update, Level3_Exit);
 	}
+
 }
 
 
-void Level1_Exit() {
+void Level3_Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

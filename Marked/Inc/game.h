@@ -109,10 +109,10 @@ typedef struct Button {
 } Button;
 
 GameObject* goPtr;
-
 Player* player;
 Projectile* projectile;
 EndPoint* endPoint;
+
 GameObject* GetGameObject();
 
 void PlayerMovement();

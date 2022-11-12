@@ -213,6 +213,9 @@ void Level2_Update() {
 		isGameOver = FALSE;
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
+	if (CP_Input_KeyDown(KEY_R)) {
+		CP_Engine_SetNextGameStateForced(Level2_Init, Level2_Update, Level2_Exit);
+	}
 }
 
 
