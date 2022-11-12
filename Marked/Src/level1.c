@@ -206,6 +206,7 @@ void Level1_Update() {
 	}
 
 	if (CP_Input_KeyDown(KEY_Q)) {
+		shootPressed = FALSE;
 		rightPressed = FALSE;
 		leftPressed = FALSE;
 		isGameOver = FALSE;
@@ -213,6 +214,10 @@ void Level1_Update() {
 	}
 
 	if (CP_Input_KeyDown(KEY_R)) {
+		shootPressed = FALSE;
+		rightPressed = FALSE;
+		leftPressed = FALSE;
+		isGameOver = FALSE;
 		CP_Engine_SetNextGameStateForced(Level1_Init, Level1_Update, Level1_Exit);
 	}
 }
