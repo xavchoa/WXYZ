@@ -30,6 +30,15 @@
     <ClCompile Include="..\Src\level1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\game.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\scenes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\level2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\level.h">
@@ -45,6 +54,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Inc\utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\scenes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
