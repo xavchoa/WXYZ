@@ -344,6 +344,12 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 				}
 			}
 			break;
+			case Type_Button: { //player-button collision
+				Button* b = (Button*)go2->childData;
+				Door* door = b->linkedDoor;
+				door->isOpened = TRUE;
+				break;
+			}
 		}
 		break;
 	case Type_Dummy: {

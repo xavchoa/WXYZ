@@ -71,19 +71,20 @@ void Level_Init() {
 	CreateEnemy(700.f, 300.f);
 	//CreateDummy(800.f, windowHeight * 0.8);
 
-	CreateGameElement(TRUE, Type_Laser, CP_Vector_Set(700.f, 0.f), CP_Vector_Set(10.f, windowHeight), OBSTACLE_COLOR);
+	CreateGameElement(TRUE, Type_Laser, CP_Vector_Set(900.f, 0.f), CP_Vector_Set(10.f, windowHeight), OBSTACLE_COLOR);
+
 
 	//Platforms
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, 600), CP_Vector_Set(300.f, 200.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(2000.f, 200.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, 600), CP_Vector_Set(100.f, 200.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(2000.f, 100.f), PLATFORM_COLOR);
 	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(480.f, windowHeight * 0.8 + 10), CP_Vector_Set(20.f, 100.f), OBSTACLE_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(500.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(400.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 
 	
 
-	//CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710));
+	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710));
 
 
 	// Enemies
@@ -95,7 +96,6 @@ void Level_Init() {
 
 
 void Level_Update() {
-	printf("%d", level);
 	CP_System_SetFrameRate(60);
 	//printf("%f\n", CP_System_GetDt());
 	//printf("%f\n", CP_System_GetFrameRate());
