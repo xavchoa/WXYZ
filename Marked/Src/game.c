@@ -354,6 +354,10 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		break;
 	case Type_Dummy: {
 		switch (go2->type) {
+			case Type_EnemyProj: {
+				DespawnGameObject(go2);
+				break;
+			}
 			case Type_Platform: { // dummy - platform collision
 				Dummy* d = (Dummy*)go->childData;
 				d->vel.y = 0;
@@ -433,7 +437,11 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		case Type_Door:
 			DespawnGameObject(go);
 			break;
+		case Type_Dummy:
+			DespawnGameObject(go);
+			break;
 		}
+		
 	}
 		break;
 	}
@@ -637,7 +645,91 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
 
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
-	if (self->type == Type_Proj) {
+	if (self->type == Type_Player) {
+
+		//player face
+		CP_Color player_color = CP_Color_Create(255, 255, 255, 255);
+		CP_Settings_Fill(player_color);
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+		CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
+		CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.x, self->pos.x + self->size.x, self->pos.y);
+		CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+
+		//player eyes
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
+		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+		CP_Graphics_DrawCircle(self->pos.x + 12.5, self->pos.y + 17.5, 8);
+		CP_Graphics_DrawCircle(self->pos.x + 37.5, self->pos.y + 17.5, 8);
+
+		//player mouth
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
+		CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
+		CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
+		CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
+		CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
+
+	}
+	else if (self->type == Type_Enemy) {
+		CP_Color enermy_color = CP_Color_Create(255, 255, 255, 255);
+		//enermy face
+		
+		CP_Settings_Fill(enermy_color);
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 5.0, 15.0, 5.0);
+		CP_Graphics_DrawRect(self->pos.x + 35.0, self->pos.y + 5.0, 15.0, 5.0);
+		CP_Settings_Fill(CP_Color_Create(255, 255, 153, 255));
+		CP_Graphics_DrawRect(self->pos.x + 15.0, self->pos.y + 4.0, 20.0, 8.0);
+
+
+		//enermy eyes
+		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 18.0, 15, 15);
+		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 18.0, 15, 15);
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Graphics_DrawRect(self->pos.x + 10, self->pos.y + 25.0, 10, 7);
+		CP_Graphics_DrawRect(self->pos.x + 31, self->pos.y + 25.0, 10, 7);
+
+		//enermy mouth
+		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 50, 10);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
+
+	}
+	else if (self->type == Type_Dummy) {
+		//dummy face
+		CP_Settings_Fill(CP_Color_Create(128, 128, 128, 255));
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+		CP_Settings_Stroke(CP_Color_Create(96, 96, 96, 255));
+		CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.y, self->pos.x + self->size.x, self->pos.y);
+		CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
+		CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
+		CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
+		CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
+		CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+
+
+		//dummy eyes
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
+		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+		CP_Settings_Stroke(CP_Color_Create(192, 192, 192, 255));
+		CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 25.0, self->pos.x + 20.0, self->pos.y + 10.0);
+		CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 10.0, self->pos.x + 20.0, self->pos.y + 25.0);
+		CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
+		CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
+		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
+	}
+	else if (self->type == Type_Proj) {
 		CP_Settings_RectMode(CP_POSITION_CENTER);
 	} else {
 		CP_Settings_RectMode(CP_POSITION_CORNER);
@@ -680,7 +772,7 @@ void UpdateEnemy(GameObject* self) {
 }
 
 void SideScrolling(GameObject* self) {
-	if (player->goPlayer->pos.x >= 1000 && rightPressed) {
+	if (player->goPlayer->pos.x >= 800 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
 	} else if (player->goPlayer->pos.x <= 400 && leftPressed) {
