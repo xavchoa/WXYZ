@@ -193,6 +193,64 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			isGameOver = TRUE;
 			break;
 		}
+		case Type_Dummy: {
+			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+				float intWidth = go->pos.x + go->size.x - go2->pos.x;
+
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x -= intWidth;
+					}
+					else {
+						player->vel.y = 0.f;
+						go->pos.y += intHeight + 0.1f;
+					}
+				}
+				else {
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x -= intWidth;
+					}
+					else {
+						player->vel.y = 0.f;
+						go->pos.y -= intHeight + 0.1f;
+						isGrounded = TRUE;
+					}
+				}
+			}
+			else {
+				float intWidth = go2->pos.x + go2->size.x - go->pos.x;
+
+				if (go->pos.y > go2->pos.y) {
+					float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					}
+					else {
+						player->vel.y = 0.f;
+						go->pos.y += intHeight + 0.1f;
+					}
+				}
+				else {
+					float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+					if (intWidth < intHeight) {
+						go->pos.x += intWidth;
+					}
+					else {
+						player->vel.y = 0.f;
+						go->pos.y -= intHeight + 0.1f;
+						isGrounded = TRUE;
+					}
+				}
+			}
+			break;
+
+		}
 		}
 		break;
 	case Type_Platform:
@@ -472,6 +530,59 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 				Button* b = (Button*)go2->childData;
 				Door* door = b->linkedDoor;
 				door->isOpened = TRUE;
+				break;
+			}
+			case Type_Door: {
+				Dummy* d = (Dummy*)go->childData;
+				d->vel.y = 0;
+				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+					float intWidth = go->pos.x + go->size.x - go2->pos.x; //intersecting width
+
+					if (go->pos.y > go2->pos.y) {
+						float intHeight = go2->pos.y + go2->size.y - go->pos.y; //intersecting height
+
+						if (intWidth < intHeight)
+							go->pos.x -= intWidth;
+						else {
+							d->vel.y = 0.f;
+							go->pos.y += intHeight;
+						}
+					}
+					else {
+						float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intWidth < intHeight)
+							go->pos.x -= intWidth;
+						else
+							go->pos.y -= intHeight;
+					}
+				}
+				else {
+					float intWidth = go2->pos.x + go2->size.x - go->pos.x;
+
+					if (go->pos.y > go2->pos.y) {
+						float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+						if (intWidth < intHeight) {
+							go->pos.x += intWidth;
+						}
+						else {
+							d->vel.y = 0.f;
+							go->pos.y += intHeight;
+						}
+					}
+					else {
+						float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intWidth < intHeight) {
+							go->pos.x += intWidth;
+						}
+						else {
+							d->vel.y = 0.f;
+							go->pos.y -= intHeight;
+						}
+					}
+				}
 				break;
 			}
 
