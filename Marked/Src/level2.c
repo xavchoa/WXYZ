@@ -62,7 +62,7 @@ void Level2_Init() {
 	CreateEnemy(2050.f, windowHeight * 0.4f);
 	CreateDummy(850.f, windowHeight * 0.7f);
 	//                           button                      door
-	CreateButtonDoorLink(CP_Vector_Set(540.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.59));
+	CreateButtonDoorLink(CP_Vector_Set(540.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.59), 1);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54, windowHeight * 0.6), PLATFORM_COLOR);
 
 

@@ -66,11 +66,11 @@ void Level3_Init() {
 	CreateDummy(2750.f, windowHeight * 0.19f);
 	//                           button                      door
 
-	CreateButtonDoorLink(CP_Vector_Set(1055.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.09));
+	CreateButtonDoorLink(CP_Vector_Set(1055.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.09),1);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54, 95), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1100.f, windowHeight * 0.09), CP_Vector_Set(10.f, 100.f), OBSTACLE_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(2054.f, windowHeight * 0.28), CP_Vector_Set(3050, windowHeight * 0.12));
+	CreateButtonDoorLink(CP_Vector_Set(2054.f, windowHeight * 0.28), CP_Vector_Set(3050, windowHeight * 0.12),2);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3048.f, 0.f), CP_Vector_Set(54, 110), PLATFORM_COLOR);
 
 	//                                                pos                         size

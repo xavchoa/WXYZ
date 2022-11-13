@@ -86,7 +86,7 @@ void Level1_Init() {
 	CreateEnemy(1950.f, windowHeight * 0.6f);
 	CreateDummy(100.f, windowHeight * 0.8f);
 
-	CreateButtonDoorLink(CP_Vector_Set(1440.f, windowHeight * 0.63), CP_Vector_Set(1900, windowHeight * 0.54));
+	CreateButtonDoorLink(CP_Vector_Set(1440.f, windowHeight * 0.63), CP_Vector_Set(1900, windowHeight * 0.54), 1);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1898.f, 0.f), CP_Vector_Set(54, windowHeight * 0.54), PLATFORM_COLOR);
 
 	// Platforms

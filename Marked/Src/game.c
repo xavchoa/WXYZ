@@ -694,21 +694,7 @@ void EnemyShoot(GameObject* _enemy) {
 		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(-10.f, 10.f));
 	enemyProj->childData = proj;
 }
-/*
-GameObject* goEnemy = GetGameObject();
-	goEnemy->hasCollider = TRUE;
-	goEnemy->type = Type_Enemy;
-	goEnemy->pos = CP_Vector_Set(x, y);
-	goEnemy->size = CP_Vector_Set(50.f, 50.f);
-	goEnemy->color = CP_Color_Create(100, 100, 100, 255);
-	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
-	enemy->vel = CP_Vector_Set(100, 0);
-	enemy->dir = CP_Vector_Set(1, 0);
-	enemy->collidedWithPlatform = FALSE;
-	enemy->bt = 0.f;
-	goEnemy->childData = enemy;
-*/
-//	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
+
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
 	go->hasCollider = collider;
@@ -810,12 +796,17 @@ void CreateDummy(float x, float y) {
 	goDummy->childData = d;
 }
 
-void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
+void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	GameObject* goDoor = GetGameObject();
 	goDoor->hasCollider = TRUE;
 	goDoor->type = Type_Door;
 	goDoor->pos = doorPos;
-	goDoor->size = CP_Vector_Set(50.f, 100.f);
+	if (type == 1) {
+		goDoor->size = CP_Vector_Set(50.f, 100.f);
+	}
+	else if (type == 2) {
+		goDoor->size = CP_Vector_Set(100.f, 50.f);
+	}
 	goDoor->color = CP_Color_Create(100, 100, 100, 255);
 	Door* door = (Door*)malloc(sizeof(Door));
 	door->isOpened = FALSE;

@@ -89,7 +89,8 @@ void Level_Init() {
 
 	
 
-	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710));
+	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710), 1);
+	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(1500, 710), 2);
 
 
 	// Enemies
