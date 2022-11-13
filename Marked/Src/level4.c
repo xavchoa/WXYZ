@@ -95,7 +95,7 @@ void Level4_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, 0), CP_Vector_Set(682, 100), PLATFORM_COLOR);
 
 	// door 2 button 2
-	CreateButtonDoorLink(CP_Vector_Set(1100.f, windowHeight * 0.78), CP_Vector_Set(700, windowHeight * 0.29), 1);
+	CreateButtonDoorLink(CP_Vector_Set(1100.f, windowHeight * 0.78), CP_Vector_Set(700, windowHeight * 0.29),1);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.1), CP_Vector_Set(54, windowHeight * 0.2), PLATFORM_COLOR);
 
 
@@ -110,7 +110,7 @@ void Level4_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, windowHeight * 0.79), CP_Vector_Set(300, 30), PLATFORM_COLOR);
 
 	// door 3 button 3
-	CreateButtonDoorLink(CP_Vector_Set(2310.f, windowHeight * 0.88), CP_Vector_Set(2200.f, windowHeight * 0.68));
+	CreateButtonDoorLink(CP_Vector_Set(2310.f, windowHeight * 0.88), CP_Vector_Set(2200.f, windowHeight * 0.68),1);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2198.f, windowHeight * 0.5), CP_Vector_Set(54, windowHeight * 0.18), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2450.f, windowHeight * 0.5), CP_Vector_Set(50, windowHeight * 0.3), PLATFORM_COLOR);
