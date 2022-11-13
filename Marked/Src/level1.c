@@ -61,13 +61,39 @@ void Level1_Init() {
 	endPoint->enemyCount = 0;
 
 
-	CreateEnemy(1900.f, windowHeight * 0.6f);
+	//CreateEnemy(1900.f, windowHeight * 0.6f);
+
+	//// Platforms
+
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.9), CP_Vector_Set(200, 100.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(300.f, 200.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.8), CP_Vector_Set(100.f, 250.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(800.f, windowHeight * 0.7), CP_Vector_Set(100.f, 350.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900.f, windowHeight * 0.6), CP_Vector_Set(100.f, 450.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1100.f, windowHeight * 0.5), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1250.f, windowHeight * 0.4), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.3), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.65), CP_Vector_Set(200.f, 90.f), PLATFORM_COLOR);
+
+
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1850.f, windowHeight * 0.65), CP_Vector_Set(400.f, 90.f), PLATFORM_COLOR);
+
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+
+
+	CreateEnemy(1950.f, windowHeight * 0.6f);
+	CreateDummy(100.f, windowHeight * 0.8f);
+
+	CreateButtonDoorLink(CP_Vector_Set(1440.f, windowHeight * 0.63), CP_Vector_Set(1900, windowHeight * 0.54));
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1898.f, 0.f), CP_Vector_Set(54, windowHeight * 0.54), PLATFORM_COLOR);
 
 	// Platforms
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.9), CP_Vector_Set(200, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.9), CP_Vector_Set(210, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(300.f, 200.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.8), CP_Vector_Set(100.f, 250.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(800.f, windowHeight * 0.7), CP_Vector_Set(100.f, 350.f), PLATFORM_COLOR);
@@ -75,12 +101,13 @@ void Level1_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1100.f, windowHeight * 0.5), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1250.f, windowHeight * 0.4), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.3), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.65), CP_Vector_Set(200.f, 90.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1410.f, windowHeight * 0.65), CP_Vector_Set(200.f, 90.f), PLATFORM_COLOR);
 
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1850.f, windowHeight * 0.65), CP_Vector_Set(400.f, 90.f), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2251.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
@@ -142,9 +169,6 @@ void Level1_Update() {
 				else if ((goPtr + i)->type == Type_Dummy) {
 					SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Laser) {
-					UpdateLaser(goPtr + i);
 				}
 			}
 		}

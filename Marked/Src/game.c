@@ -808,7 +808,7 @@ void SideScrolling(GameObject* self) {
 	if (player->goPlayer->pos.x >= 800 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
-	} else if (player->goPlayer->pos.x <= 400 && leftPressed) {
+	} else if (player->goPlayer->pos.x <= 500 && leftPressed) {
 		self->pos.x += player->speed * CP_System_GetDt() * CP_System_GetDt();
 		player->vel.x = 0;
 	}
