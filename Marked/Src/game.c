@@ -278,7 +278,61 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			}
 			break;
 		}
+			case Type_Dummy: {
+				Enemy* e = (Enemy*)go->childData;
+				//e->collidedWithPlatform = TRUE;
+				e->vel.y = 0;
+				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
+					float intWidth = go->pos.x + go->size.x - go2->pos.x; //intersecting width
 
+					if (go->pos.y > go2->pos.y) {
+						float intHeight = go2->pos.y + go2->size.y - go->pos.y; //intersecting height
+
+						if (intWidth < intHeight)
+							go->pos.x -= intWidth;
+						else {
+							e->vel.y = 0.f;
+							go->pos.y += intHeight;
+						}
+					}
+					else {
+						float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intWidth < intHeight)
+							go->pos.x -= intWidth;
+						else
+							go->pos.y -= intHeight;
+					}
+				}
+				else {
+					float intWidth = go2->pos.x + go2->size.x - go->pos.x;
+
+					if (go->pos.y > go2->pos.y) {
+						float intHeight = go2->pos.y + go2->size.y - go->pos.y;
+
+						if (intWidth < intHeight) {
+							go->pos.x += intWidth;
+						}
+						else {
+							e->vel.y = 0.f;
+							go->pos.y += intHeight;
+						}
+					}
+					else {
+						float intHeight = go->pos.y + go->size.y - go2->pos.y;
+
+						if (intWidth < intHeight) {
+							go->pos.x += intWidth;
+						}
+						else {
+							e->vel.y = 0.f;
+							go->pos.y -= intHeight;
+						}
+					}
+				}
+				e->dir.x = -e->dir.x;
+				break;
+			}
 			case Type_Obstacle: {
 				if (go2->pos.x > go->pos.x-1 && go2->pos.x + go2->size.x < go->pos.x + 1 + go->size.x) {
 					return;
@@ -673,94 +727,98 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos) {
 
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
-	if (self->type == Type_Player) {
+	switch (self->type) {
+		case Type_Player: {
+			//player face
+			CP_Color player_color = CP_Color_Create(255, 255, 255, 255);
+			CP_Settings_Fill(player_color);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+			CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
+			CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.x, self->pos.x + self->size.x, self->pos.y);
+			CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 
-		//player face
-		CP_Color player_color = CP_Color_Create(255, 255, 255, 255);
-		CP_Settings_Fill(player_color);
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
-		CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
-		CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.x, self->pos.x + self->size.x, self->pos.y);
-		CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
-		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			//player eyes
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+			CP_Graphics_DrawCircle(self->pos.x + 12.5, self->pos.y + 17.5, 8);
+			CP_Graphics_DrawCircle(self->pos.x + 37.5, self->pos.y + 17.5, 8);
 
-		//player eyes
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
-		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
-		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-		CP_Graphics_DrawCircle(self->pos.x + 12.5, self->pos.y + 17.5, 8);
-		CP_Graphics_DrawCircle(self->pos.x + 37.5, self->pos.y + 17.5, 8);
+			//player mouth
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
+			CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
+			CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+			return;
+		}
+		break;
+		case Type_Enemy: {
+			CP_Color enermy_color = CP_Color_Create(255, 255, 255, 255);
+			//enermy face
 
-		//player mouth
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
-		CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
-		CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
-		CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
-		CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
-
-	}
-	else if (self->type == Type_Enemy) {
-		CP_Color enermy_color = CP_Color_Create(255, 255, 255, 255);
-		//enermy face
-		
-		CP_Settings_Fill(enermy_color);
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
-		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 5.0, 15.0, 5.0);
-		CP_Graphics_DrawRect(self->pos.x + 35.0, self->pos.y + 5.0, 15.0, 5.0);
-		CP_Settings_Fill(CP_Color_Create(255, 255, 153, 255));
-		CP_Graphics_DrawRect(self->pos.x + 15.0, self->pos.y + 4.0, 20.0, 8.0);
-
-
-		//enermy eyes
-		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 18.0, 15, 15);
-		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 18.0, 15, 15);
-		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-		CP_Graphics_DrawRect(self->pos.x + 10, self->pos.y + 25.0, 10, 7);
-		CP_Graphics_DrawRect(self->pos.x + 31, self->pos.y + 25.0, 10, 7);
-
-		//enermy mouth
-		CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 50, 10);
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
-
-	}
-	else if (self->type == Type_Dummy) {
-		//dummy face
-		CP_Settings_Fill(CP_Color_Create(128, 128, 128, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
-		CP_Settings_Stroke(CP_Color_Create(96, 96, 96, 255));
-		CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.y, self->pos.x + self->size.x, self->pos.y);
-		CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
-		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
-		CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
-		CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
-		CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
-		CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+			CP_Settings_Fill(enermy_color);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 5.0, 15.0, 5.0);
+			CP_Graphics_DrawRect(self->pos.x + 35.0, self->pos.y + 5.0, 15.0, 5.0);
+			CP_Settings_Fill(CP_Color_Create(255, 255, 153, 255));
+			CP_Graphics_DrawRect(self->pos.x + 15.0, self->pos.y + 4.0, 20.0, 8.0);
 
 
-		//dummy eyes
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-		CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
-		CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
-		CP_Settings_Stroke(CP_Color_Create(192, 192, 192, 255));
-		CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 25.0, self->pos.x + 20.0, self->pos.y + 10.0);
-		CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 10.0, self->pos.x + 20.0, self->pos.y + 25.0);
-		CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
-		CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
-		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
-		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
-	}
-	else if (self->type == Type_Proj) {
-		CP_Settings_RectMode(CP_POSITION_CENTER);
-	} else {
-		CP_Settings_RectMode(CP_POSITION_CORNER);
+			//enermy eyes
+			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 18.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 18.0, 15, 15);
+			CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+			CP_Graphics_DrawRect(self->pos.x + 10, self->pos.y + 25.0, 10, 7);
+			CP_Graphics_DrawRect(self->pos.x + 31, self->pos.y + 25.0, 10, 7);
+
+			//enermy mouth
+			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 50, 10);
+			return;
+		}
+		break;
+		case Type_Dummy: {
+			//dummy face
+			CP_Settings_Fill(CP_Color_Create(128, 128, 128, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+			CP_Settings_Stroke(CP_Color_Create(96, 96, 96, 255));
+			CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.y, self->pos.x + self->size.x, self->pos.y);
+			CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
+			CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
+			CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+
+
+			//dummy eyes
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+			CP_Settings_Stroke(CP_Color_Create(192, 192, 192, 255));
+			CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 25.0, self->pos.x + 20.0, self->pos.y + 10.0);
+			CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 10.0, self->pos.x + 20.0, self->pos.y + 25.0);
+			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
+			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			return;
+		}
+		break;
+		case Type_Proj: {
+			CP_Settings_RectMode(CP_POSITION_CENTER); 
+		}
+		break;
+		default:
+			CP_Settings_RectMode(CP_POSITION_CORNER);
+		break;
 	}
 	CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
 }
