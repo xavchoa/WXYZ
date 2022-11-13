@@ -604,12 +604,12 @@ void CreatePlatform(float x, float y, float width, float height) {
 	goPlatform->childData = platform;
 }
 
-void CreateLaser(float x, float y, float velx, float vely) {
+void CreateLaser(float x, float y, float width, float height, float velx, float vely) {
 	GameObject* goLaser = GetGameObject();
 	goLaser->hasCollider = TRUE;
 	goLaser->type = Type_Laser;
 	goLaser->pos = CP_Vector_Set(x, y);
-	goLaser->size = CP_Vector_Set(10.f, 2000.f);
+	goLaser->size = CP_Vector_Set(width, height);
 	goLaser->color = CP_Color_Create(200, 0, 0, 50);
 	Laser* laser = (Laser*)malloc(sizeof(Laser));
 	laser->vel = CP_Vector_Set(velx, vely);

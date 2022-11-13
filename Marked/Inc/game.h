@@ -145,7 +145,7 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 #ifndef CREATE_CODE
 
 void CreatePlatform(float x, float y, float width, float height);
-void CreateLaser(float x, float y, float velx, float vely);
+void CreateLaser(float x, float y, float width, float height, float velx, float vely);
 
 void CreateEnemy(float x, float y);
 

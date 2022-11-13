@@ -72,7 +72,7 @@ void Level_Init() {
 	//CreateDummy(800.f, windowHeight * 0.8);
 
 	//CreateGameElement(TRUE, Type_Laser, CP_Vector_Set(900.f, 0.f), CP_Vector_Set(10.f, windowHeight), OBSTACLE_COLOR);
-	CreateLaser(1000,0,-20,0);
+	CreateLaser(1000,0, 10, windowHeight,-20,0);
 
 
 	//Platforms
