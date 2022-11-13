@@ -143,6 +143,9 @@ void Level1_Update() {
 					SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
+				else if ((goPtr + i)->type == Type_Laser) {
+					UpdateLaser(goPtr + i);
+				}
 			}
 		}
 

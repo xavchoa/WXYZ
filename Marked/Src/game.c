@@ -529,7 +529,20 @@ void EnemyShoot(GameObject* _enemy) {
 		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(-10.f, 10.f));
 	enemyProj->childData = proj;
 }
-
+/*
+GameObject* goEnemy = GetGameObject();
+	goEnemy->hasCollider = TRUE;
+	goEnemy->type = Type_Enemy;
+	goEnemy->pos = CP_Vector_Set(x, y);
+	goEnemy->size = CP_Vector_Set(50.f, 50.f);
+	goEnemy->color = CP_Color_Create(100, 100, 100, 255);
+	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
+	enemy->vel = CP_Vector_Set(100, 0);
+	enemy->dir = CP_Vector_Set(1, 0);
+	enemy->collidedWithPlatform = FALSE;
+	enemy->bt = 0.f;
+	goEnemy->childData = enemy;
+*/
 //	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
@@ -549,7 +562,7 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 				   break;
 	case Type_Dummy:
 		break;
-	case Type_Barrel:
+	case Type_Laser:
 		break;
 	case Type_Button: {
 		Button* button = (Button*)malloc(sizeof(Button));
@@ -589,6 +602,18 @@ void CreatePlatform(float x, float y, float width, float height) {
 	platform->vel = CP_Vector_Set(0, 0);
 
 	goPlatform->childData = platform;
+}
+
+void CreateLaser(float x, float y, float velx, float vely) {
+	GameObject* goLaser = GetGameObject();
+	goLaser->hasCollider = TRUE;
+	goLaser->type = Type_Laser;
+	goLaser->pos = CP_Vector_Set(x, y);
+	goLaser->size = CP_Vector_Set(10.f, 2000.f);
+	goLaser->color = CP_Color_Create(200, 0, 0, 50);
+	Laser* laser = (Laser*)malloc(sizeof(Laser));
+	laser->vel = CP_Vector_Set(velx, vely);
+	goLaser->childData = laser;
 }
 
 void CreateEnemy(float x, float y) {
@@ -757,6 +782,7 @@ void UpdateDummy(GameObject* self) {
 
 	self->pos.y += d->vel.y * CP_System_GetDt();
 }
+
 void UpdateEnemy(GameObject* self) {
 	Enemy* e = (Enemy*)self->childData;
 	if (e->collidedWithPlatform == FALSE)
@@ -774,6 +800,10 @@ void UpdateEnemy(GameObject* self) {
 	e->bt += CP_System_GetDt();
 }
 
+void UpdateLaser(GameObject* self) {
+	Laser* l = (Laser*)self->childData;
+	self->pos.x += l->vel.x * CP_System_GetDt();
+}
 void SideScrolling(GameObject* self) {
 	if (player->goPlayer->pos.x >= 800 && rightPressed) {
 		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();

@@ -109,6 +109,11 @@ typedef struct Button {
 
 } Button;
 
+typedef struct Laser {
+	CP_Vector vel;
+	GameObject* goLaser;
+} Laser;
+
 GameObject* goPtr;
 Player* player;
 Projectile* projectile;
@@ -133,13 +138,14 @@ void UpdateEnemyProj(GameObject* self);
 
 void EnemyShoot(GameObject* _enemy);
 
+void UpdateLaser(GameObject* self);
 //	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color); 
 		
 #ifndef CREATE_CODE
 
 void CreatePlatform(float x, float y, float width, float height);
-
+void CreateLaser(float x, float y, float velx, float vely);
 
 void CreateEnemy(float x, float y);
 
