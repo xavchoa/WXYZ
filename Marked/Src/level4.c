@@ -9,7 +9,7 @@
 #include "scenes.h"
 
 void Level4_Init() {
-	//level = Level5;
+	level = Level6;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;

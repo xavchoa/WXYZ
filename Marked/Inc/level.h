@@ -35,3 +35,9 @@ void Level5_Init(void);
 void Level5_Update(void);
 
 void Level5_Exit(void);
+
+void Level6_Init(void);
+
+void Level6_Update(void);
+
+void Level6_Exit(void);

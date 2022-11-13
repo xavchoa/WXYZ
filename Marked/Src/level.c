@@ -74,8 +74,8 @@ void Level_Init() {
 
 
 
-	CreateEnemy(700.f, 300.f);
-	CreateDummy(1000.f, windowHeight * 0.8);
+	//CreateEnemy(700.f, 300.f);
+	//CreateDummy(1000.f, windowHeight * 0.8);
 	//CreateLaser(1000,0, 10, windowHeight,-20,0);
 
 
