@@ -21,7 +21,7 @@ void Level5_Init() {
 	goPlayer->type = Type_Player;
 	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
 	player->speed = 10000.f;
 	player->vel.x = 0.f;
@@ -75,7 +75,7 @@ void Level5_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1000, 100), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.6), CP_Vector_Set(600, 70), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.6), CP_Vector_Set(80, windowHeight * 0.5), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.68), CP_Vector_Set(80, windowHeight * 0.5), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1300.f, windowHeight * 0.8), CP_Vector_Set(100, 100), PLATFORM_COLOR);
 

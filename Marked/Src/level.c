@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level1;
+	level = Level4;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -32,7 +32,7 @@ void Level_Init() {
 	goPlayer->type = Type_Player;
 	goPlayer->pos = CP_Vector_Set(300.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
 	player->speed = 10000.f;
 	player->vel.x = 0.f;
@@ -75,7 +75,7 @@ void Level_Init() {
 
 
 	//CreateEnemy(700.f, 300.f);
-	//CreateDummy(1000.f, windowHeight * 0.8);
+	CreateDummy(1000.f, windowHeight * 0.8);
 	//CreateLaser(1000,0, 10, windowHeight,-20,0);
 
 
@@ -175,17 +175,18 @@ void Level_Update() {
 		PlayerMovement();
 
 		if (CP_Input_KeyTriggered(KEY_X)) {
-			shootPressed = TRUE;
-
+			if (player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
+				SwapPositions();
+				//Enemy* e = (Enemy*)player->markedObject->childData;
+				//GameObject* target = (GameObject*)player->markedObject->childData;
+				//e->collidedWithPlatform = FALSE;
+				player->markedObject = NULL;
+			}
+			else
+				shootPressed = TRUE;
 		}
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
-		}
-		if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
-			SwapPositions();
-			Enemy* e = (Enemy*)player->markedObject->childData;
-			e->collidedWithPlatform = FALSE;
-			player->markedObject = NULL;
 		}
 
 		if (rightPressed) {
@@ -200,7 +201,7 @@ void Level_Update() {
 
 		if (shootPressed && !projectile->projAlive) {
 			projectile->vel.x = player->dir.x * projectile->speed;
-			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
+			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x/2, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
 		}
 
 

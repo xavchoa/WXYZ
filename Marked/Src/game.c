@@ -262,21 +262,25 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		break;
 		
 	case Type_Proj:
-		switch (go2->type) {
-		case Type_Platform: //player proj-platform collision
-			projectile->projAlive = FALSE;
-			break;
-		case Type_Dummy:
-			player->markedObject = go2;
-			projectile->projAlive = FALSE;
-			break;
-		case Type_Enemy:	//player proj - enemy collision
-			player->markedObject = go2;
-			projectile->projAlive = FALSE;
-			break;
-		case Type_Door:
-			projectile->projAlive = FALSE;
-			break;
+		if (projectile->projAlive) {
+			switch (go2->type) {
+			case Type_Platform: //player proj-platform collision
+				projectile->projAlive = FALSE;
+				break;
+			case Type_Dummy:
+				player->markedObject = go2;
+				player->markedObject->color = CP_Color_Create(128, 0, 0, 100);
+				projectile->projAlive = FALSE;
+				break;
+			case Type_Enemy:    //player proj - enemy collision
+				player->markedObject = go2;
+				player->markedObject->color = CP_Color_Create(128, 0, 0, 100);
+				projectile->projAlive = FALSE;
+				break;
+			case Type_Door:
+				projectile->projAlive = FALSE;
+				break;
+			}
 		}
 		projectile->range = 0;
 		break;
@@ -609,7 +613,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			DespawnGameObject(go);
 			break;
 		}
-		
 	}
 		break;
 	}
@@ -633,6 +636,7 @@ void SwapPositions() {
 	CP_Vector tmp = player->markedObject->pos;
 	player->markedObject->pos = player->goPlayer->pos;
 	player->goPlayer->pos = tmp;
+	player->markedObject->color = CP_Color_Create(0, 0, 0, 0);
 }
 void SetProjSpawn(float x, float y) {
 	projectile->goProj->pos.x = x;
@@ -774,7 +778,7 @@ void CreateEnemy(float x, float y) {
 	goEnemy->type = Type_Enemy;
 	goEnemy->pos = CP_Vector_Set(x, y);
 	goEnemy->size = CP_Vector_Set(50.f, 50.f);
-	goEnemy->color = CP_Color_Create(100, 100, 100, 255);
+	goEnemy->color = CP_Color_Create(100, 100, 100, 0);
 	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
 	enemy->vel = CP_Vector_Set(100, 0);
 	enemy->dir = CP_Vector_Set(1, 0);
@@ -790,7 +794,7 @@ void CreateDummy(float x, float y) {
 	goDummy->type = Type_Dummy;
 	goDummy->pos = CP_Vector_Set(x, y);
 	goDummy->size = CP_Vector_Set(50.f, 50.f);
-	goDummy->color = CP_Color_Create(0, 0, 60, 255);
+	goDummy->color = CP_Color_Create(0, 0, 60, 0);
 	Dummy* d = (Dummy*)malloc(sizeof(Dummy));
 	d->vel = CP_Vector_Set(0, 0);
 	goDummy->childData = d;
@@ -855,7 +859,7 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
 			CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
 			CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
-			return;
+			
 		}
 		break;
 		case Type_Enemy: {
@@ -882,7 +886,7 @@ void DrawGameElements(GameObject* self) {
 			//enermy mouth
 			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 50, 10);
-			return;
+			
 		}
 		break;
 		case Type_Dummy: {
@@ -911,7 +915,7 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
 			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
-			return;
+			
 		}
 		break;
 		case Type_Proj: {
@@ -922,6 +926,7 @@ void DrawGameElements(GameObject* self) {
 			CP_Settings_RectMode(CP_POSITION_CORNER);
 		break;
 	}
+	CP_Settings_Fill(self->color);
 	CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
 }
 

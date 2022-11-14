@@ -9,7 +9,7 @@
 #include "scenes.h"
 
 void Level4_Init() {
-	level = Level6;
+	level = Level5;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -21,7 +21,7 @@ void Level4_Init() {
 	goPlayer->type = Type_Player;
 	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
 	player->speed = 10000.f;
 	player->vel.x = 0.f;

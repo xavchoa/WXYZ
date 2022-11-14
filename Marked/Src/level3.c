@@ -21,7 +21,7 @@ void Level3_Init() {
 	goPlayer->type = Type_Player;
 	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
 	player->speed = 10000.f;
 	player->vel.x = 0.f;
@@ -70,8 +70,8 @@ void Level3_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54, 95), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1090.f, windowHeight * 0.1), CP_Vector_Set(10.f, 100.f), OBSTACLE_COLOR);
 
-	CreateButtonDoorLink(CP_Vector_Set(2054.f, windowHeight * 0.29), CP_Vector_Set(3050, windowHeight * 0.12),2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3048.f, 0.f), CP_Vector_Set(54, 110), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(2054.f, windowHeight * 0.29), CP_Vector_Set(3050, windowHeight * 0.2),2);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3048.f, 0.f), CP_Vector_Set(54, 110), PLATFORM_COLOR);
 
 	//              pos         size            vel
 	CreateLaser(2450.f, windowHeight * 0.3, 300,10, 0, 0);
@@ -104,7 +104,7 @@ void Level3_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1950.f, windowHeight * 0.31), CP_Vector_Set(300, 100), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, windowHeight * 0.2), CP_Vector_Set(200, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, windowHeight * 0.2), CP_Vector_Set(50, windowHeight * 0.9), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, windowHeight * 0.31), CP_Vector_Set(50, windowHeight * 0.9), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2750.f, windowHeight * 0.2), CP_Vector_Set(300, 100), PLATFORM_COLOR);
 
@@ -115,7 +115,7 @@ void Level3_Init() {
 
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3100.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3150.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
 
 
