@@ -170,17 +170,16 @@ void Level5_Update() {
 		PlayerMovement();
 
 		if (CP_Input_KeyTriggered(KEY_X)) {
-			shootPressed = TRUE;
+			if (player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
+				SwapPositions();
 
+				player->markedObject = NULL;
+			}
+			else
+				shootPressed = TRUE;
 		}
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
-		}
-		if (CP_Input_KeyTriggered(KEY_Z) && player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
-			SwapPositions();
-			Enemy* e = (Enemy*)player->markedObject->childData;
-			e->collidedWithPlatform = FALSE;
-			player->markedObject = NULL;
 		}
 
 		if (rightPressed) {

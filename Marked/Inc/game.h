@@ -122,6 +122,7 @@ EndPoint* endPoint;
 GameObject* GetGameObject();
 
 void PlayerMovement();
+void MarkMechanic();
 
 void DespawnGameObject(GameObject* go);
 

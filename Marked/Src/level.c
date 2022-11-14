@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level4;
+	level = Level6;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -173,7 +173,7 @@ void Level_Update() {
 		}
 
 		PlayerMovement();
-
+		
 		if (CP_Input_KeyTriggered(KEY_X)) {
 			if (player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
 				SwapPositions();
@@ -192,16 +192,18 @@ void Level_Update() {
 		if (rightPressed) {
 			player->dir.x = 1.f;
 			player->vel.x = player->speed * CP_System_GetDt();
-		} else if (leftPressed) {
+		}
+		else if (leftPressed) {
 			player->dir.x = -1.f;
 			player->vel.x = -player->speed * CP_System_GetDt();
-		} else {
+		}
+		else {
 			player->vel.x = 0.f;
 		}
 
 		if (shootPressed && !projectile->projAlive) {
 			projectile->vel.x = player->dir.x * projectile->speed;
-			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x/2, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
+			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x / 2, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
 		}
 
 

@@ -918,6 +918,14 @@ void DrawGameElements(GameObject* self) {
 			
 		}
 		break;
+		case Type_Button: {
+			//button
+			CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, 70.f, 10.f);
+			CP_Settings_Fill(CP_Color_Create(155, 0, 0, 255));
+			CP_Graphics_DrawRect(self->pos.x + 10.0, self->pos.y - 10.0, 50.0, 10.f);
+			return;
+		}
 		case Type_Proj: {
 			CP_Settings_RectMode(CP_POSITION_CENTER); 
 		}
