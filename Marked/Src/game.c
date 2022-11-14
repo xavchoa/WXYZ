@@ -630,9 +630,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		case Type_Dummy:
 			DespawnGameObject(go);
 			break;
-		case Type_Enemy:
-			DespawnGameObject(go);
-			break;
 		}
 	}
 		break;
@@ -967,9 +964,32 @@ void DrawGameElements(GameObject* self) {
 			return;
 		}
 		case Type_Proj: {
-			CP_Settings_RectMode(CP_POSITION_CENTER); 
+			//CP_Settings_RectMode(CP_POSITION_CENTER); 
+			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 7.f, 7.f, 0.0, 0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x, self->pos.y + 7.f, self->pos.x - 15.f, self->pos.y + 3.5f, 0.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y + 7.f, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 3.5f, self->pos.y + 22.f, 0.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x + 7.f, self->pos.y, self->pos.x + 3.5f, self->pos.y - 15.f, 0.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 7.f, self->pos.y, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 22.f, self->pos.y + 3.5f, 0.0);
+			CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
+			CP_Graphics_DrawCircle(self->pos.x + 3.5, self->pos.y + 3.5f, 5.f);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			return;
 		}
 		break;
+		case Type_EnemyProj: {
+			//enermy projectile
+			CP_Settings_Fill(CP_Color_Create(30, 144, 255, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, 7.f, 7.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x, self->pos.y + 7.f, self->pos.x - 15.f, self->pos.y + 3.5f, 90.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y + 7.f, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 3.5f, self->pos.y + 22.f, 90.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x + 7.f, self->pos.y, self->pos.x + 3.5f, self->pos.y - 15.f, 90.0);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 7.f, self->pos.y, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 22.f, self->pos.y + 3.5f, 90.0);
+			CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255));
+			CP_Graphics_DrawCircle(self->pos.x + 3.5, self->pos.y + 3.5f, 5.f);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			return;
+		}
 		default:
 			CP_Settings_RectMode(CP_POSITION_CORNER);
 		break;

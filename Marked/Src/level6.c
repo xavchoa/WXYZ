@@ -86,7 +86,7 @@ void Level6_Init() {
 
 	// door 1 button 1
 	CreateButtonDoorLink(CP_Vector_Set(550.f, windowHeight * 0.79), CP_Vector_Set(700, windowHeight * 0.69), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.5), CP_Vector_Set(54, windowHeight * 0.2), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.5), CP_Vector_Set(54, windowHeight * 0.19), PLATFORM_COLOR);
 
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.4), CP_Vector_Set(682, 100), PLATFORM_COLOR);
@@ -97,7 +97,7 @@ void Level6_Init() {
 
 	// door 2 button 2
 	CreateButtonDoorLink(CP_Vector_Set(1100.f, windowHeight * 0.79), CP_Vector_Set(700, windowHeight * 0.29), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.1), CP_Vector_Set(54, windowHeight * 0.2), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.1), CP_Vector_Set(54, windowHeight * 0.19), PLATFORM_COLOR);
 
 
 	//throw enemy off the laser
@@ -128,8 +128,6 @@ void Level6_Init() {
 
 void Level6_Update() {
 	CP_System_SetFrameRate(60);
-	//printf("%f\n", CP_System_GetDt());
-	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {

@@ -77,7 +77,7 @@ void Level3_Init() {
 	//              pos         size            vel
 	CreateLaser(2450.f, windowHeight * 0.3, 300, 10, 0, 0, 0);
 	CreateLaser(950.f, windowHeight * 0.72, 300, 10, 0, 0, 0);
-	CreateLaser(2440.f, windowHeight * 0.42, 10, windowHeight * 0.6, -40, 0, 7);
+	CreateLaser(2440.f, windowHeight * 0.42, 10, windowHeight * 0.6, -40, 0, 10);
 
 
 
@@ -138,8 +138,6 @@ void Level3_Init() {
 
 void Level3_Update() {
 	CP_System_SetFrameRate(60);
-	//printf("%f\n", CP_System_GetDt());
-	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {

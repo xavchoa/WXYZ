@@ -92,8 +92,6 @@ void Level2_Init() {
 
 void Level2_Update() {
 	CP_System_SetFrameRate(60);
-	//printf("%f\n", CP_System_GetDt());
-	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {

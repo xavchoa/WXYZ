@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level5;
+	level = Level1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -60,13 +60,20 @@ void Level_Init() {
 	goEndPoint->isActive = TRUE;
 	goEndPoint->hasCollider = TRUE;
 	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(1500.f, 700.f);
+	goEndPoint->pos = CP_Vector_Set(1800.f, 530.f);
 	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
 	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
 	goEndPoint->childData = endPoint;
 	endPoint->enemyCount = 0;
 
+
+	CreateDummy(1500.f, 580);
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.6), CP_Vector_Set(400.f, 540.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550.f, windowHeight * 0.7), CP_Vector_Set(200.f, 600.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900.f, windowHeight * 0.7), CP_Vector_Set(1080.f, 540.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1450.f, 0), CP_Vector_Set(100.f, 550.f), PLATFORM_COLOR);
 	//CreateEnemy(1000.f, 300.f);
 	
 
@@ -75,22 +82,22 @@ void Level_Init() {
 
 
 	//CreateEnemy(700.f, 300.f);
-	CreateDummy(1000.f, windowHeight * 0.8);
+	
 	//CreateLaser(1000,0, 10, windowHeight,-60,0,0);
 
 
 	//Platforms
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, 600), CP_Vector_Set(100.f, 200.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(2000.f, 100.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, 600), CP_Vector_Set(100.f, 200.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.9), CP_Vector_Set(2000.f, 100.f), PLATFORM_COLOR);
 	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(480.f, windowHeight * 0.8 + 10), CP_Vector_Set(20.f, 100.f), OBSTACLE_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.8), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 
 	
 
-	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710),1);
-	CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(1500, 710),1);
+	//CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710),1);
+	//CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(1500, 710),1);
 
 
 	// Enemies
@@ -103,6 +110,21 @@ void Level_Init() {
 
 void Level_Update() {
 	CP_System_SetFrameRate(60);
+	float textSize = 30.0f;
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	CP_Graphics_DrawRect(20, 80, 300, 100);
+	CP_Graphics_DrawRect(515, 80, 300, 100);
+	CP_Graphics_DrawRect(1000, 60, 350, 200);
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Settings_TextSize(textSize);
+	CP_Font_DrawTextBox("Press arrow keys to move forward and backward", 20, 120, 300);
+	CP_Font_DrawTextBox("Press space bar to jump", 515, 125, 300);
+	CP_Font_DrawTextBox("Press X to mark target, press again to swap positions", 1000, 105, 350);
+	textSize = 20.0f;
+	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+	CP_Settings_TextSize(textSize);
+	CP_Font_DrawTextBox("NOTE: Once target is marked, target must be within vision (fully visible on your screen) in order to swap", 1000, 180, 350);
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	//printf("%f\n", CP_System_GetDt());
 	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
@@ -123,35 +145,35 @@ void Level_Update() {
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
 				if ((goPtr + i)->type == Type_Platform) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Enemy) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 					UpdateEnemy(goPtr + i);
 					if ((goPtr + i)->pos.y > windowHeight) {
 						DespawnGameObject(goPtr + i);
 						endPoint->enemyCount--;
 					}
 				} else if ((goPtr + i)->type == Type_EndPoint){
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Obstacle) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
 				} else if ((goPtr + i)->type == Type_EnemyProj) {
 					UpdateEnemyProj(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Door) {
 					UpdateDoor(goPtr + i);
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Button) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Dummy) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Laser) {
-					SideScrolling(goPtr + i);
+					//SideScrolling(goPtr + i);
 					UpdateLaser(goPtr + i);
 				}
 			}

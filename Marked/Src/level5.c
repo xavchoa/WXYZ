@@ -57,10 +57,10 @@ void Level5_Init() {
 	endPoint->enemyCount = 0;
 
 
-
+	CreateEnemy(1110.f, windowHeight * 0.8f);
 	CreateEnemy(400.f, windowHeight * 0.5);
 	CreateEnemy(400.f, windowHeight * 0.8f);
-	CreateEnemy(1110.f, windowHeight * 0.8f);
+	
 
 
 
@@ -91,8 +91,6 @@ void Level5_Init() {
 
 void Level5_Update() {
 	CP_System_SetFrameRate(60);
-	//printf("%f\n", CP_System_GetDt());
-	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {
