@@ -49,7 +49,7 @@ void Level5_Init() {
 	goEndPoint->isActive = TRUE;
 	goEndPoint->hasCollider = TRUE;
 	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(1350.f, windowHeight * 0.7);
+	goEndPoint->pos = CP_Vector_Set(1450.f, windowHeight * 0.7);
 	goEndPoint->size = CP_Vector_Set(50.f, 100.f);
 	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
@@ -72,16 +72,16 @@ void Level5_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.74), CP_Vector_Set(100, 50), PLATFORM_COLOR);
 
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1000, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1100, 100), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.6), CP_Vector_Set(600, 70), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.68), CP_Vector_Set(80, windowHeight * 0.5), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.68), CP_Vector_Set(80, windowHeight * 0.22), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1300.f, windowHeight * 0.8), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.79), CP_Vector_Set(100, 100), PLATFORM_COLOR);
 
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1401.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1501.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
@@ -182,6 +182,8 @@ void Level5_Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
+
+
 
 	}
 	else {

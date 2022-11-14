@@ -12,6 +12,11 @@ FunctionPtr levels[Num_Scenes][3] = {
 	{Level4_Init, Level4_Update, Level4_Exit},
 	{Level5_Init, Level5_Update, Level5_Exit},
 	{Level6_Init, Level6_Update, Level6_Exit},
+	//{Level7_Init, Level7_Update, Level7_Exit},
+	//{Level8_Init, Level8_Update, Level8_Exit},
+	//{Level9_Init, Level9_Update, Level9_Exit},
+	//{Level10_Init, Level10_Update, Level10_Exit},
+
 };
 
 void TransitScene(enum SCENES level) {

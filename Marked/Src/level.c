@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level1;
+	level = Level5;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -76,7 +76,7 @@ void Level_Init() {
 
 	//CreateEnemy(700.f, 300.f);
 	CreateDummy(1000.f, windowHeight * 0.8);
-	CreateLaser(1000,0, 10, windowHeight,-60,0,0);
+	//CreateLaser(1000,0, 10, windowHeight,-60,0,0);
 
 
 	//Platforms

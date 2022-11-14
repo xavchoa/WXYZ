@@ -49,7 +49,7 @@ void Level3_Init() {
 	goEndPoint->isActive = TRUE;
 	goEndPoint->hasCollider = TRUE;
 	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(2300.f, windowHeight * 0.58);
+	goEndPoint->pos = CP_Vector_Set(1800.f, windowHeight * 0.59);
 	goEndPoint->size = CP_Vector_Set(50.f, 100.f);
 	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
@@ -60,22 +60,24 @@ void Level3_Init() {
 
 	CreateEnemy(750.f, windowHeight * 0.1f);
 	CreateEnemy(1800.f, windowHeight * 0.1f);
+	CreateEnemy(2200.f, windowHeight * 0.6f);
 	CreateEnemy(2550.f, windowHeight * 0.6f);
 
 	CreateDummy(860.f, windowHeight * 0.7f);
 	CreateDummy(2750.f, windowHeight * 0.19f);
 	//                           button                      door
 
-	CreateButtonDoorLink(CP_Vector_Set(1055.f, windowHeight * 0.875), CP_Vector_Set(1050, windowHeight * 0.09),1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54, 95), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(1055.f, windowHeight * 0.89), CP_Vector_Set(1050, windowHeight * 0.09), 1);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54, 78), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1090.f, windowHeight * 0.1), CP_Vector_Set(10.f, 100.f), OBSTACLE_COLOR);
 
-	CreateButtonDoorLink(CP_Vector_Set(2054.f, windowHeight * 0.29), CP_Vector_Set(3050, windowHeight * 0.2),2);
+	CreateButtonDoorLink(CP_Vector_Set(2055.f, windowHeight * 0.3), CP_Vector_Set(3050, windowHeight * 0.2), 2);
 	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3048.f, 0.f), CP_Vector_Set(54, 110), PLATFORM_COLOR);
 
 	//              pos         size            vel
-	CreateLaser(2450.f, windowHeight * 0.3, 300,10, 0, 0 , 0);
+	CreateLaser(2450.f, windowHeight * 0.3, 300, 10, 0, 0, 0);
 	CreateLaser(950.f, windowHeight * 0.72, 300, 10, 0, 0, 0);
+	CreateLaser(2440.f, windowHeight * 0.42, 10, windowHeight * 0.6, -40, 0, 7);
 
 
 
@@ -101,17 +103,27 @@ void Level3_Init() {
 
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, windowHeight * 0.2), CP_Vector_Set(200, 100), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1950.f, windowHeight * 0.31), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, windowHeight * 0.31), CP_Vector_Set(700, 100), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, windowHeight * 0.2), CP_Vector_Set(200, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, windowHeight * 0.31), CP_Vector_Set(50, windowHeight * 0.9), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, windowHeight * 0.42), CP_Vector_Set(50, windowHeight * 0.9), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2750.f, windowHeight * 0.2), CP_Vector_Set(300, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3000.f, windowHeight * 0.5), CP_Vector_Set(100, 100), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2850.f, windowHeight * 0.7), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	
+	//after the door
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2400.f, windowHeight * 0.7), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1800.f, windowHeight * 0.7), CP_Vector_Set(150, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2050.f, windowHeight * 0.75), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2450.f, windowHeight * 0.7), CP_Vector_Set(300, 100), PLATFORM_COLOR);
+
+
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2900.f, windowHeight * 0.7), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3020.f, windowHeight * 0.5), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+
+
+
 
 
 	// AFTER END 
@@ -122,7 +134,6 @@ void Level3_Init() {
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
-
 
 
 void Level3_Update() {
@@ -218,6 +229,8 @@ void Level3_Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
+
+
 
 	}
 	else {

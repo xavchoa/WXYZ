@@ -12,6 +12,9 @@ typedef enum LEVELS {
 	Level5,
 	Level6,
 	Level7,
+	level8,
+	level9,
+	level10,
 	Num_Scenes
 }LEVELS;
 
