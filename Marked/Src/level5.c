@@ -168,6 +168,7 @@ void Level5_Update() {
 		}
 
 		PlayerMovement();
+		KeysPressed();
 
 		if (CP_Input_KeyTriggered(KEY_X)) {
 			if (player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
@@ -181,25 +182,6 @@ void Level5_Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-		if (rightPressed) {
-			player->dir.x = 1.f;
-			player->vel.x = player->speed * CP_System_GetDt();
-		}
-		else if (leftPressed) {
-			player->dir.x = -1.f;
-			player->vel.x = -player->speed * CP_System_GetDt();
-		}
-		else {
-			player->vel.x = 0.f;
-		}
-
-		if (shootPressed && !projectile->projAlive) {
-			projectile->vel.x = player->dir.x * projectile->speed;
-			SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
-		}
-
-
 
 	}
 	else {

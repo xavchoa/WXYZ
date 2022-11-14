@@ -630,6 +630,9 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		case Type_Dummy:
 			DespawnGameObject(go);
 			break;
+		case Type_Enemy:
+			DespawnGameObject(go);
+			break;
 		}
 	}
 		break;
@@ -667,7 +670,6 @@ void UpdateDoor(GameObject* self) {
 	if (door->isOpened) {
 		self->hasCollider = FALSE;
 		self->color = CP_Color_Create(50,50,50,50);
-
 		float count = 0;
 		if (count >= .5f) {
 			count = 0.f;
@@ -855,6 +857,23 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
 	switch (self->type) {
+		case Type_Door: {
+			//door
+			if (self->hasCollider) {
+				CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
+				CP_Graphics_DrawRect(self->pos.x, self->pos.y, 50.f, 100.f);
+				CP_Settings_Fill(CP_Color_Create(140, 140, 140, 255));
+				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 5, self->pos.x + 5, self->pos.y + 40, self->pos.x + 45, self->pos.y + 5);
+				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 50, self->pos.x + 45, self->pos.y + 15, self->pos.x + 45, self->pos.y + 85);
+				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 60, self->pos.x + 5, self->pos.y + 95, self->pos.x + 45, self->pos.y + 95);
+				return;
+			}
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
+		}
+		case Type_Obstacle: {
+			return;
+		}
+		break;
 		case Type_Player: {
 			//player face
 			CP_Color player_color = CP_Color_Create(255, 255, 255, 255);

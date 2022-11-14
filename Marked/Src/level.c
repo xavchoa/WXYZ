@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level6;
+	level = Level1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -167,9 +167,6 @@ void Level_Update() {
 			player->vel.y += gravity * CP_System_GetDt();
 		} else {
 			isGameOver = TRUE;
-			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-			/*player->vel.y = 0.f;
-			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();
@@ -190,9 +187,7 @@ void Level_Update() {
 			shootPressed = FALSE;
 		}
 
-
-
-
+	
 	} else {
 		//gameover screen
 		CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
