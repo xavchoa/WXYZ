@@ -66,7 +66,7 @@ void Level4_Init() {
 
 
 	//              pos         size            vel
-	CreateLaser(1700.f, 0.f, 10, windowHeight, 0, 0);
+	CreateLaser(1700.f, 0.f, 10, windowHeight, 0, 0, 0);
 
 
 

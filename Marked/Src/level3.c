@@ -74,8 +74,8 @@ void Level3_Init() {
 	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3048.f, 0.f), CP_Vector_Set(54, 110), PLATFORM_COLOR);
 
 	//              pos         size            vel
-	CreateLaser(2450.f, windowHeight * 0.3, 300,10, 0, 0);
-	CreateLaser(950.f, windowHeight * 0.72, 300, 10, 0, 0);
+	CreateLaser(2450.f, windowHeight * 0.3, 300,10, 0, 0 , 0);
+	CreateLaser(950.f, windowHeight * 0.72, 300, 10, 0, 0, 0);
 
 
 

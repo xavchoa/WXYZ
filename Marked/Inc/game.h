@@ -111,6 +111,9 @@ typedef struct Button {
 
 typedef struct Laser {
 	CP_Vector vel;
+	CP_Vector dir;
+	float time;
+	float timeMax;
 	GameObject* goLaser;
 } Laser;
 
@@ -122,7 +125,7 @@ EndPoint* endPoint;
 GameObject* GetGameObject();
 
 void PlayerMovement();
-void MarkMechanic();
+void KeysPressed();
 
 void DespawnGameObject(GameObject* go);
 
@@ -146,7 +149,7 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 #ifndef CREATE_CODE
 
 void CreatePlatform(float x, float y, float width, float height);
-void CreateLaser(float x, float y, float width, float height, float velx, float vely);
+void CreateLaser(float x, float y, float width, float height, float velx, float vely, float time);
 
 void CreateEnemy(float x, float y);
 

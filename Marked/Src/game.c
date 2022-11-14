@@ -39,6 +39,24 @@ void PlayerMovement() {
 	}
 }
 
+void KeysPressed() {
+	if (rightPressed) {
+		player->dir.x = 1.f;
+		player->vel.x = player->speed * CP_System_GetDt();
+	}
+	else if (leftPressed) {
+		player->dir.x = -1.f;
+		player->vel.x = -player->speed * CP_System_GetDt();
+	}
+	else {
+		player->vel.x = 0.f;
+	}
+
+	if (shootPressed && !projectile->projAlive) {
+		projectile->vel.x = player->dir.x * projectile->speed;
+		SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x / 2, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
+	}
+}
 void DespawnGameObject(GameObject* go) {
 	go->isActive = FALSE;
 	go->hasCollider = FALSE;
@@ -759,7 +777,7 @@ void CreatePlatform(float x, float y, float width, float height) {
 	goPlatform->childData = platform;
 }
 
-void CreateLaser(float x, float y, float width, float height, float velx, float vely) {
+void CreateLaser(float x, float y, float width, float height, float velx, float vely, float time) {
 	GameObject* goLaser = GetGameObject();
 	goLaser->hasCollider = TRUE;
 	goLaser->type = Type_Laser;
@@ -768,6 +786,9 @@ void CreateLaser(float x, float y, float width, float height, float velx, float 
 	goLaser->color = CP_Color_Create(200, 0, 0, 50);
 	Laser* laser = (Laser*)malloc(sizeof(Laser));
 	laser->vel = CP_Vector_Set(velx, vely);
+	laser->dir = CP_Vector_Set(1, 0);
+	laser->time = 0.f;
+	laser->timeMax = time;
 	goLaser->childData = laser;
 }
 
@@ -915,7 +936,7 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
 			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
-			
+
 		}
 		break;
 		case Type_Button: {
@@ -975,7 +996,15 @@ void UpdateEnemy(GameObject* self) {
 
 void UpdateLaser(GameObject* self) {
 	Laser* l = (Laser*)self->childData;
-	self->pos.x += l->vel.x * CP_System_GetDt();
+	self->pos.x += l->dir.x * l->vel.x * CP_System_GetDt();
+	self->pos.y += l->dir.y * l->vel.y * CP_System_GetDt();
+
+	if (l->time >= l->timeMax && l->timeMax) {
+		l->time = 0.f;
+		l->dir.x = -l->dir.x;
+		l->dir.y = -l->dir.y;
+	}
+	l->time += CP_System_GetDt();
 }
 void SideScrolling(GameObject* self) {
 	if (player->goPlayer->pos.x >= 800 && rightPressed) {

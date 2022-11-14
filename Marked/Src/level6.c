@@ -21,7 +21,7 @@ void Level6_Init() {
 	goPlayer->type = Type_Player;
 	goPlayer->pos = CP_Vector_Set(700.f, 800.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 255);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
 	player->speed = 10000.f;
 	player->vel.x = 0.f;
@@ -62,7 +62,7 @@ void Level6_Init() {
 
 
 	//              pos         size            vel
-	CreateLaser(1540.f, 0.f, 10, windowHeight, 0, 0);
+	CreateLaser(1540.f, 0.f, 10, windowHeight, 0, 0, 0);
 
 	// horizontal door 1 button 1 
 	CreateButtonDoorLink(CP_Vector_Set(200.f, windowHeight * 0.88), CP_Vector_Set(1550, windowHeight * 0.8), 2);
