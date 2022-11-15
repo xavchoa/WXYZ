@@ -15,7 +15,7 @@ GameObject* GetGameObject() {
 			return (goPtr + i);
 		}
 	}
-	return;
+	return NULL;
 }
 
 void PlayerMovement() {

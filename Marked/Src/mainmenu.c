@@ -23,7 +23,6 @@ CP_Image background = NULL;
 void Main_Menu_Init()
 {
 	background = CP_Image_Load("./Assets/marked.png");
-
 	windowWidth = CP_System_GetDisplayWidth();
 	windowHeight = CP_System_GetDisplayHeight();
 	windowWidth = 1920;
