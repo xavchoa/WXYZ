@@ -20,7 +20,7 @@ CP_BOOL isGameOver = FALSE;
 
 void Level_Init() {
 
-	level = Level1;
+	nextLevel = Level1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -43,18 +43,7 @@ void Level_Init() {
 	player->markedObject = NULL;
 	goPlayer->childData = player;
 
-	GameObject* goProj = GetGameObject();
-	goProj->isActive = TRUE;
-	goProj->hasCollider = TRUE;
-	goProj->type = Type_Proj;
-	goProj->size = CP_Vector_Set(20.f, 20.f);
-	goProj->color = CP_Color_Create(128, 0, 0, 255);
-	projectile = (Projectile*)malloc(sizeof(Projectile));
-	projectile->maxRange = 1000.f;
-	projectile->range = 0.f;
-	projectile->speed = 1000.f;
-	projectile->goProj = goProj;
-	goProj->childData = projectile;
+	InitPlayerProjectile();
 
 	GameObject* goEndPoint = GetGameObject();
 	goEndPoint->isActive = TRUE;
@@ -212,8 +201,7 @@ void Level_Update() {
 	
 	} else {
 		//gameover screen
-		CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
-		RenderScene();
+		DisplayGameOver();
 	}
 
 	if (CP_Input_KeyDown(KEY_Q)) {
@@ -224,7 +212,8 @@ void Level_Update() {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 
-	if (CP_Input_KeyDown(KEY_R)) {
+	if (CP_Input_KeyTriggered(KEY_R)) {
+		projectile->projAlive = FALSE;
 		shootPressed = FALSE;
 		rightPressed = FALSE;
 		leftPressed = FALSE;

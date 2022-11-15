@@ -1,3 +1,4 @@
+#pragma optimize off
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -135,7 +136,7 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			endPoint = (EndPoint*)go2->childData;
 			if (endPoint->enemyCount == 0) {
 				//next level
-				TransitScene(level);
+				TransitScene(nextLevel);
 				break;
 			}
 		}
@@ -716,6 +717,21 @@ void EnemyShoot(GameObject* _enemy) {
 	enemyProj->childData = proj;
 }
 
+void InitPlayerProjectile() {
+	GameObject* goProj = GetGameObject();
+	goProj->isActive = TRUE;
+	goProj->hasCollider = TRUE;
+	goProj->type = Type_Proj;
+	goProj->size = CP_Vector_Set(20.f, 20.f);
+	goProj->color = CP_Color_Create(128, 0, 0, 255);
+	projectile = (Projectile*)malloc(sizeof(Projectile));
+	projectile->projAlive = FALSE;
+	projectile->maxRange = 1000.f;
+	projectile->range = 0.f;
+	projectile->speed = 1000.f;
+	projectile->goProj = goProj;
+	goProj->childData = projectile;
+}
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
 	go->hasCollider = collider;
@@ -1068,3 +1084,12 @@ void RenderScene() {
 	}
 }
 
+void DisplayGameOver() {
+	CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
+	RenderScene();
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Settings_TextSize(100);
+	CP_Font_DrawText("YOU DIED...", windowWidth / 2, windowHeight / 2);
+	CP_Settings_TextSize(50);
+	CP_Font_DrawText("Press \"R\" to restart level", windowWidth / 2, windowHeight / 2 + 60);
+}

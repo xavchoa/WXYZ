@@ -1,5 +1,4 @@
 #pragma once
-
 #define FALSE 0
 #define TRUE 1
 #define GOARRAY_SIZE 500
@@ -143,6 +142,8 @@ void UpdateEnemyProj(GameObject* self);
 void EnemyShoot(GameObject* _enemy);
 
 void UpdateLaser(GameObject* self);
+
+void InitPlayerProjectile();
 //	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color); 
 		
@@ -164,7 +165,7 @@ void UpdateDummy(GameObject* self);
 void UpdateEnemy(GameObject* self);
 	
 void SideScrolling(GameObject* self);
-
+void DisplayGameOver();
 void RenderScene();
 		
 

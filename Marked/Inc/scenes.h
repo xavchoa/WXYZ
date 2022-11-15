@@ -18,7 +18,7 @@ typedef enum LEVELS {
 	Num_Scenes
 }LEVELS;
 
-LEVELS level;
+LEVELS nextLevel;
 
 void TransitScene(enum LEVELS level);
 #endif
