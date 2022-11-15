@@ -2,6 +2,7 @@
 #include "cprocessing.h"
 #include "utils.h"
 #include "level.h"
+#include "scenes.h"
 
 int windowWidth = 0;
 int windowHeight = 0;
@@ -69,7 +70,7 @@ void Main_Menu_Update()
 	is_rect1_clicked = IsAreaClicked(rect1_x, rect1_y, rect1_width, rect1_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	is_rect2_clicked = IsAreaClicked(rect2_x, rect2_y, rect2_width, rect2_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	if (is_rect1_clicked) {
-		CP_Engine_SetNextGameState(Level_Init, Level_Update, Level_Exit);
+		TransitScene(Level1);
 	}
 	if (is_rect2_clicked) {
 		CP_Engine_Terminate();

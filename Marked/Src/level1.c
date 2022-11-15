@@ -100,6 +100,8 @@ void Level1_Update() {
 			}
 		}
 
+		
+
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
 				if ((goPtr + i)->type == Type_Platform) {
@@ -140,7 +142,11 @@ void Level1_Update() {
 		}
 
 		RenderScene();
-
+		if (player->goPlayer->pos.x > 800) {
+			CP_Settings_TextSize(50);
+			CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+			CP_Font_DrawText("The door will only open once all enemies are eliminated", 1000, 500);
+		}
 		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();

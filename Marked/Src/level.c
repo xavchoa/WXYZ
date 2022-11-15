@@ -59,10 +59,11 @@ void Level_Init() {
 
 	CreateDummy(1500.f, 580);
 
+	CreateLaser(1400, 0, 10, windowHeight, 0, 0, 0);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.6), CP_Vector_Set(400.f, 540.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550.f, windowHeight * 0.7), CP_Vector_Set(200.f, 600.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900.f, windowHeight * 0.7), CP_Vector_Set(1080.f, 540.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1450.f, 0), CP_Vector_Set(100.f, 550.f), PLATFORM_COLOR);
+	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1450.f, 0), CP_Vector_Set(100.f, 550.f), PLATFORM_COLOR);
 	//CreateEnemy(1000.f, 300.f);
 	
 
@@ -98,26 +99,33 @@ void Level_Init() {
 }
 void Level_Update() {
 	CP_System_SetFrameRate(60);
-	float textSize = 30.0f;
+	float textSize = 50.0f;
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-	CP_Graphics_DrawRect(20, 80, 300, 100);
-	CP_Graphics_DrawRect(515, 80, 300, 100);
-	CP_Graphics_DrawRect(1000, 60, 350, 200);
-	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	//CP_Graphics_DrawRect(20, 80, 300, 100);
+	//CP_Graphics_DrawRect(515, 80, 300, 100);
+	//CP_Graphics_DrawRect(1000, 60, 350, 200);
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextSize(textSize);
-	CP_Font_DrawTextBox("Press arrow keys to move forward and backward", 20, 120, 300);
-	CP_Font_DrawTextBox("Press space bar to jump", 515, 125, 300);
-	CP_Font_DrawTextBox("Press X to mark target, press again to swap positions", 1000, 105, 350);
-	textSize = 20.0f;
-	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+	
+	CP_Font_DrawTextBox("Arrow keys to move", 20, 122, 300);
+	CP_Font_DrawTextBox("Space bar to jump", 500, 125, 300);
+	CP_Font_DrawTextBox("\"X\"  to mark target, press again to switch", 900, 125, 400);
+	textSize = 30.0f;
+	CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
 	CP_Settings_TextSize(textSize);
-	CP_Font_DrawTextBox("NOTE: Once target is marked, target must be within vision (fully visible on your screen) in order to swap", 1000, 180, 350);
+	CP_Font_DrawTextBox("NOTE: Target must be fully visible on your screen to switch", 900, 230, 400);
+	CP_Settings_TextSize(50);
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	CP_Font_DrawTextBox("Assassinate all targets Reach the endpoint", 1450, 125, 450);
+	CP_Font_DrawTextBox("Good luck,", 1450, 300, 450);
+	CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+	CP_Font_DrawTextBox("Marksman", 1450, 350, 450);
+	
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {
 			if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
-
 				for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
 					if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
 						if (CheckCollision((goPtr + x), (goPtr + y))) {
@@ -166,7 +174,9 @@ void Level_Update() {
 		}
 
 		RenderScene();
-
+		CP_Settings_TextSize(50);
+		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+		CP_Font_DrawTextBox("Becareful! Lasers only kill you. Enemies are immune.", 1000, 700, 600);
 		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();

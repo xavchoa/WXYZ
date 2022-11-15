@@ -220,8 +220,7 @@ void Level3_Update() {
 	}
 	else {
 		//gameover screen
-		CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
-		RenderScene();
+		DisplayGameOver();
 	}
 
 	if (CP_Input_KeyDown(KEY_Q)) {
