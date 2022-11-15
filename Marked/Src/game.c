@@ -872,13 +872,22 @@ void DrawGameElements(GameObject* self) {
 	switch (self->type) {
 		case Type_Door: {
 			//door
-			if (self->hasCollider) {
+			if (self->hasCollider && self->size.x == 50) {
 				CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
-				CP_Graphics_DrawRect(self->pos.x, self->pos.y, 50.f, 100.f);
+				CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 50.f, 100.f, 0, 0);
 				CP_Settings_Fill(CP_Color_Create(140, 140, 140, 255));
 				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 5, self->pos.x + 5, self->pos.y + 40, self->pos.x + 45, self->pos.y + 5);
 				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 50, self->pos.x + 45, self->pos.y + 15, self->pos.x + 45, self->pos.y + 85);
 				CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 60, self->pos.x + 5, self->pos.y + 95, self->pos.x + 45, self->pos.y + 95);
+				return;
+			}
+			else if(self->hasCollider) {
+				CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
+				CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y+50, 50.f, 100.f, -90, 0);
+				CP_Settings_Fill(CP_Color_Create(140, 140, 140, 255));
+				CP_Graphics_DrawTriangleAdvanced(self->pos.x + 3, self->pos.y + 20, self->pos.x + 3, self->pos.y + 55, self->pos.x + 43, self->pos.y + 20, -90);
+				CP_Graphics_DrawTriangleAdvanced(self->pos.x + 23, self->pos.y + 19, self->pos.x + 63, self->pos.y + -16, self->pos.x + 63, self->pos.y + 54, -90);
+				CP_Graphics_DrawTriangleAdvanced(self->pos.x + 70, self->pos.y + 8, self->pos.x + 70, self->pos.y + 43, self->pos.x + 110, self->pos.y + 43, -90);
 				return;
 			}
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
@@ -973,10 +982,11 @@ void DrawGameElements(GameObject* self) {
 		break;
 		case Type_Button: {
 			//button
+			CP_Settings_Fill(CP_Color_Create(155, 0, 0, 255));
+			CP_Graphics_DrawRectAdvanced(self->pos.x + 10.0, self->pos.y - 8.0, 50.0, 10.f, 0, 5);
 			CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, 70.f, 10.f);
-			CP_Settings_Fill(CP_Color_Create(155, 0, 0, 255));
-			CP_Graphics_DrawRect(self->pos.x + 10.0, self->pos.y - 10.0, 50.0, 10.f);
+			
 			return;
 		}
 		case Type_Proj: {

@@ -85,7 +85,8 @@ void Level_Init() {
 
 	
 
-	//CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(700, 710),1);
+	//CreateButtonDoorLink(CP_Vector_Set(500, windowHeight * 0.7 - 50), CP_Vector_Set(700, windowHeight * 0.7 - 100),1);
+	//CreateButtonDoorLink(CP_Vector_Set(500, windowHeight * 0.7 - 50), CP_Vector_Set(1000, windowHeight * 0.7 - 100),2);
 	//CreateButtonDoorLink(CP_Vector_Set(500, 800), CP_Vector_Set(1500, 710),1);
 
 
@@ -95,8 +96,6 @@ void Level_Init() {
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
-
-
 void Level_Update() {
 	CP_System_SetFrameRate(60);
 	float textSize = 30.0f;
@@ -114,8 +113,6 @@ void Level_Update() {
 	CP_Settings_TextSize(textSize);
 	CP_Font_DrawTextBox("NOTE: Once target is marked, target must be within vision (fully visible on your screen) in order to swap", 1000, 180, 350);
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
-	//printf("%f\n", CP_System_GetDt());
-	//printf("%f\n", CP_System_GetFrameRate());
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		for (int x = 0; x < GOARRAY_SIZE; ++x) {
@@ -186,9 +183,6 @@ void Level_Update() {
 		if (CP_Input_KeyTriggered(KEY_X)) {
 			if (player->markedObject != NULL && player->markedObject->pos.x > 0 && player->markedObject->pos.x < windowWidth) {
 				SwapPositions();
-				//Enemy* e = (Enemy*)player->markedObject->childData;
-				//GameObject* target = (GameObject*)player->markedObject->childData;
-				//e->collidedWithPlatform = FALSE;
 				player->markedObject = NULL;
 			}
 			else
@@ -221,8 +215,6 @@ void Level_Update() {
 		CP_Engine_SetNextGameStateForced(Level_Init, Level_Update, Level_Exit);
 	}
 }
-
-
 void Level_Exit() {
 	free(goPtr);
 	free(player);
