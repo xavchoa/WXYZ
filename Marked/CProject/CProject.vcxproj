@@ -101,6 +101,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\cutscene1.c" />
     <ClCompile Include="..\Src\game.c" />
     <ClCompile Include="..\Src\level.c" />
     <ClCompile Include="..\Src\level1.c" />
@@ -109,6 +110,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\level4.c" />
     <ClCompile Include="..\Src\level5.c" />
     <ClCompile Include="..\Src\level6.c" />
+    <ClCompile Include="..\Src\level7.c" />
     <ClCompile Include="..\Src\main.c" />
     <ClCompile Include="..\Src\mainmenu.c" />
     <ClCompile Include="..\Src\scenes.c" />

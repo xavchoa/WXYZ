@@ -30,7 +30,7 @@ void Level_Init() {
 	goPlayer->isActive = TRUE;
 	goPlayer->hasCollider = TRUE;
 	goPlayer->type = Type_Player;
-	goPlayer->pos = CP_Vector_Set(300.f, 100.f);
+	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
 	goPlayer->size = CP_Vector_Set(50.f, 50.f);
 	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
@@ -107,19 +107,27 @@ void Level_Update() {
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextSize(textSize);
 	
+	
 	CP_Font_DrawTextBox("Arrow keys to move", 20, 122, 300);
-	CP_Font_DrawTextBox("Space bar to jump", 500, 125, 300);
-	CP_Font_DrawTextBox("\"X\"  to mark target, press again to switch", 900, 125, 400);
-	textSize = 30.0f;
-	CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-	CP_Settings_TextSize(textSize);
-	CP_Font_DrawTextBox("NOTE: Target must be fully visible on your screen to switch", 900, 230, 400);
-	CP_Settings_TextSize(50);
-	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-	CP_Font_DrawTextBox("Assassinate all targets Reach the endpoint", 1450, 125, 450);
-	CP_Font_DrawTextBox("Good luck,", 1450, 300, 450);
-	CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-	CP_Font_DrawTextBox("Marksman", 1450, 350, 450);
+	if(player->goPlayer->pos.x > 300)
+		CP_Font_DrawTextBox("Space bar to jump", 500, 125, 300);
+	if (player->goPlayer->pos.x > 800) {
+		CP_Font_DrawTextBox("\"X\"  to mark target, press again to switch", 900, 125, 400);
+		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+		CP_Settings_TextSize(30);
+		CP_Font_DrawTextBox("NOTE: Target must be fully visible on your screen to switch", 900, 230, 400);
+	}
+	if (player->goPlayer->pos.x > 1400) {
+		CP_Settings_TextSize(50);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Font_DrawTextBox("Assassinate all targets Reach the endpoint", 1450, 125, 450);
+	}
+	if (player->goPlayer->pos.x > 1600) {
+		CP_Font_DrawTextBox("Good luck,", 1450, 300, 450);
+		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+		CP_Font_DrawTextBox("Marksman", 1450, 350, 450);
+	}
+	
 	
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	if (isGameOver == FALSE) {
@@ -176,7 +184,8 @@ void Level_Update() {
 		RenderScene();
 		CP_Settings_TextSize(50);
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-		CP_Font_DrawTextBox("Becareful! Lasers only kill you. Enemies are immune.", 1000, 700, 600);
+		if (player->goPlayer->pos.x > 800) 
+			CP_Font_DrawTextBox("Becareful! Lasers only kill you. Enemies are immune.", 1000, 700, 600);
 		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();

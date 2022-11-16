@@ -8,9 +8,8 @@
 #include "game.h"
 #include "scenes.h"
 
-
 void Level6_Init() {
-	//level = Level7;
+	nextLevel = Level7;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -39,7 +38,7 @@ void Level6_Init() {
 	goEndPoint->isActive = TRUE;
 	goEndPoint->hasCollider = TRUE;
 	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(2750.f, windowHeight * 0.7);
+	goEndPoint->pos = CP_Vector_Set(1450.f, windowHeight * 0.7);
 	goEndPoint->size = CP_Vector_Set(50.f, 100.f);
 	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
@@ -47,72 +46,34 @@ void Level6_Init() {
 	endPoint->enemyCount = 0;
 
 
-
-	CreateEnemy(2300.f, windowHeight * 0.29f);
-	CreateEnemy(2350.f, windowHeight * 0.7f);
-
-	CreateDummy(860.f, windowHeight * 0.7f);
-	CreateDummy(1800.f, windowHeight * 0.29f);
-
-
-	//              pos         size            vel  timing for rebound
-	CreateLaser(1700.f, 0.f, 10, windowHeight, 0, 0, 0);
-
-
+	CreateEnemy(1110.f, windowHeight * 0.8f);
+	CreateEnemy(400.f, windowHeight * 0.5);
+	CreateEnemy(400.f, windowHeight * 0.8f);
+	
 
 	// Platforms
 	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.8), CP_Vector_Set(2000, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2000.f, windowHeight * 0.9), CP_Vector_Set(800, 100), PLATFORM_COLOR);
-
-	// steps to go to door 2
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.68), CP_Vector_Set(100, 50), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.58), CP_Vector_Set(100, 50), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550.f, windowHeight * 0.48), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.8), CP_Vector_Set(400, windowHeight * 0.7), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.74), CP_Vector_Set(100, 50), PLATFORM_COLOR);
 
 
-	// door 1 button 1
-	CreateButtonDoorLink(CP_Vector_Set(550.f, windowHeight * 0.79), CP_Vector_Set(700, windowHeight * 0.69), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.5), CP_Vector_Set(54, windowHeight * 0.19), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1100, 100), PLATFORM_COLOR);
 
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.6), CP_Vector_Set(600, 70), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.68), CP_Vector_Set(80, windowHeight * 0.22), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.4), CP_Vector_Set(682, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.79), CP_Vector_Set(100, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1300.f, windowHeight * 0.5), CP_Vector_Set(80, windowHeight * 0.5), PLATFORM_COLOR);
-
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, 0), CP_Vector_Set(682, 100), PLATFORM_COLOR);
-
-	// door 2 button 2
-	CreateButtonDoorLink(CP_Vector_Set(1100.f, windowHeight * 0.79), CP_Vector_Set(700, windowHeight * 0.29), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(698.f, windowHeight * 0.1), CP_Vector_Set(54, windowHeight * 0.19), PLATFORM_COLOR);
-
-
-	//throw enemy off the laser
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2460.f, 0), CP_Vector_Set(50, windowHeight * 0.4), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1710.f, windowHeight * 0.4), CP_Vector_Set(800, 100), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1810.f, windowHeight * 0.17), CP_Vector_Set(150, 50), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2060.f, windowHeight * 0.27), CP_Vector_Set(100, 50), PLATFORM_COLOR);
-
-
-
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, windowHeight * 0.79), CP_Vector_Set(310, 30), PLATFORM_COLOR);
-
-	// door 3 button 3
-	CreateButtonDoorLink(CP_Vector_Set(2310.f, windowHeight * 0.89), CP_Vector_Set(2200.f, windowHeight * 0.68), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2198.f, windowHeight * 0.5), CP_Vector_Set(54, windowHeight * 0.18), PLATFORM_COLOR);
-
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2460.f, windowHeight * 0.5), CP_Vector_Set(50, windowHeight * 0.29), PLATFORM_COLOR);
-
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2650.f, windowHeight * 0.8), CP_Vector_Set(150, 87), PLATFORM_COLOR);
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2801.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1501.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
+
 
 
 void Level6_Update() {
@@ -134,22 +95,12 @@ void Level6_Update() {
 
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
-				if ((goPtr + i)->type == Type_Platform) {
-					SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Enemy) {
-					SideScrolling(goPtr + i);
+				if ((goPtr + i)->type == Type_Enemy) {
 					UpdateEnemy(goPtr + i);
 					if ((goPtr + i)->pos.y > windowHeight) {
 						DespawnGameObject(goPtr + i);
 						endPoint->enemyCount--;
 					}
-				}
-				else if ((goPtr + i)->type == Type_EndPoint) {
-					SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Obstacle) {
-					SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
@@ -159,22 +110,24 @@ void Level6_Update() {
 				}
 				else if ((goPtr + i)->type == Type_Door) {
 					UpdateDoor(goPtr + i);
-					SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Button) {
 					SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Dummy) {
-					SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
-				else if ((goPtr + i)->type == Type_Laser) {
-					SideScrolling(goPtr + i);
+				else if ((goPtr + i)->type == Type_Laser){
 					UpdateLaser(goPtr + i);
 				}
 			}
 		}
 
+		CP_Settings_TextSize(50);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Font_DrawTextBox("Enemy projectiles are deadly. No one can survive them.", 350, 300, 600);
+		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+		CP_Font_DrawTextBox("NO ONE.", 1100, 500, 200);
 		RenderScene();
 
 		//simulate gravity
@@ -186,9 +139,6 @@ void Level6_Update() {
 		}
 		else {
 			isGameOver = TRUE;
-			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-			/*player->vel.y = 0.f;
-			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();

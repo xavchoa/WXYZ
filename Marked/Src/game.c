@@ -8,6 +8,7 @@
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
+#include <string.h>
 
 GameObject* GetGameObject() {
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
@@ -1014,6 +1015,19 @@ void DrawGameElements(GameObject* self) {
 			CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255));
 			CP_Graphics_DrawCircle(self->pos.x + 3.5, self->pos.y + 3.5f, 5.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			return;
+		}
+		case Type_Info: {
+			CP_Settings_TextSize(50);
+			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
+			CP_Font_DrawTextBox("REMEMBER: All enemies need to be eliminated to proceed. Timing is crucial, if you want to survive.", self->pos.x, self->pos.y, self->size.x);
+			return;
+		}
+		case Type_Info2: {
+			CP_Settings_TextSize(50);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			CP_Font_DrawTextBox("You cannot kill enemies directly.", self->pos.x, self->pos.y - 100, self->size.x);
+			CP_Font_DrawTextBox("Think of ways to take them out by swapping positions.", self->pos.x, self->pos.y, self->size.x);
 			return;
 		}
 		default:

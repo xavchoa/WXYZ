@@ -12,14 +12,14 @@
 #include "game.h"
 #include "scenes.h"
 
-
-
 void Level1_Init() {
 	nextLevel = Level2;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
 	}
+	CreateGameElement(TRUE, Type_Info, CP_Vector_Set(1000, windowHeight - 100), CP_Vector_Set(1200, 0), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Info2, CP_Vector_Set(1000, 200), CP_Vector_Set(800, 0), PLATFORM_COLOR);
 
 	GameObject* goPlayer = GetGameObject();
 	goPlayer->isActive = TRUE;
@@ -138,15 +138,16 @@ void Level1_Update() {
 					SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
+				else if ((goPtr + i)->type == Type_Info) {
+					SideScrolling(goPtr + i);
+				}
+				else if ((goPtr + i)->type == Type_Info2) {
+					SideScrolling(goPtr + i);
+				}
 			}
 		}
 
 		RenderScene();
-		if (player->goPlayer->pos.x > 800) {
-			CP_Settings_TextSize(50);
-			CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-			CP_Font_DrawText("The door will only open once all enemies are eliminated", 1000, 500);
-		}
 		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();

@@ -29,6 +29,8 @@ enum GAMEOBJECT_TYPE {
 	Type_Obstacle,
 	Type_EndPoint,
 	Type_Laser,
+	Type_Info,
+	Type_Info2,
 	Type_None
 };
 
