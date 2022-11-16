@@ -2,7 +2,6 @@
 #include "cprocessing.h"
 #include "utils.h"
 #include "level.h"
-#include "scenes.h"
 
 int windowWidth = 0;
 int windowHeight = 0;
@@ -15,15 +14,21 @@ float rect2_x = 0.f;
 float rect2_y = 0.f;
 float rect2_width = 0.f;
 float rect2_height = 0.f;
+float rect3_x = 0.f;
+float rect3_y = 0.f;
+float rect3_width = 0.f;
+float rect3_height = 0.f;
 float text_size = 70.f;
 CP_BOOL is_rect1_clicked = 0;
 CP_BOOL is_rect2_clicked = 0;
+CP_BOOL is_rect3_clicked = 0;
 CP_Color rect_color;
 CP_Image background = NULL;
 
 void Main_Menu_Init()
 {
 	background = CP_Image_Load("./Assets/marked.png");
+
 	windowWidth = CP_System_GetDisplayWidth();
 	windowHeight = CP_System_GetDisplayHeight();
 	windowWidth = 1920;
@@ -37,6 +42,10 @@ void Main_Menu_Init()
 	rect2_y = windowHeight / 2.f + 350.f;
 	rect2_width = windowWidth / 7.f;
 	rect2_height = windowHeight / 7.f;
+	rect3_x = windowWidth / 2.f;
+	rect3_y = windowHeight / 2.f + 250.f;
+	rect3_width = windowWidth / 4.f;
+	rect3_height = windowHeight / 7.f;
 	rect_color = CP_Color_Create(250, 160, 160, 0);
 	printf("init complete\n");
 }
@@ -61,6 +70,11 @@ void Main_Menu_Update()
 	CP_Font_DrawTextBox("START", rect1_x - rect1_width / 2.f, rect1_y, rect1_width);
 
 	CP_Settings_Fill(rect_color);
+	CP_Graphics_DrawRect(rect3_x, rect3_y, rect3_width, rect3_height);
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Font_DrawTextBox("SELECT LEVEL", rect3_x - rect3_width / 2.f, rect3_y, rect3_width);
+
+	CP_Settings_Fill(rect_color);
 	CP_Graphics_DrawRect(rect2_x, rect2_y, rect2_width, rect2_height);
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Font_DrawTextBox("EXIT", rect2_x - rect2_width / 2.f, rect2_y, rect2_width);
@@ -69,11 +83,15 @@ void Main_Menu_Update()
 
 	is_rect1_clicked = IsAreaClicked(rect1_x, rect1_y, rect1_width, rect1_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	is_rect2_clicked = IsAreaClicked(rect2_x, rect2_y, rect2_width, rect2_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
+	is_rect3_clicked = IsAreaClicked(rect3_x, rect3_y, rect3_width, rect3_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	if (is_rect1_clicked) {
-		TransitScene(Level10);
+		CP_Engine_SetNextGameState(Level_Init, Level_Update, Level_Exit);
 	}
 	if (is_rect2_clicked) {
 		CP_Engine_Terminate();
+	}
+	if (is_rect3_clicked) {
+		CP_Engine_SetNextGameState(StageSelect_Init, StageSelect_Update, StageSelect_Exit);
 	}
 
 }

@@ -48,3 +48,6 @@ void Cutscene1_Init(void);
 void Cutscene1_Update(void);
 void Cutscene1_Exit(void);
 
+void StageSelect_Init(void);
+void StageSelect_Update(void);
+void StageSelect_Exit(void);

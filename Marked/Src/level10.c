@@ -62,7 +62,7 @@ void Level10_Init() {
 
 	CreateButtonDoorLink(CP_Vector_Set(950.f, 790.f), CP_Vector_Set(450.f, 700.f), 1);
 	
-	CreateLaser(-850, 0, 10, windowHeight, 60, 0, 100);
+	//CreateLaser(-850, 0, 10, windowHeight, 60, 0, 100);
 	CreateLaser(-600, 0, 10, windowHeight, 60, 0, 100);
 	CreateLaser(-200, 0, 10, windowHeight, 60, 0, 100);
 	CreateLaser(-400, 0, 10, windowHeight, 60, 0, 40);
@@ -70,7 +70,7 @@ void Level10_Init() {
 	CreateLaser(450, 0, 10, windowHeight - 200, 0, 0, 0);
 	CreateLaser(1350, 0, 10, windowHeight, 80, 0, 4);
 	CreateLaser(2000, 228, 250, 10, 0, 200, 3);
-	CreateLaser(2600, 800, 800, 10, 0, -100, 8);
+	CreateLaser(2600, 800, 1200, 10, 0, -100, 8);
 	CreateLaser(2700, 0, 10, windowHeight, 0, 0, 0);
 	CreateLaser(2893, 0, 10, windowHeight, 0, 0, 0);
 
