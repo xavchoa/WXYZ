@@ -56,7 +56,7 @@ void Level6_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.8), CP_Vector_Set(400, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.74), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.72), CP_Vector_Set(100, 80), PLATFORM_COLOR);
 
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1100, 100), PLATFORM_COLOR);

@@ -64,7 +64,7 @@ typedef struct Enemy {
 	CP_Vector vel;
 	CP_Vector dir;
 	float speed;
-	CP_BOOL collidedWithPlatform;
+	//GameObject* goPlatform;
 	GameObject* goEnemy;
 
 	float bt; //time between bullets

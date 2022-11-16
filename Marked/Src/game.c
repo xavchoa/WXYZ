@@ -306,8 +306,9 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		break;
 	case Type_Enemy:
 		switch (go2->type) {
-			case Type_Platform: { //enemy - platform collision
+		case Type_Platform: { //enemy - platform collision
 			Enemy* e = (Enemy*)go->childData;
+			//e->goPlatform = go2;
 			//e->collidedWithPlatform = TRUE;
 			e->vel.y = 0;
 			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
@@ -357,6 +358,12 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 						go->pos.y -= intHeight;
 					}
 				}
+			}
+
+			if (go->pos.x <= go2->pos.x) {
+				e->dir.x = 1;
+			}else if(go->pos.x + go->size.x >= go2->pos.x + go2->size.x) {
+				e->dir.x = -1;
 			}
 			break;
 		}
@@ -416,9 +423,9 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 				break;
 			}
 			case Type_Obstacle: {
-				if (go2->pos.x > go->pos.x-1 && go2->pos.x + go2->size.x < go->pos.x + 1 + go->size.x) {
+				/*if (go2->pos.x > go->pos.x-1 && go2->pos.x + go2->size.x < go->pos.x + 1 + go->size.x) {
 					return;
-			}
+			}*/
 			Enemy* e = (Enemy*)go->childData;
 			e->dir.x = -e->dir.x;
 			break;
@@ -744,7 +751,7 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 	case Type_Enemy: {
 		Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
 		enemy->vel = CP_Vector_Set(0, 0);
-		enemy->collidedWithPlatform = FALSE;
+		//enemy->collidedWithPlatform = FALSE;
 		enemy->goEnemy = go;
 		go->childData = enemy;
 	}
@@ -764,8 +771,8 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 		Platform* platform = (Platform*)malloc(sizeof(Platform));
 		go->childData = platform;
 		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y +10), CP_Vector_Set(size.x, size.y-10), OBSTACLE_COLOR);
-		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
-		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
+		//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
+		//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
 		break;
 	}
 	case Type_EndPoint:
@@ -819,7 +826,7 @@ void CreateEnemy(float x, float y) {
 	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
 	enemy->vel = CP_Vector_Set(100, 0);
 	enemy->dir = CP_Vector_Set(1, 0);
-	enemy->collidedWithPlatform = FALSE;
+	//enemy->collidedWithPlatform = FALSE;
 	enemy->bt = 0.f;
 	goEnemy->childData = enemy;
 }
@@ -1058,7 +1065,7 @@ void UpdateDummy(GameObject* self) {
 
 void UpdateEnemy(GameObject* self) {
 	Enemy* e = (Enemy*)self->childData;
-	if (e->collidedWithPlatform == FALSE)
+	//if (e->collidedWithPlatform == FALSE)
 		e->vel.y += gravity * CP_System_GetDt();
 
 	self->pos.y += e->vel.y * CP_System_GetDt();
