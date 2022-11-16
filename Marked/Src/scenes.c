@@ -13,10 +13,11 @@ FunctionPtr levels[Num_Scenes][3] = {
 	{Level5_Init, Level5_Update, Level5_Exit},
 	{Level6_Init, Level6_Update, Level6_Exit},
 	{Level7_Init, Level7_Update, Level7_Exit},
-	{Cutscene1_Init, Cutscene1_Update, Cutscene1_Exit},
+	
 	//{Level8_Init, Level8_Update, Level8_Exit},
 	//{Level9_Init, Level9_Update, Level9_Exit},
-	//{Level10_Init, Level10_Update, Level10_Exit},
+	{Level10_Init, Level10_Update, Level10_Exit},
+	{Cutscene1_Init, Cutscene1_Update, Cutscene1_Exit}
 
 };
 

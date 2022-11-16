@@ -809,7 +809,7 @@ void CreateLaser(float x, float y, float width, float height, float velx, float 
 	goLaser->color = CP_Color_Create(200, 0, 0, 50);
 	Laser* laser = (Laser*)malloc(sizeof(Laser));
 	laser->vel = CP_Vector_Set(velx, vely);
-	laser->dir = CP_Vector_Set(1, 0);
+	laser->dir = CP_Vector_Set(1, 1);
 	laser->time = 0.f;
 	laser->timeMax = time;
 	goLaser->childData = laser;

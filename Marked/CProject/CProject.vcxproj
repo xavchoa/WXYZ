@@ -105,6 +105,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\game.c" />
     <ClCompile Include="..\Src\level.c" />
     <ClCompile Include="..\Src\level1.c" />
+    <ClCompile Include="..\Src\level10.c" />
     <ClCompile Include="..\Src\level2.c" />
     <ClCompile Include="..\Src\level3.c" />
     <ClCompile Include="..\Src\level4.c" />

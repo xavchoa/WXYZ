@@ -32,6 +32,18 @@ void Level7_Init(void);
 void Level7_Update(void);
 void Level7_Exit(void);
 
+//void Level8_Init(void);
+//void Level8_Update(void);
+//void Level8_Exit(void);
+//
+//void Level9_Init(void);
+//void Level9_Update(void);
+//void Level9_Exit(void);
+
+void Level10_Init(void);
+void Level10_Update(void);
+void Level10_Exit(void);
+
 void Cutscene1_Init(void);
 void Cutscene1_Update(void);
 void Cutscene1_Exit(void);

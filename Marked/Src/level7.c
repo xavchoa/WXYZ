@@ -10,7 +10,7 @@
 
 
 void Level7_Init() {
-	nextLevel = Level8;
+	nextLevel = Level10;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
