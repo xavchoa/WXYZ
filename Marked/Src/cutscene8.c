@@ -41,7 +41,7 @@ void Cutscene8_Update() {
 	else if (time < 4)
 		CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 	else if (time < 5)
-		CP_Font_DrawText("DOORS", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("BUTTONS", windowWidth / 2, windowHeight / 2);
 	else if (time < 5.5) {
 		CP_Font_DrawText("AND", windowWidth / 2, windowHeight / 2);
 	}
@@ -51,17 +51,35 @@ void Cutscene8_Update() {
 	}
 	else if (time < 7.5)
 		CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
-	else if (time < 8.5) {
-		CP_Font_DrawText("YOU", windowWidth / 2, windowHeight / 2);
+	else if (time < 8.2) {
+		CP_Font_DrawText("I'M", windowWidth / 2, windowHeight / 2);
 	}
-	else if (time < 9.5) {
+	else if (time < 8.6) {
+		CP_Font_DrawText("PUSHING", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 9) {
+		CP_Font_DrawText("YOUR", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 9.4) {
+		CP_Font_DrawText("BUTTONS", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 9.7) {
+		CP_Font_DrawText("AND", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 10) {
+		CP_Font_DrawText("YOU'RE", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 10.4) {
+		CP_Font_DrawText("THE", windowWidth / 2, windowHeight / 2);
+	}
+	else if (time < 11.5) {
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
 		CP_Font_DrawText("DUMMY.", windowWidth / 2, windowHeight / 2);
 	}
-	else if (time < 9.8) {
+	else if (time < 11.5) {
 		CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 	}
-	else if (time > 9.8)
+	else if (time > 11.4)
 		TransitScene(Level8);
 }
 

@@ -36,9 +36,9 @@ void Level8_Init(void);
 void Level8_Update(void);
 void Level8_Exit(void);
 
-//void Level9_Init(void);
-//void Level9_Update(void);
-//void Level9_Exit(void);
+void Level9_Init(void);
+void Level9_Update(void);
+void Level9_Exit(void);
 
 void Level10_Init(void);
 void Level10_Update(void);
@@ -56,10 +56,17 @@ void Cutscene8_Init(void);
 void Cutscene8_Update(void);
 void Cutscene8_Exit(void);
 
+void Cutscene9_Init(void);
+void Cutscene9_Update(void);
+void Cutscene9_Exit(void);
+
 void Cutscene10_Init(void);
 void Cutscene10_Update(void);
 void Cutscene10_Exit(void);
 
+void Winscene_Init(void);
+void Winscene_Update(void);
+void Winscene_Exit(void);
 
 void StageSelect_Init(void);
 void StageSelect_Update(void);

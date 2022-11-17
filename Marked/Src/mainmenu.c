@@ -86,7 +86,7 @@ void Main_Menu_Update()
 	is_rect2_clicked = IsAreaClicked(rect2_x, rect2_y, rect2_width, rect2_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	is_rect3_clicked = IsAreaClicked(rect3_x, rect3_y, rect3_width, rect3_height, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	if (is_rect1_clicked) {
-		TransitScene(Level0);
+		TransitScene(Winscene);
 	}
 	if (is_rect2_clicked) {
 		CP_Engine_Terminate();

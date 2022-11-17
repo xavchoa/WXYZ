@@ -284,7 +284,7 @@ void StageSelect_Update()
 		TransitScene(Cutscene8);
 	}
 	if (is_rect9_clicked_SS) {
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+		TransitScene(Cutscene9);
 	}
 	if (is_rect10_clicked_SS) {
 		TransitScene(Cutscene10);

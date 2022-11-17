@@ -105,6 +105,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\cutscene10.c" />
     <ClCompile Include="..\Src\cutscene7.c" />
     <ClCompile Include="..\Src\cutscene8.c" />
+    <ClCompile Include="..\Src\cutscene9.c" />
     <ClCompile Include="..\Src\game.c" />
     <ClCompile Include="..\Src\level.c" />
     <ClCompile Include="..\Src\level1.c" />
@@ -116,11 +117,13 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\level6.c" />
     <ClCompile Include="..\Src\level7.c" />
     <ClCompile Include="..\Src\level8.c" />
+    <ClCompile Include="..\Src\level9.c" />
     <ClCompile Include="..\Src\main.c" />
     <ClCompile Include="..\Src\mainmenu.c" />
     <ClCompile Include="..\Src\scenes.c" />
     <ClCompile Include="..\Src\StageSelect.c" />
     <ClCompile Include="..\Src\utils.c" />
+    <ClCompile Include="..\Src\winscreen.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\game.h" />
