@@ -63,7 +63,6 @@ void Level5_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(566.f, windowHeight * 0.57), CP_Vector_Set(54, windowHeight * 0.23), PLATFORM_COLOR);
 
 
-
 	// Platforms
 	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1001.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
@@ -78,9 +77,8 @@ void Level5_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1100.f, windowHeight * 0.57), CP_Vector_Set(100.f, windowHeight * 0.33), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1200.f, windowHeight * 0.47), CP_Vector_Set(100.f, windowHeight * 0.43), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1300.f, windowHeight * 0.37), CP_Vector_Set(175.f, windowHeight * 0.53), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1375.f, windowHeight * 0.31), CP_Vector_Set(100.f, 50.f), PLATFORM_COLOR);
-	CreateLaser(1476.f, windowHeight * 0.31, 174, 10, 0, 0, 0);
-
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1375.f, windowHeight * 0.315), CP_Vector_Set(100.f, 50.f), PLATFORM_COLOR);
+	CreateLaser(1476.f, windowHeight * 0.315, 174, 10, 0, 0, 0);
 
 
 	// AFTER END 

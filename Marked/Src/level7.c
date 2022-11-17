@@ -10,7 +10,7 @@
 
 
 void Level7_Init() {
-	nextLevel = Level10;
+	nextLevel = Cutscene8;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
@@ -68,9 +68,9 @@ void Level7_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2000.f, windowHeight * 0.9), CP_Vector_Set(800, 100), PLATFORM_COLOR);
 
 	// steps to go to door 2
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(150.f, windowHeight * 0.68), CP_Vector_Set(100, 50), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.58), CP_Vector_Set(100, 50), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550.f, windowHeight * 0.48), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, windowHeight * 0.68), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(300.f, windowHeight * 0.58), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(500.f, windowHeight * 0.48), CP_Vector_Set(100, 50), PLATFORM_COLOR);
 
 
 	// door 1 button 1

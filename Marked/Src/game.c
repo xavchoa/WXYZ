@@ -1027,7 +1027,7 @@ void DrawGameElements(GameObject* self) {
 		case Type_Info: {
 			CP_Settings_TextSize(50);
 			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-			CP_Font_DrawTextBox("REMEMBER: All enemies need to be eliminated to proceed. Timing is crucial, if you want to survive.", self->pos.x, self->pos.y, self->size.x);
+			CP_Font_DrawTextBox("REMEMBER: All enemies need to be eliminated to proceed. Press \"R\" if you get stuck.", self->pos.x, self->pos.y, self->size.x);
 			return;
 		}
 		case Type_Info2: {

@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "level.h"
 #include "mainmenu.h"
+#include "scenes.h"
 
 
 int windowWidth_SS = 0;
@@ -259,37 +260,37 @@ void StageSelect_Update()
 	is_rect10_clicked_SS = IsAreaClicked(rect10_x_SS, rect10_y_SS, rect10_width_SS, rect10_height_SS, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	is_rectBACK_clicked_SS = IsAreaClicked(rectBACK_x_SS, rectBACK_y_SS, rectBACK_width_SS, rectBACK_height_SS, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 	if (is_rect1_clicked_SS) {
-		CP_Engine_SetNextGameState(Level1_Init, Level1_Update, Level1_Exit);
+		TransitScene(Level1);
 	}
 	if (is_rect2_clicked_SS) {
-		CP_Engine_SetNextGameState(Level2_Init, Level2_Update, Level2_Exit);
+		TransitScene(Level2);
 	}
 	if (is_rect3_clicked_SS) {
-		CP_Engine_SetNextGameState(Level3_Init, Level3_Update, Level3_Exit);
+		TransitScene(Level3);
 	}
 	if (is_rect4_clicked_SS) {
-		CP_Engine_SetNextGameState(Level4_Init, Level4_Update, Level4_Exit);
+		TransitScene(Cutscene1);
 	}
 	if (is_rect5_clicked_SS) {
-		CP_Engine_SetNextGameState(Level5_Init, Level5_Update, Level5_Exit);
+		TransitScene(Level5);
 	}
 	if (is_rect6_clicked_SS) {
-		CP_Engine_SetNextGameState(Level6_Init, Level6_Update, Level6_Exit);
+		TransitScene(Level6);
 	}
 	if (is_rect7_clicked_SS) {
-		CP_Engine_SetNextGameState(Level7_Init, Level7_Update, Level7_Exit);
+		TransitScene(Cutscene7);
 	}
 	if (is_rect8_clicked_SS) {
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+		TransitScene(Cutscene8);
 	}
 	if (is_rect9_clicked_SS) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 	if (is_rect10_clicked_SS) {
-		CP_Engine_SetNextGameState(Level10_Init, Level10_Update, Level10_Exit);
+		TransitScene(Cutscene10);
 	}
 	if (is_rectBACK_clicked_SS) {
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+		TransitScene(Main_Menu);
 	}
 
 	//CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));

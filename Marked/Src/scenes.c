@@ -4,7 +4,7 @@
 #include "scenes.h"
 
 FunctionPtr levels[Num_Scenes][3] = {
-	//{Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit},
+	{Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit},
 	{Level_Init, Level_Update, Level_Exit},
 	{Level1_Init, Level1_Update, Level1_Exit},
 	{Level2_Init, Level2_Update, Level2_Exit},
@@ -13,11 +13,13 @@ FunctionPtr levels[Num_Scenes][3] = {
 	{Level5_Init, Level5_Update, Level5_Exit},
 	{Level6_Init, Level6_Update, Level6_Exit},
 	{Level7_Init, Level7_Update, Level7_Exit},
-	
-	//{Level8_Init, Level8_Update, Level8_Exit},
+	{Level8_Init, Level8_Update, Level8_Exit},
 	//{Level9_Init, Level9_Update, Level9_Exit},
 	{Level10_Init, Level10_Update, Level10_Exit},
-	{Cutscene1_Init, Cutscene1_Update, Cutscene1_Exit}
+	{Cutscene1_Init, Cutscene1_Update, Cutscene1_Exit},
+	{Cutscene7_Init, Cutscene7_Update, Cutscene7_Exit},
+	{Cutscene8_Init, Cutscene8_Update, Cutscene8_Exit},
+	{Cutscene10_Init, Cutscene10_Update, Cutscene10_Exit}
 
 };
 

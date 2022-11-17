@@ -3,7 +3,7 @@
 #ifndef SCENES_H
 #define SCENES_H
 typedef enum LEVELS {
-	//Main_Menu,
+	Main_Menu,
 	Level0,
 	Level1,
 	Level2,
@@ -12,10 +12,13 @@ typedef enum LEVELS {
 	Level5,
 	Level6,
 	Level7,
-	//Level8,
+	Level8,
 	//Level9,
 	Level10,
 	Cutscene1,
+	Cutscene7,
+	Cutscene8,
+	Cutscene10,
 	Num_Scenes
 }LEVELS;
 
