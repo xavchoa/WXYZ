@@ -21,37 +21,11 @@ void Level1_Init() {
 	CreateGameElement(TRUE, Type_Info, CP_Vector_Set(1000, windowHeight - 100), CP_Vector_Set(1200, 0), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Info2, CP_Vector_Set(1000, 200), CP_Vector_Set(800, 0), PLATFORM_COLOR);
 
-	GameObject* goPlayer = GetGameObject();
-	goPlayer->isActive = TRUE;
-	goPlayer->hasCollider = TRUE;
-	goPlayer->type = Type_Player;
-	goPlayer->pos = CP_Vector_Set(0.f, 500.f);
-	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
-	player = (Player*)malloc(sizeof(Player));
-	player->speed = 10000.f;
-	player->vel.x = 0.f;
-	player->vel.y = 500.f;
-	player->dir.x = 1.f;
-	player->dir.y = 0.f;
-	player->goPlayer = goPlayer;
-	player->markedObject = NULL;
-	goPlayer->childData = player;
+
 
 	InitPlayerProjectile();
-
-	GameObject* goEndPoint = GetGameObject();
-	goEndPoint->isActive = TRUE;
-	goEndPoint->hasCollider = TRUE;
-	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(2200.f, windowHeight * 0.55f);
-	goEndPoint->size = CP_Vector_Set(50.f, 100.f);
-	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
-	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
-	goEndPoint->childData = endPoint;
-	endPoint->enemyCount = 0;
-
-
+	InitEndPoint(2150.f, windowHeight * 0.55f);
+	InitPlayer(0, 700);
 
 	CreateEnemy(1950.f, windowHeight * 0.6f);
 	//CreateDummy(100.f, windowHeight * 0.8f);
@@ -117,6 +91,7 @@ void Level1_Update() {
 				}
 				else if ((goPtr + i)->type == Type_EndPoint) {
 					SideScrolling(goPtr + i);
+					UpdateEndPoint(goPtr +i);
 				}
 				else if ((goPtr + i)->type == Type_Obstacle) {
 					SideScrolling(goPtr + i);
@@ -144,6 +119,7 @@ void Level1_Update() {
 				else if ((goPtr + i)->type == Type_Info2) {
 					SideScrolling(goPtr + i);
 				}
+
 			}
 		}
 

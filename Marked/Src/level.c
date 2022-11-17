@@ -26,36 +26,11 @@ void Level_Init() {
 		(goPtr + i)->isActive = FALSE;
 	}
 
-	GameObject* goPlayer = GetGameObject();
-	goPlayer->isActive = TRUE;
-	goPlayer->hasCollider = TRUE;
-	goPlayer->type = Type_Player;
-	goPlayer->pos = CP_Vector_Set(0.f, 100.f);
-	goPlayer->size = CP_Vector_Set(50.f, 50.f);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
-	player = (Player*)malloc(sizeof(Player));
-	player->speed = 10000.f;
-	player->vel.x = 0.f;
-	player->vel.y = 500.f;
-	player->dir.x = 1.f;
-	player->dir.y = 0.f;
-	player->goPlayer = goPlayer;
-	player->markedObject = NULL;
-	goPlayer->childData = player;
-
 	InitPlayerProjectile();
 
-	GameObject* goEndPoint = GetGameObject();
-	goEndPoint->isActive = TRUE;
-	goEndPoint->hasCollider = TRUE;
-	goEndPoint->type = Type_EndPoint;
-	goEndPoint->pos = CP_Vector_Set(1800.f, 530.f);
-	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
-	goEndPoint->color = CP_Color_Create(75, 0, 130, 255);
-	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
-	goEndPoint->childData = endPoint;
-	endPoint->enemyCount = 0;
+	InitEndPoint(1800.f, 530.f);
 
+	InitPlayer(0, 100);
 
 	CreateDummy(1500.f, 580);
 
@@ -109,6 +84,10 @@ void Level_Update() {
 	
 	
 	CP_Font_DrawTextBox("Arrow keys to move", 20, 122, 300);
+	CP_Settings_TextSize(30);
+	CP_Font_DrawTextBox("Dummy", 1470, 550, 100);
+	CP_Settings_TextSize(textSize);
+
 	if(player->goPlayer->pos.x > 300)
 		CP_Font_DrawTextBox("Space bar to jump", 500, 125, 300);
 	if (player->goPlayer->pos.x > 800) {
@@ -127,7 +106,6 @@ void Level_Update() {
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
 		CP_Font_DrawTextBox("Marksman", 1450, 350, 450);
 	}
-	
 	
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	if (isGameOver == FALSE) {
@@ -156,26 +134,21 @@ void Level_Update() {
 						endPoint->enemyCount--;
 					}
 				} else if ((goPtr + i)->type == Type_EndPoint){
-					//SideScrolling(goPtr + i);
+					UpdateEndPoint(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Obstacle) {
-					//SideScrolling(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
 				} else if ((goPtr + i)->type == Type_EnemyProj) {
 					UpdateEnemyProj(goPtr + i);
 				} else if ((goPtr + i)->type == Type_Door) {
 					UpdateDoor(goPtr + i);
-					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Button) {
-					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Dummy) {
-					//SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Laser) {
-					//SideScrolling(goPtr + i);
 					UpdateLaser(goPtr + i);
 				}
 			}

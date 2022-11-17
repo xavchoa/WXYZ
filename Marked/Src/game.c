@@ -68,6 +68,7 @@ void DespawnGameObject(GameObject* go) {
 	go->childData = NULL;
 }
 
+
 void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
@@ -642,9 +643,23 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		}
 	}
 		break;
+	case Type_EndPoint: {
+		switch (go2->type) {
+		case Type_Player: {
+			endPoint = (EndPoint*)go->childData;
+			if (endPoint->enemyCount == 0)
+				//next level
+				TransitScene(nextLevel);
+			break;
+		}
+				break;
+		}
+	}
+		break;
 	}
 	
 }
+
 
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 	if (go->type == go2->type)
@@ -725,6 +740,37 @@ void EnemyShoot(GameObject* _enemy) {
 	enemyProj->childData = proj;
 }
 
+void InitPlayer(float x, float y) {
+	GameObject* goPlayer = GetGameObject();
+	goPlayer->isActive = TRUE;
+	goPlayer->hasCollider = TRUE;
+	goPlayer->type = Type_Player;
+	goPlayer->pos = CP_Vector_Set(x,y);
+	goPlayer->size = CP_Vector_Set(50,50);
+	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
+	player = (Player*)malloc(sizeof(Player));
+	player->speed = 10000.f;
+	player->vel.x = 0.f;
+	player->vel.y = 500.f;
+	player->dir.x = 1.f;
+	player->dir.y = 0.f;
+	player->goPlayer = goPlayer;
+	player->markedObject = NULL;
+	goPlayer->childData = player;
+}
+
+void InitEndPoint(float x, float y) {
+	GameObject* goEndPoint = GetGameObject();
+	goEndPoint->isActive = TRUE;
+	goEndPoint->hasCollider = TRUE;
+	goEndPoint->type = Type_EndPoint;
+	goEndPoint->pos = CP_Vector_Set(x,y);
+	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
+	goEndPoint->color = CP_Color_Create(128, 0, 0, 255);
+	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
+	goEndPoint->childData = endPoint;
+	endPoint->enemyCount = 0;
+}
 void InitPlayerProjectile() {
 	GameObject* goProj = GetGameObject();
 	goProj->isActive = TRUE;
@@ -878,6 +924,40 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
 	switch (self->type) {
+		case Type_EndPoint:{
+			CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
+			CP_Graphics_BeginShape();
+			CP_Graphics_AddVertex(self->pos.x, self->pos.y);
+			CP_Graphics_AddVertex(self->pos.x - 20, self->pos.y + 20);
+			CP_Graphics_AddVertex(self->pos.x, self->pos.y + 20);
+			CP_Graphics_EndShape();
+			CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
+			CP_Graphics_BeginShape();
+			CP_Graphics_AddVertex(self->pos.x + 60, self->pos.y);
+			CP_Graphics_AddVertex(self->pos.x + 60, self->pos.y + 20);
+			CP_Graphics_AddVertex(self->pos.x + 80, self->pos.y + 20);
+			CP_Graphics_EndShape();
+			CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y, 60, 20);
+			CP_Settings_Fill(CP_Color_Create(68, 80, 85, 255));
+			CP_Graphics_DrawRect(self->pos.x - 20, self->pos.y + 20, 100, 80);
+			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+			//CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 20, self->pos.x, self->pos.y + 10);
+			CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 20, self->pos.x - 10, self->pos.y + 90);
+			CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 90, self->pos.x + 70, self->pos.y + 90);
+			CP_Graphics_DrawLine(self->pos.x + 70, self->pos.y + 90, self->pos.x + 70, self->pos.y + 20);
+			//CP_Graphics_DrawLine(self->pos.x + 70, self->pos.y + 20, self->pos.x + 60, self->pos.y + 10);
+			//CP_Graphics_DrawLine(self->pos.x + 60, self->pos.y + 10, self->pos.x, self->pos.y + 10);
+			CP_Graphics_DrawLine(self->pos.x + 30, self->pos.y + 10, self->pos.x + 30, self->pos.y + 90);
+
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
+			CP_Graphics_DrawRect(self->pos.x + 12, self->pos.y + 40, 10, 20);
+			CP_Graphics_DrawRect(self->pos.x + 38, self->pos.y + 40, 10, 20);
+			CP_Settings_Fill(self->color);
+			CP_Graphics_DrawCircle(self->pos.x + 30, self->pos.y + 10, 15.f);
+			return;
+		}
 		case Type_Door: {
 			//door
 			if (self->hasCollider && self->size.x == 50) {
@@ -1055,12 +1135,20 @@ void UpdateProjectile(GameObject* self) {
 	projectile->range += projectile->vel.x * CP_System_GetDt();
 }
 
+
 void UpdateDummy(GameObject* self) {
 	Dummy* d = (Dummy*)self->childData;
 	//if (d->collidedWithPlatform == FALSE)
 		d->vel.y += gravity * CP_System_GetDt();
 
 	self->pos.y += d->vel.y * CP_System_GetDt();
+}
+
+void UpdateEndPoint(GameObject* self) {
+	EndPoint* ep = (EndPoint*)self->childData;
+	if (ep->enemyCount == 0) {
+		self->color = CP_Color_Create(51,165,50,255);
+	}
 }
 
 void UpdateEnemy(GameObject* self) {

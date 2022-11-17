@@ -21,9 +21,9 @@ void Cutscene7_Update() {
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	time += CP_System_GetDt();
 	if (time < .5)
-		CP_Font_DrawText("DON'T", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("NO", windowWidth / 2, windowHeight / 2);
 	else if (time < 1)
-		CP_Font_DrawText("WORRY", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("SHAME", windowWidth / 2, windowHeight / 2);
 	else if (time < 1.3)
 		CP_Font_DrawText("IF", windowWidth / 2, windowHeight / 2);
 	else if (time < 1.6) {

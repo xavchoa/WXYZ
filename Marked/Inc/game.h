@@ -138,12 +138,17 @@ void SetProjSpawn(float x, float y);
 
 void UpdateDoor(GameObject* self);
 
+void UpdateEndPoint(GameObject* self);
 
 void UpdateEnemyProj(GameObject* self);
 
 void EnemyShoot(GameObject* _enemy);
 
 void UpdateLaser(GameObject* self);
+
+void InitPlayer(float x, float y);
+
+void InitEndPoint(float x, float y);
 
 void InitPlayerProjectile();
 //	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1000.f, windowHeight * 0.8 + 10), CP_Vector_Set(100.f, 100.f), OBSTACLE_COLOR);
