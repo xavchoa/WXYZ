@@ -21,10 +21,11 @@ void Level9_Init() {
 	InitPlayerProjectile();
 
 	// enemies
+	
 	CreateEnemy(400.f, windowHeight * 0.7f);
 	CreateEnemy(1550.f, windowHeight * 0.7f);
 	CreateEnemy(1750.f, windowHeight * 0.7f);
-
+	
 	// 4 dummies (1st half)
 	CreateDummy(1.f, windowHeight * 0.7f);
 	CreateDummy(549.f, windowHeight * 0.62f);
@@ -57,7 +58,7 @@ void Level9_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.62), CP_Vector_Set(200, 25), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.47), CP_Vector_Set(200, 25), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.32), CP_Vector_Set(530, 25), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(800.f, windowHeight * 0.42), CP_Vector_Set(100, 25), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.42), CP_Vector_Set(200, 25), PLATFORM_COLOR);
 
 	// first half button and door
 	CreateButtonDoorLink(CP_Vector_Set(500.f, windowHeight * 0.31), CP_Vector_Set(600, windowHeight * 0.21), 1);

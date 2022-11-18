@@ -17,7 +17,7 @@ void Level2_Init() {
 		(goPtr + i)->isActive = FALSE;
 	}
 
-	InitEndPoint(2400, windowHeight * 0.59f-10);
+	InitEndPoint(2420, windowHeight * 0.59f);
 	InitPlayerProjectile();
 	InitPlayer(0, 500);
 

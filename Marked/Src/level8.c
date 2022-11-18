@@ -10,7 +10,7 @@
 
 
 void Level8_Init() {
-	nextLevel = Level10;
+	nextLevel = Cutscene9;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
