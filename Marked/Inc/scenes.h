@@ -28,6 +28,6 @@ LEVELS currentLevel;
 LEVELS nextLevel;
 
 void TransitScene(enum LEVELS level);
-void RestartScene(enum LEVELS level);
+void RestartLevel(enum LEVELS level);
 
 #endif

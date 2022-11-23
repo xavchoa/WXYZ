@@ -7,7 +7,8 @@
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
-
+#include "player.h"
+#include "enemy.h"
 
 void Level8_Init() {
 	CP_System_SetFrameRate(60);
@@ -19,91 +20,91 @@ void Level8_Init() {
 	}
 
 	
-	InitEndPoint(1840.f, windowHeight*0.25 - 20);
+	InitEndPoint(1840.f, (float)windowHeight*0.25f - 20.f);
 	InitPlayer(200,600);
 	InitPlayerProjectile();
 
-	CreateDummy(301.f, windowHeight * 0.1);
-	CreateDummy(678.f, windowHeight * 0.1);
-	CreateDummy(1045, windowHeight * 0.1);
+	CreateDummy(301.f, (float)windowHeight * 0.1f);
+	CreateDummy(678.f, (float)windowHeight * 0.1f);
+	CreateDummy(1045, (float)windowHeight * 0.1f);
 
 	// Platforms
 	//BEHIND START 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.92), CP_Vector_Set(950, 100), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.85), CP_Vector_Set(200, 62), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.92f), CP_Vector_Set(950, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.85f), CP_Vector_Set(200, 62), PLATFORM_COLOR);
 	// step to go up 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.8), CP_Vector_Set(100, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.8f), CP_Vector_Set(100, 50), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.85), CP_Vector_Set(100, 62), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(600.f, windowHeight * 0.85), CP_Vector_Set(100, 62), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(630.f, windowHeight * 0.82), CP_Vector_Set(40, 30), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(850.f, windowHeight * 0.7), CP_Vector_Set(100, 200), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, (float)windowHeight * 0.85f), CP_Vector_Set(100, 62), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(600.f, (float)windowHeight * 0.85f), CP_Vector_Set(100, 62), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(630.f, (float)windowHeight * 0.82f), CP_Vector_Set(40, 30), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(850.f, (float)windowHeight * 0.7f), CP_Vector_Set(100, 200), PLATFORM_COLOR);
 
 	// top pillar
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, 0.f), CP_Vector_Set(200, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(475.f, 0.f), CP_Vector_Set(100, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(850.f, 0.f), CP_Vector_Set(100, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, 0.f), CP_Vector_Set(100, windowHeight * 0.57), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, 0.f), CP_Vector_Set(200, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(475.f, 0.f), CP_Vector_Set(100, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(850.f, 0.f), CP_Vector_Set(100, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, 0.f), CP_Vector_Set(100, (float)windowHeight * 0.57f), PLATFORM_COLOR);
 
 
 	// platform along with door 1
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.685), CP_Vector_Set(400, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, (float)windowHeight * 0.685f), CP_Vector_Set(400, 50), PLATFORM_COLOR);
 	//door 1 button 1
-	CreateButtonDoorLink(CP_Vector_Set(240.f, windowHeight * 0.91), CP_Vector_Set(600, windowHeight * 0.685), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.685), CP_Vector_Set(250, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(240.f, (float)windowHeight * 0.91f), CP_Vector_Set(600.f, (float)windowHeight * 0.685f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, (float)windowHeight * 0.685f), CP_Vector_Set(250, 50), PLATFORM_COLOR);
 
 	//platform with top door 1
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, windowHeight * 0.2), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.2f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 	// top door 1
-	CreateButtonDoorLink(CP_Vector_Set(240.f, windowHeight * 0.91), CP_Vector_Set(1030, windowHeight * 0.2), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, windowHeight * 0.2), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(240.f, (float)windowHeight * 0.91f), CP_Vector_Set(1030, (float)windowHeight * 0.2f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.2f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 
 
 	//button 2 door 2
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, windowHeight * 0.2), CP_Vector_Set(84, 50), PLATFORM_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(490.f, windowHeight * 0.91), CP_Vector_Set(660, windowHeight * 0.2), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(760.f, windowHeight * 0.2), CP_Vector_Set(87, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, (float)windowHeight * 0.2f), CP_Vector_Set(84, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(490.f, (float)windowHeight * 0.91f), CP_Vector_Set(660, (float)windowHeight * 0.2f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(760.f, (float)windowHeight * 0.2f), CP_Vector_Set(87, 50), PLATFORM_COLOR);
 
 	//button 3 door 3
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, windowHeight * 0.2), CP_Vector_Set(84, 50), PLATFORM_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(740.f, windowHeight * 0.91), CP_Vector_Set(285, windowHeight * 0.2), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(385.f, windowHeight * 0.2), CP_Vector_Set(87, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, (float)windowHeight * 0.2f), CP_Vector_Set(84, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(740.f, (float)windowHeight * 0.91f), CP_Vector_Set(285, (float)windowHeight * 0.2f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(385.f, (float)windowHeight * 0.2f), CP_Vector_Set(87, 50), PLATFORM_COLOR);
 
 	//button 4 door 4
-	CreateButtonDoorLink(CP_Vector_Set(678.f, windowHeight * 0.19), CP_Vector_Set(370, windowHeight * 0.74), 1);
+	CreateButtonDoorLink(CP_Vector_Set(678.f, (float)windowHeight * 0.19f), CP_Vector_Set(370, (float)windowHeight * 0.74f), 1);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, windowHeight * 0.3), CP_Vector_Set(80, 50), PLATFORM_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(676.f, windowHeight * 0.19), CP_Vector_Set(1030, windowHeight * 0.3), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, windowHeight * 0.3), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.3f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(676.f, (float)windowHeight * 0.19f), CP_Vector_Set(1030.f, (float)windowHeight * 0.3f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.3f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, windowHeight * 0.685), CP_Vector_Set(80, 50), PLATFORM_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(676.f, windowHeight * 0.19), CP_Vector_Set(1030, windowHeight * 0.685), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, windowHeight * 0.685), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.685f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(676.f, (float)windowHeight * 0.19f), CP_Vector_Set(1030.f, (float)windowHeight * 0.685f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.685f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 
 
 	//button 5 door 5
-	CreateButtonDoorLink(CP_Vector_Set(676.f, windowHeight * 0.5), CP_Vector_Set(875, windowHeight * 0.57), 1);
+	CreateButtonDoorLink(CP_Vector_Set(676.f, (float)windowHeight * 0.5f), CP_Vector_Set(875.f, (float)windowHeight * 0.57f), 1);
 	//platform for button 5
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, windowHeight * 0.515), CP_Vector_Set(275, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, (float)windowHeight * 0.515f), CP_Vector_Set(275, 50), PLATFORM_COLOR);
 
 
 	//button 6 door 6
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, windowHeight * 0.885), CP_Vector_Set(80, 50), PLATFORM_COLOR);
-	CreateButtonDoorLink(CP_Vector_Set(301.f, windowHeight * 0.19), CP_Vector_Set(1030, windowHeight * 0.885), 2);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, windowHeight * 0.885), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.885f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(301.f, (float)windowHeight * 0.19f), CP_Vector_Set(1030.f, (float)windowHeight * 0.885f), 2);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.885f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, windowHeight * 0.685), CP_Vector_Set(200.f, 50.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, windowHeight * 0.885), CP_Vector_Set(710.f, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1425.f, windowHeight * 0.83), CP_Vector_Set(50.f, 50.f), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1475.f, windowHeight * 0.78), CP_Vector_Set(50.f, 95.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, (float)windowHeight * 0.685f), CP_Vector_Set(200.f, 50.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, (float)windowHeight * 0.885f), CP_Vector_Set(710.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1425.f, (float)windowHeight * 0.83f), CP_Vector_Set(50.f, 50.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1475.f, (float)windowHeight * 0.78f), CP_Vector_Set(50.f, 95.f), PLATFORM_COLOR);
 
 	// steps to end point
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1525.f, windowHeight * 0.685), CP_Vector_Set(150.f, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1720.f, windowHeight * 0.34), CP_Vector_Set(200, windowHeight * 0.57), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1660.f, windowHeight * 0.53), CP_Vector_Set(60.f, windowHeight * 0.63), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1525.f, (float)windowHeight * 0.685f), CP_Vector_Set(150.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1720.f, (float)windowHeight * 0.34f), CP_Vector_Set(200.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1660.f, (float)windowHeight * 0.53f), CP_Vector_Set(60.f, (float)windowHeight * 0.63f), PLATFORM_COLOR);
 	
 
 
@@ -113,7 +114,7 @@ void Level8_Init() {
 
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2801.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2801.f, 0.f), CP_Vector_Set(1100.f, (float)windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
@@ -180,9 +181,6 @@ void Level8_Update() {
 		}
 		else {
 			isGameOver = TRUE;
-			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-			/*player->vel.y = 0.f;
-			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();

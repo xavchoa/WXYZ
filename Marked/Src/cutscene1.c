@@ -21,28 +21,28 @@ void Cutscene1_Update() {
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	time += CP_System_GetDt();
 	if (time < .5)
-		CP_Font_DrawText("THAT", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("THAT", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 1)
-		CP_Font_DrawText("WAS", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("WAS", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 1.5)
-		CP_Font_DrawText("TOO", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("TOO", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 2.5) {
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-		CP_Font_DrawText("EASY", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("EASY", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	}
 	else if (time < 3)
 		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	else if (time < 3.5)
-		CP_Font_DrawText("LET'S", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("LET'S", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 3.8)
-		CP_Font_DrawText("RAMP", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("RAMP", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 4.2)
-		CP_Font_DrawText("UP", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("UP", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 4.7)
-		CP_Font_DrawText("THE", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("THE", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	else if (time < 6) {
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-		CP_Font_DrawText("DIFFICULTY", windowWidth / 2, windowHeight / 2);
+		CP_Font_DrawText("DIFFICULTY", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	}
 	else if (time < 6.5)
 		CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));

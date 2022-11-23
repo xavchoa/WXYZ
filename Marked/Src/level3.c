@@ -7,6 +7,8 @@
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
+#include "player.h"
+#include "enemy.h"
 
 
 void Level3_Init() {
@@ -19,39 +21,33 @@ void Level3_Init() {
 	}
 
 
-	InitEndPoint(1720.f, windowHeight * 0.47);
+	InitEndPoint(1720.f, (float)windowHeight * 0.47f);
 	InitPlayer(200.f, 500.f);
 	InitPlayerProjectile();
 
 
-	CreateEnemy(300.f, windowHeight * 0.7f);
-
-
-	//CreateDummy(100.f, windowHeight * 0.7);
-
+	CreateEnemy(300.f, (float)windowHeight * 0.7f);
 
 	//              pos         size            vel  timing for rebound
-	CreateLaser(700.f, 0.f, 10, windowHeight, 100, 0, 8.9);
+	CreateLaser(700.f, 0.f, 10, (float)windowHeight, 100, 0, 8.9f);
 	//CreateLaser(1590.f, 0.f, 10, windowHeight, -50, 0, 10);
-
-
 
 	// Platforms
 	//BEHIND START 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, windowHeight * 0.7), CP_Vector_Set(150, 100), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, windowHeight * 0.8), CP_Vector_Set(600, windowHeight * 0.8), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, windowHeight * 0.7), CP_Vector_Set(1100, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1600.f, windowHeight * 0.58), CP_Vector_Set(200, 300), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, (float)windowHeight * 0.7f), CP_Vector_Set(150.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, (float)windowHeight * 0.8f), CP_Vector_Set(600.f, (float)windowHeight * 0.8f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, (float)windowHeight * 0.7f), CP_Vector_Set(1100.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1600.f, (float)windowHeight * 0.58f), CP_Vector_Set(200.f, 300.f), PLATFORM_COLOR);
 
 
 	// door 1 button 1
-	CreateButtonDoorLink(CP_Vector_Set(1130.f, windowHeight * 0.69), CP_Vector_Set(0.f, windowHeight * 0.8), 2);
+	CreateButtonDoorLink(CP_Vector_Set(1130.f, (float)windowHeight * 0.69f), CP_Vector_Set(0.f, (float)windowHeight * 0.8f), 2);
 
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1801.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1801.f, 0.f), CP_Vector_Set(1100.f, (float)windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
@@ -108,7 +104,6 @@ void Level3_Update() {
 
 		RenderScene();
 
-		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -134,8 +129,6 @@ void Level3_Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-
 
 	}
 	else {

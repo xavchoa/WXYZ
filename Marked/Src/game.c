@@ -1,4 +1,3 @@
-#pragma optimize off
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,45 +19,6 @@ GameObject* GetGameObject() {
 	return NULL;
 }
 
-void PlayerMovement() {
-	//player movement
-	if (CP_Input_KeyDown(KEY_SPACE) && isGrounded) {
-		player->vel.y -= 500.f;
-		isGrounded = FALSE;
-	}
-	if (CP_Input_KeyDown(KEY_LEFT)) {
-		leftPressed = TRUE;
-	}
-	if (CP_Input_KeyReleased(KEY_LEFT)) {
-		leftPressed = FALSE;
-	}
-
-	if (CP_Input_KeyDown(KEY_RIGHT)) {
-		rightPressed = TRUE;
-	}
-	if (CP_Input_KeyReleased(KEY_RIGHT)) {
-		rightPressed = FALSE;
-	}
-}
-
-void KeysPressed() {
-	if (rightPressed) {
-		player->dir.x = 1.f;
-		player->vel.x = player->speed * CP_System_GetDt();
-	}
-	else if (leftPressed) {
-		player->dir.x = -1.f;
-		player->vel.x = -player->speed * CP_System_GetDt();
-	}
-	else {
-		player->vel.x = 0.f;
-	}
-
-	if (shootPressed && !projectile->projAlive) {
-		projectile->vel.x = player->dir.x * projectile->speed;
-		SetProjSpawn(player->goPlayer->pos.x + player->goPlayer->size.x / 2, player->goPlayer->pos.y + player->goPlayer->size.y / 2);
-	}
-}
 void DespawnGameObject(GameObject* go) {
 	go->isActive = FALSE;
 	go->hasCollider = FALSE;
@@ -309,8 +269,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		switch (go2->type) {
 		case Type_Platform: { //enemy - platform collision
 			Enemy* e = (Enemy*)go->childData;
-			//e->goPlatform = go2;
-			//e->collidedWithPlatform = TRUE;
 			e->vel.y = 0;
 			if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
 				float intWidth = go->pos.x + go->size.x - go2->pos.x; //intersecting width
@@ -424,9 +382,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 				break;
 			}
 			case Type_Obstacle: {
-				/*if (go2->pos.x > go->pos.x-1 && go2->pos.x + go2->size.x < go->pos.x + 1 + go->size.x) {
-					return;
-			}*/
 			Enemy* e = (Enemy*)go->childData;
 			e->dir.x = -e->dir.x;
 			break;
@@ -438,7 +393,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 			}
 			case Type_Door: {
 				Enemy* e = (Enemy*)go->childData;
-				//e->collidedWithPlatform = TRUE;
 				e->dir.x = -e->dir.x;
 				e->vel.y = 0;
 				if (go->pos.x + go->size.x <= go2->pos.x + go2->size.x) {
@@ -648,7 +602,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 		case Type_Player: {
 			endPoint = (EndPoint*)go->childData;
 			if (endPoint->enemyCount == 0)
-				//next level
 				TransitScene(nextLevel);
 			break;
 		}
@@ -659,7 +612,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	}
 	
 }
-
 
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 	if (go->type == go2->type)
@@ -672,18 +624,6 @@ CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 		go2->pos.y + go2->size.y >= go->pos.y;
 
 	return collisionX && collisionY;
-}
-
-void SwapPositions() {
-	CP_Vector tmp = player->markedObject->pos;
-	player->markedObject->pos = player->goPlayer->pos;
-	player->goPlayer->pos = tmp;
-	player->markedObject->color = CP_Color_Create(0, 0, 0, 0);
-}
-void SetProjSpawn(float x, float y) {
-	projectile->goProj->pos.x = x;
-	projectile->goProj->pos.y = y;
-	projectile->projAlive = TRUE;
 }
 
 void UpdateDoor(GameObject* self) {
@@ -703,61 +643,6 @@ void UpdateDoor(GameObject* self) {
 		self->color = CP_Color_Create(50, 50, 50, 255);
 	}
 }
-	//else if (!door->isOpened && !self->hasCollider) {
-	//	self->hasCollider = TRUE;
-	//	self->color = CP_Color_Create(50, 50, 50, 255);
-	//}
-
-void UpdateEnemyProj(GameObject* self) {
-	float speedScale = 2.f;
-	Projectile* proj = self->childData;
-	self->pos.x += proj->dir.x * proj->speed * speedScale * CP_System_GetDt();
-	proj->range += proj->dir.x * proj->speed * speedScale * CP_System_GetDt();
-
-	if (abs(proj->range) >= proj->maxRange) {
-		proj->range = 0.f;
-		DespawnGameObject(self);
-	}
-}
-
-void EnemyShoot(GameObject* _enemy) {
-	Enemy* enemy = (Enemy*)_enemy->childData;
-	GameObject* enemyProj = GetGameObject();
-	enemyProj->hasCollider = TRUE;
-	enemyProj->size = CP_Vector_Set(20.f, 20.f);
-	enemyProj->color = ENEMY_COLOR;
-	enemyProj->type = Type_EnemyProj;
-	Projectile* proj = (Projectile*)malloc(sizeof(Projectile));
-	proj->maxRange = 600.f;
-	proj->range = 0.f;
-	proj->speed = 500.f;
-	proj->goProj = enemyProj;
-	proj->dir = enemy->dir;
-	if (enemy->dir.x > 0)
-		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(_enemy->size.x + 10.f, 10.f));
-	else
-		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(-10.f, 10.f));
-	enemyProj->childData = proj;
-}
-
-void InitPlayer(float x, float y) {
-	GameObject* goPlayer = GetGameObject();
-	goPlayer->isActive = TRUE;
-	goPlayer->hasCollider = TRUE;
-	goPlayer->type = Type_Player;
-	goPlayer->pos = CP_Vector_Set(x,y);
-	goPlayer->size = CP_Vector_Set(50,50);
-	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
-	player = (Player*)malloc(sizeof(Player));
-	player->speed = 10000.f;
-	player->vel.x = 0.f;
-	player->vel.y = 500.f;
-	player->dir.x = 1.f;
-	player->dir.y = 0.f;
-	player->goPlayer = goPlayer;
-	player->markedObject = NULL;
-	goPlayer->childData = player;
-}
 
 void InitEndPoint(float x, float y) {
 	GameObject* goEndPoint = GetGameObject();
@@ -770,21 +655,6 @@ void InitEndPoint(float x, float y) {
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
 	goEndPoint->childData = endPoint;
 	endPoint->enemyCount = 0;
-}
-void InitPlayerProjectile() {
-	GameObject* goProj = GetGameObject();
-	goProj->isActive = TRUE;
-	goProj->hasCollider = TRUE;
-	goProj->type = Type_Proj;
-	goProj->size = CP_Vector_Set(20.f, 20.f);
-	goProj->color = CP_Color_Create(128, 0, 0, 255);
-	projectile = (Projectile*)malloc(sizeof(Projectile));
-	projectile->projAlive = FALSE;
-	projectile->maxRange = 1000.f;
-	projectile->range = 0.f;
-	projectile->speed = 1000.f;
-	projectile->goProj = goProj;
-	goProj->childData = projectile;
 }
 
 //Create Platform
@@ -822,21 +692,6 @@ void CreateLaser(float x, float y, float width, float height, float velx, float 
 	laser->time = 0.f;
 	laser->timeMax = time;
 	goLaser->childData = laser;
-}
-
-void CreateEnemy(float x, float y) {
-	endPoint->enemyCount++;
-	GameObject* goEnemy = GetGameObject();
-	goEnemy->hasCollider = TRUE;
-	goEnemy->type = Type_Enemy;
-	goEnemy->pos = CP_Vector_Set(x, y);
-	goEnemy->size = CP_Vector_Set(50.f, 50.f);
-	goEnemy->color = CP_Color_Create(100, 100, 100, 0);
-	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
-	enemy->vel = CP_Vector_Set(100, 0);
-	enemy->dir = CP_Vector_Set(1, 0);
-	enemy->bt = 0.f;
-	goEnemy->childData = enemy;
 }
 
 void CreateDummy(float x, float y) {
@@ -948,24 +803,24 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
 			CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
 			CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.x, self->pos.x + self->size.x, self->pos.y);
-			CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+			CP_Graphics_DrawLine(self->pos.x + 10.f, self->pos.y + 6.f, self->pos.x + 40.f, self->pos.y + 35.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 
 			//player eyes
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
-			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 5.f, self->pos.y + 10.f, 15.f, 15.f);
+			CP_Graphics_DrawRect(self->pos.x + 30.f, self->pos.y + 10.f, 15.f, 15.f);
 			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-			CP_Graphics_DrawCircle(self->pos.x + 12.5, self->pos.y + 17.5, 8);
-			CP_Graphics_DrawCircle(self->pos.x + 37.5, self->pos.y + 17.5, 8);
+			CP_Graphics_DrawCircle(self->pos.x + 12.5f, self->pos.y + 17.5f, 8.f);
+			CP_Graphics_DrawCircle(self->pos.x + 37.5f, self->pos.y + 17.5f, 8.f);
 
 			//player mouth
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
-			CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
-			CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
-			CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
-			CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.f, 10.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 40.f, self->pos.y + 40.f, 10.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 16.f, self->pos.y + 40.f, 1.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 24.f, self->pos.y + 40.f, 1.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 32.f, self->pos.y + 40.f, 1.f, 10.f);
 			
 		}
 		break;
@@ -976,23 +831,23 @@ void DrawGameElements(GameObject* self) {
 			CP_Settings_Fill(enermy_color);
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
 			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 5.0, 15.0, 5.0);
-			CP_Graphics_DrawRect(self->pos.x + 35.0, self->pos.y + 5.0, 15.0, 5.0);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 5.f, 15.f, 5.f);
+			CP_Graphics_DrawRect(self->pos.x + 35.f, self->pos.y + 5.f, 15.f, 5.f);
 			CP_Settings_Fill(CP_Color_Create(255, 255, 153, 255));
-			CP_Graphics_DrawRect(self->pos.x + 15.0, self->pos.y + 4.0, 20.0, 8.0);
+			CP_Graphics_DrawRect(self->pos.x + 15.f, self->pos.y + 4.f, 20.f, 8.f);
 
 
 			//enermy eyes
 			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 18.0, 15, 15);
-			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 18.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 5.f, self->pos.y + 18.f, 15.f, 15.f);
+			CP_Graphics_DrawRect(self->pos.x + 30.f, self->pos.y + 18.f, 15.f, 15.f);
 			CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-			CP_Graphics_DrawRect(self->pos.x + 10, self->pos.y + 25.0, 10, 7);
-			CP_Graphics_DrawRect(self->pos.x + 31, self->pos.y + 25.0, 10, 7);
+			CP_Graphics_DrawRect(self->pos.x + 10.f, self->pos.y + 25.f, 10.f, 7.f);
+			CP_Graphics_DrawRect(self->pos.x + 31.f, self->pos.y + 25.f, 10.f, 7.f);
 
 			//enermy mouth
 			CP_Settings_Fill(CP_Color_Create(0, 128, 255, 255));
-			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 50, 10);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.f, 50.f, 10.f);
 			
 		}
 		break;
@@ -1002,25 +857,25 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
 			CP_Settings_Stroke(CP_Color_Create(96, 96, 96, 255));
 			CP_Graphics_DrawLine(self->pos.x, self->pos.y + self->size.y, self->pos.x + self->size.x, self->pos.y);
-			CP_Graphics_DrawLine(self->pos.x + 10.0, self->pos.y + 6.0, self->pos.x + 40.0, self->pos.y + 35.0);
+			CP_Graphics_DrawLine(self->pos.x + 10.f, self->pos.y + 6.f, self->pos.x + 40.f, self->pos.y + 35.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.0, 10, 10);
-			CP_Graphics_DrawRect(self->pos.x + 40.0, self->pos.y + 40.0, 10, 10);
-			CP_Graphics_DrawRect(self->pos.x + 16.0, self->pos.y + 40.0, 1, 10);
-			CP_Graphics_DrawRect(self->pos.x + 24.0, self->pos.y + 40.0, 1, 10);
-			CP_Graphics_DrawRect(self->pos.x + 32.0, self->pos.y + 40.0, 1, 10);
+			CP_Graphics_DrawRect(self->pos.x, self->pos.y + 40.f, 10.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 40.f, self->pos.y + 40.f, 10.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 16.f, self->pos.y + 40.f, 1.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 24.f, self->pos.y + 40.f, 1.f, 10.f);
+			CP_Graphics_DrawRect(self->pos.x + 32.f, self->pos.y + 40.f, 1.f, 10.f);
 
 
 			//dummy eyes
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-			CP_Graphics_DrawRect(self->pos.x + 5.0, self->pos.y + 10.0, 15, 15);
-			CP_Graphics_DrawRect(self->pos.x + 30.0, self->pos.y + 10.0, 15, 15);
+			CP_Graphics_DrawRect(self->pos.x + 5.f, self->pos.y + 10.f, 15.f, 15.f);
+			CP_Graphics_DrawRect(self->pos.x + 30.f, self->pos.y + 10.f, 15.f, 15.f);
 			CP_Settings_Stroke(CP_Color_Create(192, 192, 192, 255));
-			CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 25.0, self->pos.x + 20.0, self->pos.y + 10.0);
-			CP_Graphics_DrawLine(self->pos.x + 5.0, self->pos.y + 10.0, self->pos.x + 20.0, self->pos.y + 25.0);
-			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 25.0, self->pos.x + 45.0, self->pos.y + 10.0);
-			CP_Graphics_DrawLine(self->pos.x + 30.0, self->pos.y + 10.0, self->pos.x + 45.0, self->pos.y + 25.0);
+			CP_Graphics_DrawLine(self->pos.x + 5.f, self->pos.y + 25.f, self->pos.x + 20.f, self->pos.y + 10.f);
+			CP_Graphics_DrawLine(self->pos.x + 5.f, self->pos.y + 10.f, self->pos.x + 20.f, self->pos.y + 25.f);
+			CP_Graphics_DrawLine(self->pos.x + 30.f, self->pos.y + 25.f, self->pos.x + 45.f, self->pos.y + 10.f);
+			CP_Graphics_DrawLine(self->pos.x + 30.f, self->pos.y + 10.f, self->pos.x + 45.f, self->pos.y + 25.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 
 		}
@@ -1028,7 +883,7 @@ void DrawGameElements(GameObject* self) {
 		case Type_Button: {
 			//button
 			CP_Settings_Fill(CP_Color_Create(155, 0, 0, 255));
-			CP_Graphics_DrawRectAdvanced(self->pos.x + 10.0, self->pos.y - 8.0, 50.0, 10.f, 0, 5);
+			CP_Graphics_DrawRectAdvanced(self->pos.x + 10.f, self->pos.y - 8.f, 50.f, 10.f, 0.f, 5.f);
 			CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
 			CP_Graphics_DrawRect(self->pos.x, self->pos.y, 70.f, 10.f);
 			
@@ -1036,13 +891,13 @@ void DrawGameElements(GameObject* self) {
 		}
 		case Type_Proj: {
 			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
-			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 7.f, 7.f, 0.0, 0);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x, self->pos.y + 7.f, self->pos.x - 15.f, self->pos.y + 3.5f, 0.0);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y + 7.f, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 3.5f, self->pos.y + 22.f, 0.0);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x + 7.f, self->pos.y, self->pos.x + 3.5f, self->pos.y - 15.f, 0.0);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 7.f, self->pos.y, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 22.f, self->pos.y + 3.5f, 0.0);
+			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 7.f, 7.f, 0.f, 0.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x, self->pos.y + 7.f, self->pos.x - 15.f, self->pos.y + 3.5f, 0.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y + 7.f, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 3.5f, self->pos.y + 22.f, 0.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x + 7.f, self->pos.y, self->pos.x + 3.5f, self->pos.y - 15.f, 0.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 7.f, self->pos.y, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 22.f, self->pos.y + 3.5f, 0.f);
 			CP_Settings_Stroke(CP_Color_Create(128, 0, 0, 255));
-			CP_Graphics_DrawCircle(self->pos.x + 3.5, self->pos.y + 3.5f, 5.f);
+			CP_Graphics_DrawCircle(self->pos.x + 3.5f, self->pos.y + 3.5f, 5.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 			return;
 		}
@@ -1056,7 +911,7 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x + 7.f, self->pos.y, self->pos.x + 3.5f, self->pos.y - 15.f, 90.0);
 			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 7.f, self->pos.y, self->pos.x + 7.f, self->pos.y + 7.f, self->pos.x + 22.f, self->pos.y + 3.5f, 90.0);
 			CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255));
-			CP_Graphics_DrawCircle(self->pos.x + 3.5, self->pos.y + 3.5f, 5.f);
+			CP_Graphics_DrawCircle(self->pos.x + 3.5f, self->pos.y + 3.5f, 5.f);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 			return;
 		}
@@ -1082,7 +937,7 @@ void DrawGameElements(GameObject* self) {
 }
 
 void UpdateProjectile(GameObject* self) {
-	if (abs(projectile->range) >= projectile->maxRange) {
+	if (fabs(projectile->range) >= projectile->maxRange) {
 		projectile->range = 0.f;
 		projectile->projAlive = FALSE;
 	}
@@ -1090,7 +945,6 @@ void UpdateProjectile(GameObject* self) {
 	self->pos.x += projectile->vel.x * CP_System_GetDt();
 	projectile->range += projectile->vel.x * CP_System_GetDt();
 }
-
 
 void UpdateDummy(GameObject* self) {
 	Dummy* d = (Dummy*)self->childData;
@@ -1103,21 +957,6 @@ void UpdateEndPoint(GameObject* self) {
 	if (ep->enemyCount == 0) {
 		self->color = CP_Color_Create(51,165,50,255);
 	}
-}
-
-void UpdateEnemy(GameObject* self) {
-	Enemy* e = (Enemy*)self->childData;
-	e->vel.y += gravity * CP_System_GetDt();
-
-	self->pos.y += e->vel.y * CP_System_GetDt();
-	self->pos.x += e->dir.x * e->vel.x * CP_System_GetDt();
-
-	// Shooting
-	if (e->bt >= .5f) {
-		e->bt = 0.f;
-		EnemyShoot(self);
-	}
-	e->bt += CP_System_GetDt();
 }
 
 void UpdateLaser(GameObject* self) {
@@ -1181,9 +1020,9 @@ void DisplayGameOver() {
 	RenderScene();
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Settings_TextSize(100);
-	CP_Font_DrawText("YOU DIED...", windowWidth / 2, windowHeight / 2);
+	CP_Font_DrawText("YOU DIED...", (float)windowWidth / 2.f, (float)windowHeight / 2.f);
 	CP_Settings_TextSize(50);
-	CP_Font_DrawText("Press \"R\" to restart level", windowWidth / 2, windowHeight / 2 + 60);
+	CP_Font_DrawText("Press \"R\" to restart level", (float)windowWidth / 2.f, (float)windowHeight / 2.f + 60.f);
 }
 
 void ManageCollision() {

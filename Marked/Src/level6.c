@@ -7,6 +7,8 @@
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
+#include "player.h"
+#include "enemy.h"
 
 void Level6_Init() {
 	CP_System_SetFrameRate(60);
@@ -17,35 +19,35 @@ void Level6_Init() {
 		(goPtr + i)->isActive = FALSE;
 	}
 
-	InitEndPoint(1420.f, windowHeight *0.7 -20);
+	InitEndPoint(1420.f, (float)windowHeight *0.7f -20.f);
 	InitPlayer(0, 500.f);
 	InitPlayerProjectile();
 
 
 
-	CreateEnemy(1110.f, windowHeight * 0.8f);
-	CreateEnemy(400.f, windowHeight * 0.5);
-	CreateEnemy(400.f, windowHeight * 0.8f);
+	CreateEnemy(1110.f, (float)windowHeight * 0.8f);
+	CreateEnemy(400.f, (float)windowHeight * 0.5f);
+	CreateEnemy(400.f, (float)windowHeight * 0.8f);
 	
 
 	// Platforms
 	//BEHIND START 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, (float)windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.8), CP_Vector_Set(400, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.72), CP_Vector_Set(100, 80), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.8f), CP_Vector_Set(400, (float)windowHeight * 0.7f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.72f), CP_Vector_Set(100, 80), PLATFORM_COLOR);
 
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, windowHeight * 0.9), CP_Vector_Set(1100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, (float)windowHeight * 0.9f), CP_Vector_Set(1100, 100), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, windowHeight * 0.6), CP_Vector_Set(600, 70), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, windowHeight * 0.68), CP_Vector_Set(80, windowHeight * 0.22), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, (float)windowHeight * 0.6f), CP_Vector_Set(600, 70), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, (float)windowHeight * 0.68f), CP_Vector_Set(80, (float)windowHeight * 0.22f), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, windowHeight * 0.79), CP_Vector_Set(100, 100), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, (float)windowHeight * 0.79f), CP_Vector_Set(100, 100), PLATFORM_COLOR);
 
 
 	// AFTER END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1501.f, 0.f), CP_Vector_Set(1100, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1501.f, 0.f), CP_Vector_Set(1100, (float)windowHeight), PLATFORM_COLOR);
 
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);

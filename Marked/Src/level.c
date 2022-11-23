@@ -2,11 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+//#include "utils.h"
+//#include "mainmenu.h"
+//#include "level.h"
 #include "game.h"
 #include "scenes.h"
+#include "player.h"
+#include "enemy.h"
 
 int windowWidth, windowHeight;
 float const gravity = 980.f;
@@ -32,10 +34,10 @@ void Level_Init() {
 
 	CreateDummy(1500.f, 580);
 
-	CreateLaser(1400, 0, 10, windowHeight, 0, 0, 0);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0, windowHeight * 0.6), CP_Vector_Set(400, 540), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550, windowHeight * 0.7), CP_Vector_Set(200, 600), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900, windowHeight * 0.7), CP_Vector_Set(1080, 540), PLATFORM_COLOR);
+	CreateLaser(1400, 0, 10, (float)windowHeight, 0, 0, 0);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0, (float)windowHeight * 0.6f), CP_Vector_Set(400, 540), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(550, (float)windowHeight * 0.7f), CP_Vector_Set(200, 600), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(900, (float)windowHeight * 0.7f), CP_Vector_Set(1080, 540), PLATFORM_COLOR);
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }

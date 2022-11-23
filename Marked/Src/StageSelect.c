@@ -175,7 +175,7 @@ void StageSelect_Update()
 	CP_Settings_NoStroke();
 
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
-	CP_Image_Draw(background_SS, windowWidth_SS / 2, windowHeight_SS / 2, windowWidth_SS, windowHeight_SS, 255);
+	CP_Image_Draw(background_SS, (float)windowWidth_SS / 2.f, (float)windowHeight_SS / 2.f, (float)windowWidth_SS, (float)windowHeight_SS, 255);
 
 	// BACK + HEADER
 	CP_Settings_Fill(rect_color_HEADER);

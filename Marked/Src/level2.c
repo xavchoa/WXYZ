@@ -7,7 +7,8 @@
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
-
+#include "player.h"
+#include "enemy.h"
 
 void Level2_Init() {
 	currentLevel = Level2;
@@ -17,36 +18,36 @@ void Level2_Init() {
 		(goPtr + i)->isActive = FALSE;
 	}
 
-	InitEndPoint(2420, windowHeight * 0.59f);
+	InitEndPoint(2420, (float)windowHeight * 0.59f);
 	InitPlayerProjectile();
 	InitPlayer(0, 500);
 
 
-	CreateEnemy(1950.f, windowHeight * 0.4f);
-	CreateDummy(750.f, windowHeight * 0.7f);
+	CreateEnemy(1950.f, (float)windowHeight * 0.4f);
+	CreateDummy(750.f, (float)windowHeight * 0.7f);
 	//                           button                      door
-	CreateButtonDoorLink(CP_Vector_Set(425.f, windowHeight * 0.89), CP_Vector_Set(950, windowHeight * 0.59), 1);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(948.f, 0.f), CP_Vector_Set(54, windowHeight * 0.59), PLATFORM_COLOR);
+	CreateButtonDoorLink(CP_Vector_Set(425.f, (float)windowHeight * 0.89f), CP_Vector_Set(950.f, (float)windowHeight * 0.59f), 1);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(948.f, 0.f), CP_Vector_Set(54.f, (float)windowHeight * 0.59f), PLATFORM_COLOR);
 
 
 	// Platforms
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, windowHeight * 0.7), CP_Vector_Set(300, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(300.f, windowHeight * 0.9), CP_Vector_Set(300, windowHeight * 0.9), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.7f), CP_Vector_Set(300.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(300.f, (float)windowHeight * 0.9f), CP_Vector_Set(300.f, (float)windowHeight * 0.9f), PLATFORM_COLOR);
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(600.f, windowHeight * 0.7), CP_Vector_Set(400, windowHeight * 0.7), PLATFORM_COLOR);
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, windowHeight * 0.6), CP_Vector_Set(300, windowHeight * 0.6), PLATFORM_COLOR);
-
-
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1800.f, windowHeight * 0.5), CP_Vector_Set(300.f, 100.f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(600.f, (float)windowHeight * 0.7f), CP_Vector_Set(400.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.6f), CP_Vector_Set(300.f, (float)windowHeight * 0.6f), PLATFORM_COLOR);
 
 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, windowHeight * 0.7), CP_Vector_Set(300.f, windowHeight * 0.7), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1800.f, (float)windowHeight * 0.5f), CP_Vector_Set(300.f, 100.f), PLATFORM_COLOR);
+
+
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2200.f, (float)windowHeight * 0.7f), CP_Vector_Set(300.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
 
 	// BEHIND THE END 
-	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2501.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
+	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2501.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 
 
 
@@ -134,7 +135,6 @@ void Level2_Update() {
 
 	}
 	else {
-		//gameover screen
 		DisplayGameOver();
 	}
 

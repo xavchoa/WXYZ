@@ -19,7 +19,7 @@ float rect3_x = 0.f;
 float rect3_y = 0.f;
 float rect3_width = 0.f;
 float rect3_height = 0.f;
-float text_size = 70.f;
+float textSize = 50.f;
 CP_BOOL is_rect1_clicked = 0;
 CP_BOOL is_rect2_clicked = 0;
 CP_BOOL is_rect3_clicked = 0;
@@ -59,11 +59,11 @@ void Main_Menu_Update()
 	int windowHeight = CP_System_GetWindowHeight();
 
 	CP_Graphics_ClearBackground(CP_Color_Create(255, 255, 255, 255));
-	CP_Image_Draw(background, windowWidth / 2, windowHeight / 2, windowWidth, windowHeight, 255);
+	CP_Image_Draw(background, (float)windowWidth / 2.f, (float)windowHeight / 2.f, (float)windowWidth, (float)windowHeight, 255);
 
 	CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 255));
 	CP_Settings_RectMode(CP_POSITION_CENTER);
-	CP_Settings_TextSize(text_size);
+	CP_Settings_TextSize(textSize);
 
 	CP_Settings_Fill(rect_color);
 	CP_Graphics_DrawRect(rect1_x, rect1_y, rect1_width, rect1_height);
@@ -94,7 +94,6 @@ void Main_Menu_Update()
 	if (is_rect3_clicked) {
 		CP_Engine_SetNextGameState(StageSelect_Init, StageSelect_Update, StageSelect_Exit);
 	}
-
 }
 
 void Main_Menu_Exit()
