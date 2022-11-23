@@ -1,7 +1,3 @@
-//#include "game.h"
-//#include "scenes.h"
-//#include <cprocessing.h>
-//#include <stdio.h>
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +9,8 @@
 #include "scenes.h"
 #include "player.h"
 #include "enemy.h"
+#include "render.h"
+#include "gameelements.h"
 
 void Level1_Init() {
 	currentLevel = Level1;

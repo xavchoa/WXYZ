@@ -89,3 +89,13 @@ void SwapPositions() {
 	player->goPlayer->pos = tmp;
 	player->markedObject->color = CP_Color_Create(0, 0, 0, 0);
 }
+
+void UpdateProjectile(GameObject* self) {
+	if (fabs(projectile->range) >= projectile->maxRange) {
+		projectile->range = 0.f;
+		projectile->projAlive = FALSE;
+	}
+
+	self->pos.x += projectile->vel.x * CP_System_GetDt();
+	projectile->range += projectile->vel.x * CP_System_GetDt();
+}

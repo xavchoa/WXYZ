@@ -9,6 +9,8 @@
 #include "scenes.h"
 #include "player.h"
 #include "enemy.h"
+#include "render.h"
+#include "gameelements.h"
 
 int windowWidth, windowHeight;
 float const gravity = 980.f;

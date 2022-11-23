@@ -9,7 +9,8 @@
 #include "scenes.h"
 #include "player.h"
 #include "enemy.h"
-
+#include "render.h"
+#include "gameelements.h"
 
 void Level3_Init() {
 	CP_System_SetFrameRate(60);

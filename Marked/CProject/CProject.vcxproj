@@ -101,7 +101,6 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Src\collision.c" />
     <ClCompile Include="..\Src\cutscene1.c" />
     <ClCompile Include="..\Src\cutscene10.c" />
     <ClCompile Include="..\Src\cutscene7.c" />
@@ -109,6 +108,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\cutscene9.c" />
     <ClCompile Include="..\Src\enemy.c" />
     <ClCompile Include="..\Src\game.c" />
+    <ClCompile Include="..\Src\gameelements.c" />
     <ClCompile Include="..\Src\level.c" />
     <ClCompile Include="..\Src\level1.c" />
     <ClCompile Include="..\Src\level10.c" />
@@ -123,6 +123,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\main.c" />
     <ClCompile Include="..\Src\mainmenu.c" />
     <ClCompile Include="..\Src\player.c" />
+    <ClCompile Include="..\Src\render.c" />
     <ClCompile Include="..\Src\scenes.c" />
     <ClCompile Include="..\Src\StageSelect.c" />
     <ClCompile Include="..\Src\utils.c" />
@@ -132,11 +133,13 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClInclude Include="..\Inc\collision.h" />
     <ClInclude Include="..\Inc\enemy.h" />
     <ClInclude Include="..\Inc\game.h" />
+    <ClInclude Include="..\Inc\gameelements.h" />
     <ClInclude Include="..\Inc\level.h" />
     <ClInclude Include="..\Inc\cprocessing.h" />
     <ClInclude Include="..\Inc\cprocessing_common.h" />
     <ClInclude Include="..\Inc\mainmenu.h" />
     <ClInclude Include="..\Inc\player.h" />
+    <ClInclude Include="..\Inc\render.h" />
     <ClInclude Include="..\Inc\scenes.h" />
     <ClInclude Include="..\Inc\utils.h" />
   </ItemGroup>

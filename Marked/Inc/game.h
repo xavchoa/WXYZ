@@ -92,10 +92,6 @@ typedef struct Platform {
 	float speed;
 } Platform;
 
-typedef struct Barrel {
-	CP_BOOL isExploded;
-
-} Barrel;
 
 typedef struct Door {
 	CP_BOOL isOpened;
@@ -128,37 +124,9 @@ void DespawnGameObject(GameObject* go);
 void CollisionResponse(GameObject* go, GameObject* go2);
 
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2);
-	
 
-void UpdateDoor(GameObject* self);
-
-void UpdateEndPoint(GameObject* self);
-
-void UpdateLaser(GameObject* self);
-
-void InitEndPoint(float x, float y);
-
-void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color); 
-		
-#ifndef CREATE_CODE
-
-//void CreatePlatform(float x, float y, float width, float height);
-void CreateLaser(float x, float y, float width, float height, float velx, float vely, float time);
-
-void CreateDummy(float x, float y);
-void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type);
-#endif
-
-void DrawGameElements(GameObject* self);
-
-void UpdateProjectile(GameObject* self);
-void UpdateDummy(GameObject* self);
-void UpdateEnemy(GameObject* self);
-	
 void SideScrolling(GameObject* self);
-void DisplayGameOver();
-void RenderScene();
-		
+
 void RestartPressed();
 void QuitPressed();
 
