@@ -175,4 +175,7 @@ void SideScrolling(GameObject* self);
 void DisplayGameOver();
 void RenderScene();
 		
+void RestartPressed();
+void QuitPressed();
 
+void ManageCollision();

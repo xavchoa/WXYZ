@@ -10,6 +10,8 @@
 
 
 void Level8_Init() {
+	CP_System_SetFrameRate(60);
+	currentLevel = Level8;
 	nextLevel = Cutscene9;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
@@ -119,21 +121,9 @@ void Level8_Init() {
 
 
 void Level8_Update() {
-	CP_System_SetFrameRate(60);
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
-		for (int x = 0; x < GOARRAY_SIZE; ++x) {
-			if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
-
-				for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
-					if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
-						if (CheckCollision((goPtr + x), (goPtr + y))) {
-							CollisionResponse((goPtr + x), (goPtr + y));
-						}
-					}
-				}
-			}
-		}
+		ManageCollision();
 
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
@@ -219,21 +209,8 @@ void Level8_Update() {
 		DisplayGameOver();
 	}
 
-	if (CP_Input_KeyDown(KEY_Q)) {
-		shootPressed = FALSE;
-		rightPressed = FALSE;
-		leftPressed = FALSE;
-		isGameOver = FALSE;
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-	}
-
-	if (CP_Input_KeyTriggered(KEY_R)) {
-		shootPressed = FALSE;
-		rightPressed = FALSE;
-		leftPressed = FALSE;
-		isGameOver = FALSE;
-		CP_Engine_SetNextGameStateForced(Level8_Init, Level8_Update, Level8_Exit);
-	}
+	QuitPressed();
+	RestartPressed();
 }
 
 

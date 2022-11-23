@@ -786,6 +786,8 @@ void InitPlayerProjectile() {
 	projectile->goProj = goProj;
 	goProj->childData = projectile;
 }
+
+//Create Platform
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
 	go->hasCollider = collider;
@@ -794,57 +796,18 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 	go->size = size;
 	go->color = color;
 	switch (type) {
-	case Type_Enemy: {
-		Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
-		enemy->vel = CP_Vector_Set(0, 0);
-		//enemy->collidedWithPlatform = FALSE;
-		enemy->goEnemy = go;
-		go->childData = enemy;
-	}
-				   break;
-	case Type_Dummy:
-		break;
-	case Type_Laser:
-		break;
-	case Type_Button: {
-		Button* button = (Button*)malloc(sizeof(Button));
-		go->childData = button;
-		break;
-	}
-	case Type_Door:
-		break;
 	case Type_Platform: {
 		Platform* platform = (Platform*)malloc(sizeof(Platform));
 		go->childData = platform;
 		CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y +10), CP_Vector_Set(size.x, size.y-10), OBSTACLE_COLOR);
-		//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
-		//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(pos.x + size.x - 1, pos.y - 1), CP_Vector_Set(3.f, 1.f), OBSTACLE_COLOR);
 		break;
 	}
-	case Type_EndPoint:
-		break;
-	case Type_None:
-		break;
 	default:
 		break;
 	}
 }
 
 #ifndef CREATE_CODE
-
-void CreatePlatform(float x, float y, float width, float height) {
-
-	GameObject* goPlatform = GetGameObject();
-	goPlatform->hasCollider = TRUE;
-	goPlatform->type = Type_Platform;
-	goPlatform->pos = CP_Vector_Set(x, y);
-	goPlatform->size = CP_Vector_Set(width, height);
-	goPlatform->color = CP_Color_Create(0, 0, 0, 50);
-	Platform* platform = (Platform*)malloc(sizeof(Platform));
-	platform->vel = CP_Vector_Set(0, 0);
-
-	goPlatform->childData = platform;
-}
 
 void CreateLaser(float x, float y, float width, float height, float velx, float vely, float time) {
 	GameObject* goLaser = GetGameObject();
@@ -872,13 +835,11 @@ void CreateEnemy(float x, float y) {
 	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
 	enemy->vel = CP_Vector_Set(100, 0);
 	enemy->dir = CP_Vector_Set(1, 0);
-	//enemy->collidedWithPlatform = FALSE;
 	enemy->bt = 0.f;
 	goEnemy->childData = enemy;
 }
 
 void CreateDummy(float x, float y) {
-	//CreateGameElement(TRUE, Type_Dummy, CP_Vector_Set(800.f, windowHeight * 0.8), CP_Vector_Set(50.f, 50.f), CP_Color_Create(0, 0, 60, 255));
 	GameObject* goDummy = GetGameObject();
 	goDummy->hasCollider = TRUE;
 	goDummy->type = Type_Dummy;
@@ -905,7 +866,6 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	Door* door = (Door*)malloc(sizeof(Door));
 	door->isOpened = FALSE;
 	goDoor->childData = door;
-	//CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(doorPos.x, doorPos.y + 10), CP_Vector_Set(50.f, 90.f ), OBSTACLE_COLOR);
 
 	GameObject* goButton = GetGameObject();
 	goButton->hasCollider = TRUE;
@@ -943,12 +903,9 @@ void DrawGameElements(GameObject* self) {
 			CP_Graphics_DrawRect(self->pos.x - 20, self->pos.y + 20, 100, 80);
 			CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-			//CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 20, self->pos.x, self->pos.y + 10);
 			CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 20, self->pos.x - 10, self->pos.y + 90);
 			CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 90, self->pos.x + 70, self->pos.y + 90);
 			CP_Graphics_DrawLine(self->pos.x + 70, self->pos.y + 90, self->pos.x + 70, self->pos.y + 20);
-			//CP_Graphics_DrawLine(self->pos.x + 70, self->pos.y + 20, self->pos.x + 60, self->pos.y + 10);
-			//CP_Graphics_DrawLine(self->pos.x + 60, self->pos.y + 10, self->pos.x, self->pos.y + 10);
 			CP_Graphics_DrawLine(self->pos.x + 30, self->pos.y + 10, self->pos.x + 30, self->pos.y + 90);
 
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
@@ -1078,7 +1035,6 @@ void DrawGameElements(GameObject* self) {
 			return;
 		}
 		case Type_Proj: {
-			//CP_Settings_RectMode(CP_POSITION_CENTER); 
 			CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
 			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 7.f, 7.f, 0.0, 0);
 			CP_Graphics_DrawTriangleAdvanced(self->pos.x, self->pos.y, self->pos.x, self->pos.y + 7.f, self->pos.x - 15.f, self->pos.y + 3.5f, 0.0);
@@ -1138,9 +1094,7 @@ void UpdateProjectile(GameObject* self) {
 
 void UpdateDummy(GameObject* self) {
 	Dummy* d = (Dummy*)self->childData;
-	//if (d->collidedWithPlatform == FALSE)
-		d->vel.y += gravity * CP_System_GetDt();
-
+	d->vel.y += gravity * CP_System_GetDt();
 	self->pos.y += d->vel.y * CP_System_GetDt();
 }
 
@@ -1153,12 +1107,10 @@ void UpdateEndPoint(GameObject* self) {
 
 void UpdateEnemy(GameObject* self) {
 	Enemy* e = (Enemy*)self->childData;
-	//if (e->collidedWithPlatform == FALSE)
-		e->vel.y += gravity * CP_System_GetDt();
+	e->vel.y += gravity * CP_System_GetDt();
 
 	self->pos.y += e->vel.y * CP_System_GetDt();
 	self->pos.x += e->dir.x * e->vel.x * CP_System_GetDt();
-
 
 	// Shooting
 	if (e->bt >= .5f) {
@@ -1203,6 +1155,27 @@ void RenderScene() {
 	}
 }
 
+void QuitPressed() {
+	if (CP_Input_KeyDown(KEY_Q)) {
+		shootPressed = FALSE;
+		rightPressed = FALSE;
+		leftPressed = FALSE;
+		isGameOver = FALSE;
+		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+	}
+}
+
+void RestartPressed() {
+	if (CP_Input_KeyTriggered(KEY_R)) {
+		projectile->projAlive = FALSE;
+		shootPressed = FALSE;
+		rightPressed = FALSE;
+		leftPressed = FALSE;
+		isGameOver = FALSE;
+		RestartLevel(currentLevel);
+	}
+}
+
 void DisplayGameOver() {
 	CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 120));
 	RenderScene();
@@ -1211,4 +1184,18 @@ void DisplayGameOver() {
 	CP_Font_DrawText("YOU DIED...", windowWidth / 2, windowHeight / 2);
 	CP_Settings_TextSize(50);
 	CP_Font_DrawText("Press \"R\" to restart level", windowWidth / 2, windowHeight / 2 + 60);
+}
+
+void ManageCollision() {
+	for (int x = 0; x < GOARRAY_SIZE; ++x) {
+		if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
+			for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
+				if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
+					if (CheckCollision((goPtr + x), (goPtr + y))) {
+						CollisionResponse((goPtr + x), (goPtr + y));
+					}
+				}
+			}
+		}
+	}
 }

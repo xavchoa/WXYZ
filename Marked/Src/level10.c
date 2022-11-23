@@ -1,7 +1,3 @@
-//#include "game.h"
-//#include "scenes.h"
-//#include <cprocessing.h>
-//#include <stdio.h>
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,28 +10,33 @@
 
 void Level10_Init() {
 	CP_System_SetFrameRate(60);
-	nextLevel = Level1;
+	currentLevel = Level10;
+	nextLevel = Cutscene10;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		(goPtr + i)->isActive = FALSE;
 	}
 
+	CP_System_SetWindowSize(windowWidth, windowHeight);
 	
 	InitEndPoint(3400.f, 100.f);
 	InitPlayer(100.f, 799.f);
 	InitPlayerProjectile();
 
+	//Enemies
 	CreateEnemy(1900.f, 224.f);
 	CreateEnemy(800.f, 799.f);
 	
+	//Dummies
 	CreateDummy(1500.f, 224.f);
 	CreateDummy(2250.f, 559.f);
 	CreateDummy(2841.f, 785.f);
 	CreateDummy(3000.f, 155.f);
 
+	//Doors
 	CreateButtonDoorLink(CP_Vector_Set(950.f, 790.f), CP_Vector_Set(450.f, 700.f), 1);
 	
-	//CreateLaser(-850, 0, 10, windowHeight, 60, 0, 100);
+	// Lasers
 	CreateLaser(-600, 0, 10, windowHeight, 60, 0, 100);
 	CreateLaser(-200, 0, 10, windowHeight, 60, 0, 100);
 	CreateLaser(-400, 0, 10, windowHeight, 60, 0, 40);
@@ -47,11 +48,7 @@ void Level10_Init() {
 	CreateLaser(2700, 0, 10, windowHeight, 0, 0, 0);
 	CreateLaser(2893, 0, 10, windowHeight, 0, 0, 0);
 
-
-	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1898.f, 0.f), CP_Vector_Set(54, windowHeight * 0.54), PLATFORM_COLOR);
-
 	// Platforms
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, 800.f), CP_Vector_Set(500, 100.f), PLATFORM_COLOR);
@@ -82,35 +79,12 @@ void Level10_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2715.f, 300.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3500.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
-	
-	
-	
-
-
-	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1850.f, windowHeight * 0.65), CP_Vector_Set(400.f, 90.f), PLATFORM_COLOR);
-
-	//CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2251.f, 0.f), CP_Vector_Set(1000, windowHeight), PLATFORM_COLOR);
-
-
-
-	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
 
 void Level10_Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
-		for (int x = 0; x < GOARRAY_SIZE; ++x) {
-			if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
-
-				for (int y = x + 1; y < GOARRAY_SIZE; ++y) {
-					if ((goPtr + y)->isActive && (goPtr + y)->hasCollider) {
-						if (CheckCollision((goPtr + x), (goPtr + y))) {
-							CollisionResponse((goPtr + x), (goPtr + y));
-						}
-					}
-				}
-			}
-		}
+		ManageCollision();
 
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
@@ -139,8 +113,8 @@ void Level10_Update() {
 					UpdateEnemyProj(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Door) {
-					UpdateDoor(goPtr + i);
 					SideScrolling(goPtr + i);
+					UpdateDoor(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Button) {
 					SideScrolling(goPtr + i);
@@ -156,7 +130,7 @@ void Level10_Update() {
 			}
 		}
 		RenderScene();
-		//simulate gravity
+
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -183,29 +157,13 @@ void Level10_Update() {
 			shootPressed = FALSE;
 		}
 
-
-
 	}
 	else {
-		//gameover screen
 		DisplayGameOver();
 	}
 
-	if (CP_Input_KeyDown(KEY_Q)) {
-		shootPressed = FALSE;
-		rightPressed = FALSE;
-		leftPressed = FALSE;
-		isGameOver = FALSE;
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-	}
-
-	if (CP_Input_KeyTriggered(KEY_R)) {
-		shootPressed = FALSE;
-		rightPressed = FALSE;
-		leftPressed = FALSE;
-		isGameOver = FALSE;
-		CP_Engine_SetNextGameStateForced(Level10_Init, Level10_Update, Level10_Exit);
-	}
+	QuitPressed();
+	RestartPressed();
 }
 
 

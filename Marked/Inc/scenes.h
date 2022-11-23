@@ -24,7 +24,10 @@ typedef enum LEVELS {
 	Num_Scenes
 }LEVELS;
 
+LEVELS currentLevel;
 LEVELS nextLevel;
 
 void TransitScene(enum LEVELS level);
+void RestartScene(enum LEVELS level);
+
 #endif

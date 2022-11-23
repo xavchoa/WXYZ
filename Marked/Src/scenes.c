@@ -28,3 +28,7 @@ FunctionPtr levels[Num_Scenes][3] = {
 void TransitScene(enum SCENES level) {
 	CP_Engine_SetNextGameState(levels[level][0], levels[level][1], levels[level][2]);
 }
+
+void RestartLevel(enum SCENES level) {
+	CP_Engine_SetNextGameStateForced(levels[level][0], levels[level][1], levels[level][2]);
+}
