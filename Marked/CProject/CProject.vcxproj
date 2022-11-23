@@ -101,6 +101,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\credits.c" />
     <ClCompile Include="..\Src\cutscene1.c" />
     <ClCompile Include="..\Src\cutscene10.c" />
     <ClCompile Include="..\Src\cutscene7.c" />

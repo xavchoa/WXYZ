@@ -71,3 +71,7 @@ void Winscene_Exit(void);
 void StageSelect_Init(void);
 void StageSelect_Update(void);
 void StageSelect_Exit(void);
+
+void CreditsInit(void);
+void CreditsUpdate(void);
+void CreditsExit(void);
