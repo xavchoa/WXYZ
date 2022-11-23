@@ -26,9 +26,11 @@ void Level_Init() {
 	currentLevel = Level0;
 	nextLevel = Level1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
+	
 
 	InitPlayerProjectile();
 	InitEndPoint(1800, 530);

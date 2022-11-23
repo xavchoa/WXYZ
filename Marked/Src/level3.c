@@ -17,10 +17,10 @@ void Level3_Init() {
 	currentLevel = Level3;
 	nextLevel = Cutscene1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
-
 
 	InitEndPoint(1720.f, (float)windowHeight * 0.47f);
 	InitPlayer(200.f, 500.f);

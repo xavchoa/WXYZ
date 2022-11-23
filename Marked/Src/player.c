@@ -12,14 +12,16 @@ void InitPlayer(float x, float y) {
 	goPlayer->size = CP_Vector_Set(50, 50);
 	goPlayer->color = CP_Color_Create(255, 255, 255, 0);
 	player = (Player*)malloc(sizeof(Player));
-	player->speed = 10000.f;
-	player->vel.x = 0.f;
-	player->vel.y = 500.f;
-	player->dir.x = 1.f;
-	player->dir.y = 0.f;
-	player->goPlayer = goPlayer;
-	player->markedObject = NULL;
-	goPlayer->childData = player;
+	if (player) {
+		player->speed = 10000.f;
+		player->vel.x = 0.f;
+		player->vel.y = 500.f;
+		player->dir.x = 1.f;
+		player->dir.y = 0.f;
+		player->goPlayer = goPlayer;
+		player->markedObject = NULL;
+		goPlayer->childData = player;
+	}
 }
 
 void InitPlayerProjectile() {
@@ -30,12 +32,14 @@ void InitPlayerProjectile() {
 	goProj->size = CP_Vector_Set(20.f, 20.f);
 	goProj->color = CP_Color_Create(128, 0, 0, 255);
 	projectile = (Projectile*)malloc(sizeof(Projectile));
-	projectile->projAlive = FALSE;
-	projectile->maxRange = 1000.f;
-	projectile->range = 0.f;
-	projectile->speed = 1000.f;
-	projectile->goProj = goProj;
-	goProj->childData = projectile;
+	if (projectile) {
+		projectile->projAlive = FALSE;
+		projectile->maxRange = 1000.f;
+		projectile->range = 0.f;
+		projectile->speed = 1000.f;
+		projectile->goProj = goProj;
+		goProj->childData = projectile;
+	}
 }
 
 void SetProjSpawn(float x, float y) {

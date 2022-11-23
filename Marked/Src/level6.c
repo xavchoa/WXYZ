@@ -17,8 +17,9 @@ void Level6_Init() {
 	currentLevel = Level6;
 	nextLevel = Cutscene7;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
 
 	InitEndPoint(1420.f, (float)windowHeight *0.7f -20.f);

@@ -36,9 +36,11 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	}
 	goDoor->color = CP_Color_Create(100, 100, 100, 255);
 	Door* door = (Door*)malloc(sizeof(Door));
-	door->isOpened = FALSE;
-	goDoor->childData = door;
-
+	if (door) {
+		door->isOpened = FALSE;
+		goDoor->childData = door;
+	}
+	
 	GameObject* goButton = GetGameObject();
 	goButton->hasCollider = TRUE;
 	goButton->type = Type_Button;
@@ -46,9 +48,10 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	goButton->size = CP_Vector_Set(70.f, 20.f);
 	goButton->color = CP_Color_Create(100, 100, 100, 255);
 	Button* button = (Button*)malloc(sizeof(Button));
-	goButton->childData = button;
-	button->linkedDoor = (Door*)door;
-
+	if (button) {
+		goButton->childData = button;
+		button->linkedDoor = (Door*)door;
+	}
 }
 
 void UpdateDoor(GameObject* self) {
@@ -77,8 +80,10 @@ void CreateDummy(float x, float y) {
 	goDummy->size = CP_Vector_Set(50.f, 50.f);
 	goDummy->color = CP_Color_Create(0, 0, 60, 0);
 	Dummy* d = (Dummy*)malloc(sizeof(Dummy));
-	d->vel = CP_Vector_Set(0, 0);
-	goDummy->childData = d;
+	if (d) {
+		d->vel = CP_Vector_Set(0, 0);
+		goDummy->childData = d;
+	}
 }
 
 void UpdateDummy(GameObject* self) {
@@ -96,8 +101,10 @@ void InitEndPoint(float x, float y) {
 	goEndPoint->size = CP_Vector_Set(60.f, 100.f);
 	goEndPoint->color = CP_Color_Create(128, 0, 0, 255);
 	endPoint = (EndPoint*)malloc(sizeof(EndPoint));
-	goEndPoint->childData = endPoint;
-	endPoint->enemyCount = 0;
+	if (endPoint) {
+		goEndPoint->childData = endPoint;
+		endPoint->enemyCount = 0;
+	}
 }
 
 
@@ -117,11 +124,13 @@ void CreateLaser(float x, float y, float width, float height, float velx, float 
 	goLaser->size = CP_Vector_Set(width, height);
 	goLaser->color = CP_Color_Create(200, 0, 0, 50);
 	Laser* laser = (Laser*)malloc(sizeof(Laser));
-	laser->vel = CP_Vector_Set(velx, vely);
-	laser->dir = CP_Vector_Set(1, 1);
-	laser->time = 0.f;
-	laser->timeMax = time;
-	goLaser->childData = laser;
+	if (laser) {
+		laser->vel = CP_Vector_Set(velx, vely);
+		laser->dir = CP_Vector_Set(1, 1);
+		laser->time = 0.f;
+		laser->timeMax = time;
+		goLaser->childData = laser;
+	}
 }
 
 void UpdateLaser(GameObject* self) {

@@ -17,8 +17,9 @@ void Level10_Init() {
 	currentLevel = Level10;
 	nextLevel = Winscene;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);

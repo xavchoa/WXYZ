@@ -16,9 +16,11 @@ void Level1_Init() {
 	currentLevel = Level1;
 	nextLevel = Level2;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
+	
 	CreateGameElement(TRUE, Type_Info, CP_Vector_Set(1000, (float)windowHeight - 100), CP_Vector_Set(1200, 0), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Info2, CP_Vector_Set(1000, 200), CP_Vector_Set(800, 0), PLATFORM_COLOR);
 

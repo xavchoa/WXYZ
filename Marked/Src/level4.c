@@ -17,11 +17,10 @@ void Level4_Init() {
 	currentLevel = Level4;
 	nextLevel = Level5;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	for (int i = 0; i < GOARRAY_SIZE; ++i) {
-		(goPtr + i)->isActive = FALSE;
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i)
+			(goPtr + i)->isActive = FALSE;
 	}
-
-	
 
 	InitEndPoint(1822.f, (float)windowHeight* 0.59f);
 	InitPlayer(0, 500.f);

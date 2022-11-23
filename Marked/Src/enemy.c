@@ -12,10 +12,12 @@ void CreateEnemy(float x, float y) {
 	goEnemy->size = CP_Vector_Set(50.f, 50.f);
 	goEnemy->color = CP_Color_Create(100, 100, 100, 0);
 	Enemy* enemy = (Enemy*)malloc(sizeof(Enemy));
-	enemy->vel = CP_Vector_Set(100, 0);
-	enemy->dir = CP_Vector_Set(1, 0);
-	enemy->bt = 0.f;
-	goEnemy->childData = enemy;
+	if (enemy) {
+		enemy->vel = CP_Vector_Set(100, 0);
+		enemy->dir = CP_Vector_Set(1, 0);
+		enemy->bt = 0.f;
+		goEnemy->childData = enemy;
+	}
 }
 
 void UpdateEnemyProj(GameObject* self) {
@@ -38,11 +40,13 @@ void EnemyShoot(GameObject* _enemy) {
 	enemyProj->color = ENEMY_COLOR;
 	enemyProj->type = Type_EnemyProj;
 	Projectile* proj = (Projectile*)malloc(sizeof(Projectile));
-	proj->maxRange = 600.f;
-	proj->range = 0.f;
-	proj->speed = 500.f;
-	proj->goProj = enemyProj;
-	proj->dir = enemy->dir;
+	if (proj) {
+		proj->maxRange = 600.f;
+		proj->range = 0.f;
+		proj->speed = 500.f;
+		proj->goProj = enemyProj;
+		proj->dir = enemy->dir;
+	}
 	if (enemy->dir.x > 0)
 		enemyProj->pos = CP_Vector_Add(_enemy->pos, CP_Vector_Set(_enemy->size.x + 10.f, 10.f));
 	else

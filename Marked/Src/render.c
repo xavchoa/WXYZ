@@ -13,31 +13,31 @@ void DrawGameElements(GameObject* self) {
 		CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
 		CP_Graphics_BeginShape();
 		CP_Graphics_AddVertex(self->pos.x, self->pos.y);
-		CP_Graphics_AddVertex(self->pos.x - 20, self->pos.y + 20);
-		CP_Graphics_AddVertex(self->pos.x, self->pos.y + 20);
+		CP_Graphics_AddVertex(self->pos.x - 20.f, self->pos.y + 20.f);
+		CP_Graphics_AddVertex(self->pos.x, self->pos.y + 20.f);
 		CP_Graphics_EndShape();
 		CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
 		CP_Graphics_BeginShape();
-		CP_Graphics_AddVertex(self->pos.x + 60, self->pos.y);
-		CP_Graphics_AddVertex(self->pos.x + 60, self->pos.y + 20);
-		CP_Graphics_AddVertex(self->pos.x + 80, self->pos.y + 20);
+		CP_Graphics_AddVertex(self->pos.x + 60.f, self->pos.y);
+		CP_Graphics_AddVertex(self->pos.x + 60.f, self->pos.y + 20.f);
+		CP_Graphics_AddVertex(self->pos.x + 80.f, self->pos.y + 20.f);
 		CP_Graphics_EndShape();
 		CP_Settings_Fill(CP_Color_Create(170, 169, 173, 255));
-		CP_Graphics_DrawRect(self->pos.x, self->pos.y, 60, 20);
+		CP_Graphics_DrawRect(self->pos.x, self->pos.y, 60.f, 20.f);
 		CP_Settings_Fill(CP_Color_Create(68, 80, 85, 255));
-		CP_Graphics_DrawRect(self->pos.x - 20, self->pos.y + 20, 100, 80);
+		CP_Graphics_DrawRect(self->pos.x - 20, self->pos.y + 20.f, 100.f, 80.f);
 		CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-		CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 20, self->pos.x - 10, self->pos.y + 90);
-		CP_Graphics_DrawLine(self->pos.x - 10, self->pos.y + 90, self->pos.x + 70, self->pos.y + 90);
-		CP_Graphics_DrawLine(self->pos.x + 70, self->pos.y + 90, self->pos.x + 70, self->pos.y + 20);
-		CP_Graphics_DrawLine(self->pos.x + 30, self->pos.y + 10, self->pos.x + 30, self->pos.y + 90);
+		CP_Graphics_DrawLine(self->pos.x - 10.f, self->pos.y + 20.f, self->pos.x - 10.f, self->pos.y + 90.f);
+		CP_Graphics_DrawLine(self->pos.x - 10.f, self->pos.y + 90.f, self->pos.x + 70.f, self->pos.y + 90.f);
+		CP_Graphics_DrawLine(self->pos.x + 70.f, self->pos.y + 90.f, self->pos.x + 70.f, self->pos.y + 20.f);
+		CP_Graphics_DrawLine(self->pos.x + 30.f, self->pos.y + 10.f, self->pos.x + 30.f, self->pos.y + 90.f);
 
 		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 0));
-		CP_Graphics_DrawRect(self->pos.x + 12, self->pos.y + 40, 10, 20);
-		CP_Graphics_DrawRect(self->pos.x + 38, self->pos.y + 40, 10, 20);
+		CP_Graphics_DrawRect(self->pos.x + 12.f, self->pos.y + 40.f, 10.f, 20.f);
+		CP_Graphics_DrawRect(self->pos.x + 38.f, self->pos.y + 40.f, 10.f, 20.f);
 		CP_Settings_Fill(self->color);
-		CP_Graphics_DrawCircle(self->pos.x + 30, self->pos.y + 10, 15.f);
+		CP_Graphics_DrawCircle(self->pos.x + 30.f, self->pos.y + 10.f, 15.f);
 		return;
 	}
 	case Type_Door: {
@@ -46,18 +46,18 @@ void DrawGameElements(GameObject* self) {
 			CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
 			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y, 50.f, 100.f, 0, 0);
 			CP_Settings_Fill(CP_Color_Create(140, 140, 140, 255));
-			CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 5, self->pos.x + 5, self->pos.y + 40, self->pos.x + 45, self->pos.y + 5);
-			CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 50, self->pos.x + 45, self->pos.y + 15, self->pos.x + 45, self->pos.y + 85);
-			CP_Graphics_DrawTriangle(self->pos.x + 5, self->pos.y + 60, self->pos.x + 5, self->pos.y + 95, self->pos.x + 45, self->pos.y + 95);
+			CP_Graphics_DrawTriangle(self->pos.x + 5.f, self->pos.y + 5.f, self->pos.x + 5.f, self->pos.y + 40.f, self->pos.x + 45.f, self->pos.y + 5.f);
+			CP_Graphics_DrawTriangle(self->pos.x + 5.f, self->pos.y + 50.f, self->pos.x + 45.f, self->pos.y + 15.f, self->pos.x + 45.f, self->pos.y + 85.f);
+			CP_Graphics_DrawTriangle(self->pos.x + 5.f, self->pos.y + 60.f, self->pos.x + 5.f, self->pos.y + 95.f, self->pos.x + 45.f, self->pos.y + 95.f);
 			return;
 		}
 		else if (self->hasCollider) {
 			CP_Settings_Fill(CP_Color_Create(192, 192, 192, 255));
-			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y + 50, 50.f, 100.f, -90, 0);
+			CP_Graphics_DrawRectAdvanced(self->pos.x, self->pos.y + 50.f, 50.f, 100.f, -90.f, 0);
 			CP_Settings_Fill(CP_Color_Create(140, 140, 140, 255));
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 3, self->pos.y + 20, self->pos.x + 3, self->pos.y + 55, self->pos.x + 43, self->pos.y + 20, -90);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 23, self->pos.y + 19, self->pos.x + 63, self->pos.y + -16, self->pos.x + 63, self->pos.y + 54, -90);
-			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 70, self->pos.y + 8, self->pos.x + 70, self->pos.y + 43, self->pos.x + 110, self->pos.y + 43, -90);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 3.f, self->pos.y + 20.f, self->pos.x + 3.f, self->pos.y + 55.f, self->pos.x + 43.f, self->pos.y + 20.f, -90.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 23.f, self->pos.y + 19.f, self->pos.x + 63.f, self->pos.y + -16.f, self->pos.x + 63.f, self->pos.y + 54.f, -90.f);
+			CP_Graphics_DrawTriangleAdvanced(self->pos.x + 70.f, self->pos.y + 8.f, self->pos.x + 70.f, self->pos.y + 43.f, self->pos.x + 110.f, self->pos.y + 43.f, -90.f);
 			return;
 		}
 		CP_Graphics_DrawRect(self->pos.x, self->pos.y, self->size.x, self->size.y);
