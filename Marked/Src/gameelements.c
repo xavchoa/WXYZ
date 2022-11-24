@@ -1,9 +1,23 @@
+//---------------------------------------------------------
+// file:	game.c
+// author:	[Xavier Choa]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	Functions which creates game elements such as
+// platforms,
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "cprocessing.h"
 #include <stdlib.h>
 #include "game.h"
 #include "player.h"
 
-//Create Platform
+//For creation of Platform & Obstacle
 void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector pos, CP_Vector size, CP_Color color) {
 	GameObject* go = GetGameObject();
 	go->hasCollider = collider;
@@ -23,6 +37,7 @@ void CreateGameElement(CP_BOOL collider, enum GAMEOBJECT_TYPE type, CP_Vector po
 	}
 }
 
+//Creates a button and respective door that can be opened by button
 void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	GameObject* goDoor = GetGameObject();
 	goDoor->hasCollider = TRUE;
@@ -54,6 +69,7 @@ void CreateButtonDoorLink(CP_Vector buttonPos, CP_Vector doorPos, int type) {
 	}
 }
 
+//updates the door, whether it is opened or closed
 void UpdateDoor(GameObject* self) {
 	Door* door = self->childData;
 	if (door->isOpened) {
@@ -72,6 +88,7 @@ void UpdateDoor(GameObject* self) {
 	}
 }
 
+//creates a dummy object 
 void CreateDummy(float x, float y) {
 	GameObject* goDummy = GetGameObject();
 	goDummy->hasCollider = TRUE;
@@ -86,12 +103,14 @@ void CreateDummy(float x, float y) {
 	}
 }
 
+//allows gravity for dummy
 void UpdateDummy(GameObject* self) {
 	Dummy* d = (Dummy*)self->childData;
 	d->vel.y += gravity * CP_System_GetDt();
 	self->pos.y += d->vel.y * CP_System_GetDt();
 }
 
+//initializes endpoint
 void InitEndPoint(float x, float y) {
 	GameObject* goEndPoint = GetGameObject();
 	goEndPoint->isActive = TRUE;
@@ -107,7 +126,7 @@ void InitEndPoint(float x, float y) {
 	}
 }
 
-
+//updates the color of the endpoint, light turns green if all enemies are killed, else it stays red
 void UpdateEndPoint(GameObject* self) {
 	EndPoint* ep = (EndPoint*)self->childData;
 	if (ep->enemyCount == 0) {
@@ -115,6 +134,7 @@ void UpdateEndPoint(GameObject* self) {
 	}
 }
 
+//creates a laser with velocity, direction, time
 void CreateLaser(float x, float y, float width, float height, float velx, float vely, float time) {
 	GameObject* goLaser = GetGameObject();
 	if (!goLaser) return;
