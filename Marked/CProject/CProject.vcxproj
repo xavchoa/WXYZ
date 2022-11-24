@@ -102,7 +102,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\credits.c" />
-    <ClCompile Include="..\Src\cutscene1.c" />
+    <ClCompile Include="..\Src\cutscene4.c" />
     <ClCompile Include="..\Src\cutscene10.c" />
     <ClCompile Include="..\Src\cutscene7.c" />
     <ClCompile Include="..\Src\cutscene8.c" />
@@ -126,7 +126,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\player.c" />
     <ClCompile Include="..\Src\render.c" />
     <ClCompile Include="..\Src\scenes.c" />
-    <ClCompile Include="..\Src\StageSelect.c" />
+    <ClCompile Include="..\Src\stageselect.c" />
     <ClCompile Include="..\Src\utils.c" />
     <ClCompile Include="..\Src\winscreen.c" />
   </ItemGroup>

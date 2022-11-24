@@ -646,7 +646,7 @@ void QuitPressed() {
 		rightPressed = FALSE;
 		leftPressed = FALSE;
 		isGameOver = FALSE;
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+		CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
 	}
 }
 

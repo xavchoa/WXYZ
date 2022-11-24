@@ -4,24 +4,24 @@
 #include "scenes.h"
 
 FunctionPtr levels[Num_Scenes][3] = {
-	{Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit},
-	{Level_Init, Level_Update, Level_Exit},
-	{Level1_Init, Level1_Update, Level1_Exit},
-	{Level2_Init, Level2_Update, Level2_Exit},
-	{Level3_Init, Level3_Update, Level3_Exit},
-	{Level4_Init, Level4_Update, Level4_Exit},
-	{Level5_Init, Level5_Update, Level5_Exit},
-	{Level6_Init, Level6_Update, Level6_Exit},
-	{Level7_Init, Level7_Update, Level7_Exit},
-	{Level8_Init, Level8_Update, Level8_Exit},
-	{Level9_Init, Level9_Update, Level9_Exit},
-	{Level10_Init, Level10_Update, Level10_Exit},
-	{Cutscene1_Init, Cutscene1_Update, Cutscene1_Exit},
-	{Cutscene7_Init, Cutscene7_Update, Cutscene7_Exit},
-	{Cutscene8_Init, Cutscene8_Update, Cutscene8_Exit},
-	{Cutscene9_Init, Cutscene9_Update, Cutscene9_Exit},
-	{Cutscene10_Init, Cutscene10_Update, Cutscene10_Exit},
-	{Winscene_Init, Winscene_Update, Winscene_Exit}
+	{MainMenuInit, MainMenuUpdate, MainMenuExit},
+	{LevelInit, LevelUpdate, LevelExit},
+	{Level1Init, Level1Update, Level1Exit},
+	{Level2Init, Level2Update, Level2Exit},
+	{Level3Init, Level3Update, Level3Exit},
+	{Level4Init, Level4Update, Level4Exit},
+	{Level5Init, Level5Update, Level5Exit},
+	{Level6Init, Level6Update, Level6Exit},
+	{Level7Init, Level7Update, Level7Exit},
+	{Level8Init, Level8Update, Level8Exit},
+	{Level9Init, Level9Update, Level9Exit},
+	{Level10Init, Level10Update, Level10Exit},
+	{CutScene4Init, CutScene4Update, CutScene4Exit},
+	{CutScene7Init, CutScene7Update, CutScene7Exit},
+	{CutScene8Init, CutScene8Update, CutScene8Exit},
+	{CutScene9Init, CutScene9Update, CutScene9Exit},
+	{CutScene10Init, CutScene10Update, CutScene10Exit},
+	{WinsceneInit, WinsceneUpdate, WinsceneExit}
 
 };
 

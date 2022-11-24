@@ -12,7 +12,7 @@
 #include "render.h"
 #include "gameelements.h"
 
-void Level10_Init() {
+void Level10Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level10;
 	nextLevel = Winscene;
@@ -86,7 +86,7 @@ void Level10_Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3500.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 }
 
-void Level10_Update() {
+void Level10Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		ManageCollision();
@@ -172,7 +172,7 @@ void Level10_Update() {
 }
 
 
-void Level10_Exit() {
+void Level10Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

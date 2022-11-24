@@ -12,7 +12,7 @@
 #include "render.h"
 #include "gameelements.h"
 
-void Level3_Init() {
+void Level3Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level3;
 	nextLevel = Cutscene1;
@@ -55,7 +55,7 @@ void Level3_Init() {
 }
 
 
-void Level3_Update() {
+void Level3Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		ManageCollision();
@@ -141,7 +141,7 @@ void Level3_Update() {
 }
 
 
-void Level3_Exit() {
+void Level3Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

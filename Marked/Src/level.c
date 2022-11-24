@@ -22,7 +22,7 @@ CP_BOOL isPlatformCollided = FALSE;
 CP_BOOL isGameOver = FALSE;
 
 
-void Level_Init() {
+void LevelInit() {
 	currentLevel = Level0;
 	nextLevel = Level1;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
@@ -45,7 +45,7 @@ void Level_Init() {
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
-void Level_Update() {
+void LevelUpdate() {
 	CP_System_SetFrameRate(60);
 	float textSize = 50.0f;
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
@@ -153,7 +153,7 @@ void Level_Update() {
 	QuitPressed();
 
 }
-void Level_Exit() {
+void LevelExit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

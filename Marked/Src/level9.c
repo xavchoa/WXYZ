@@ -12,7 +12,7 @@
 #include "render.h"
 #include "gameelements.h"
 
-void Level9_Init() {
+void Level9Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level9;
 	nextLevel = Cutscene10;
@@ -97,7 +97,7 @@ void Level9_Init() {
 }
 
 
-void Level9_Update() {
+void Level9Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		ManageCollision();
@@ -191,7 +191,7 @@ void Level9_Update() {
 }
 
 
-void Level9_Exit() {
+void Level9Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

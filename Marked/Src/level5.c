@@ -12,7 +12,7 @@
 #include "render.h"
 #include "gameelements.h"
 
-void Level5_Init() {
+void Level5Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level5;
 	nextLevel = Level6;
@@ -68,7 +68,7 @@ void Level5_Init() {
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
 
-void Level5_Update() {
+void Level5Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
 		ManageCollision();
@@ -162,7 +162,7 @@ void Level5_Update() {
 }
 
 
-void Level5_Exit() {
+void Level5Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

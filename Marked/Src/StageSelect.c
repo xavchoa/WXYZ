@@ -87,7 +87,7 @@ CP_Color rect_color_SS;
 CP_Color rect_color_HEADER;
 CP_Image background_SS = NULL;
 
-void StageSelect_Init()
+void StageSelectInit()
 {
 	//background2 = CP_Image_Load("./Assets/marked.png");
 
@@ -166,7 +166,7 @@ void StageSelect_Init()
 	rect10_height_SS = windowHeight_SS / 7.f;
 }
 
-void StageSelect_Update()
+void StageSelectUpdate()
 {
 	int width_SS = CP_Image_GetWidth(background_SS);
 	int height_SS = CP_Image_GetHeight(background_SS);
@@ -298,7 +298,7 @@ void StageSelect_Update()
 	//CP_Settings_TextSize(text_size2);
 }
 
-void StageSelect_Exit()
+void StageSelectExit()
 {
 	CP_Image_Free(&background_SS);
 }

@@ -23,18 +23,18 @@
 float windowW = 0.f;
 float windowH = 0.f;
 
-float RectBackX = 0.f;
-float RectBackY= 0.f;
-float RectBackWidth = 0.f;
-float RectBackHeight = 0.f;
+float rectBackX = 0.f;
+float rectBackY= 0.f;
+float rectBackWidth = 0.f;
+float rectBackHeight = 0.f;
 
-float TextSizeHeader = 80.f;
-float TextSizeSubHeader = 60.f;
-float TextSize = 40.f;
-float TextSizeCopy = 30.f;
+float textSizeHeader = 80.f;
+float textSizeSubHeader = 60.f;
+float textSize1 = 40.f;
+float textSizeCopy = 30.f;
 
 CP_BOOL isRectBackClicked = 0;
-CP_Color RectColor;
+CP_Color rectColor;
 
 
 void CreditsInit()
@@ -46,11 +46,11 @@ void CreditsInit()
 	windowH = 900.f;
 	CP_System_SetWindowSize((int)windowW, (int)windowH);
 
-	RectBackX = windowW / 2.f - 840.f;
-	RectBackY = windowH / 2.f - 395.f;
-	RectBackWidth = windowW / 15.f;
-	RectBackHeight = windowH / 16.f;
-	RectColor = CP_Color_Create(0, 0, 0, 0);
+	rectBackX = windowW / 2.f - 840.f;
+	rectBackY = windowH / 2.f - 395.f;
+	rectBackWidth = windowW / 15.f;
+	rectBackHeight = windowH / 16.f;
+	rectColor = CP_Color_Create(0, 0, 0, 0);
 }
 
 void CreditsUpdate()
@@ -64,24 +64,24 @@ void CreditsUpdate()
 
 
 	//// BACK 
-	CP_Settings_Fill(RectColor);
-	CP_Graphics_DrawRect(RectBackX, RectBackY, RectBackWidth, RectBackHeight);
+	CP_Settings_Fill(rectColor);
+	CP_Graphics_DrawRect(rectBackX, rectBackY, rectBackWidth, rectBackHeight);
 	CP_Settings_Fill(CP_Color_Create(160, 0, 0, 255));
 	CP_Graphics_DrawTriangleAdvanced(80.0f, 34.5f, 105.0f, 64.5f, 55.0f, 64.5f, 270.0f);
 	CP_Graphics_DrawQuadAdvanced(130.0f, 10.0f, 140.0f, 10.0f, 140.0f, 100.0f, 130.0f, 100.0f, 90.0f);
 	CP_Graphics_DrawQuadAdvanced(170.0f, 30.0f, 180.0f, 30.0f, 180.0f, 60.0f, 170.0f, 60.0f, 0.0f);
 
-	CP_Settings_TextSize(TextSizeHeader);
+	CP_Settings_TextSize(textSizeHeader);
 	CP_Font_DrawText("TEAM: WXYZ", windowW / 2.f, windowH * 0.05f );
 
-	CP_Settings_TextSize(TextSizeSubHeader);
+	CP_Settings_TextSize(textSizeSubHeader);
 	CP_Font_DrawText("MEMBERS", windowW / 3.f, windowH * 0.15f);
 	CP_Font_DrawText("INSTRUCTORS", windowW / 1.5f, windowH * 0.15f);
 	CP_Font_DrawText("PRESIDENT", windowW / 2.f, windowH * 0.55f);
 	CP_Font_DrawText("EXECUTIVES", windowW / 2.f, windowH * 0.7f);
 
 
-	CP_Settings_TextSize(TextSize);
+	CP_Settings_TextSize(textSize1);
 	CP_Settings_Fill(CP_Color_Create(255,255, 255, 255));
 	//members
 	CP_Font_DrawText("Choa Kai Rong, Xavier", windowW / 3.f, windowH * 0.2f);
@@ -104,7 +104,7 @@ void CreditsUpdate()
 
 
 
-	CP_Settings_TextSize(TextSizeCopy);
+	CP_Settings_TextSize(textSizeCopy);
 
 	CP_Font_DrawText("All content (C) 2022 DigiPen Institute of Technology Singapore. All Rights Reserved", windowW / 2.f, windowH * 0.98f);
 
@@ -112,7 +112,7 @@ void CreditsUpdate()
 
 
 
-	isRectBackClicked = IsAreaClicked(RectBackX, RectBackY, RectBackWidth, RectBackHeight, CP_Input_GetMouseX(), CP_Input_GetMouseY());
+	isRectBackClicked = IsAreaClicked(rectBackX, rectBackY, rectBackWidth, rectBackHeight, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 
 	if (isRectBackClicked) {
 		TransitScene(Main_Menu);

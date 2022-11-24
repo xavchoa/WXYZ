@@ -12,7 +12,7 @@
 #include "render.h"
 #include "gameelements.h"
 
-void Level2_Init() {
+void Level2Init() {
 	currentLevel = Level2;
 	nextLevel = Level3;
 	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
@@ -57,7 +57,7 @@ void Level2_Init() {
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
 
-void Level2_Update() {
+void Level2Update() {
 	CP_System_SetFrameRate(60);
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
@@ -146,7 +146,7 @@ void Level2_Update() {
 }
 
 
-void Level2_Exit() {
+void Level2Exit() {
 	free(goPtr);
 	free(player);
 	free(projectile);

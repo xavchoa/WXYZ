@@ -10,12 +10,12 @@
 
 float time;
 
-void Cutscene9_Init() {
+void CutScene9Init() {
 	CP_System_SetFrameRate(60);
 	float time = 0;
 }
 
-void Cutscene9_Update() {
+void CutScene9Update() {
 	CP_Settings_TextSize(400);
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
@@ -53,7 +53,7 @@ void Cutscene9_Update() {
 }
 
 
-void Cutscene9_Exit() {
+void CutScene9Exit() {
 	time = 0;
 }
 
