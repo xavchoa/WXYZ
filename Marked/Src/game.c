@@ -1,30 +1,15 @@
-//---------------------------------------------------------
-// file:	game.c
-// author:	[Xavier Choa]
-// email:	[k.choa@digipen.edu]
-//
-// brief:	Functions for the game that handles game objects,
-// checks for AABB collision, and manages what game objects do
-// after colliding. Contains functions that restarts the level
-// and exits back to main menu when the respective buttons are
-// pressed
-//
-// documentation link:
-// https://github.com/DigiPen-Faculty/CProcessing/wiki
-//
-// Copyright © 2022 DigiPen, All rights reserved.
-//---------------------------------------------------------
-
-
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "utils.h"
+#include "mainmenu.h"
+#include "level.h"
 #include "game.h"
 #include "scenes.h"
+#include <string.h>
 #include "gameelements.h"
 
-//gets the game object and assigns pointer if game object is active else return NULL
 GameObject* GetGameObject() {
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
 		if (!(goPtr + i)->isActive) {
@@ -35,7 +20,6 @@ GameObject* GetGameObject() {
 	return NULL;
 }
 
-//despawns game object, setting pointer to NULL
 void DespawnGameObject(GameObject* go) {
 	go->isActive = FALSE;
 	go->hasCollider = FALSE;
@@ -45,7 +29,6 @@ void DespawnGameObject(GameObject* go) {
 	go->childData = NULL;
 }
 
-//Behaviour between 2 types of game objects after colliding
 void CollisionResponse(GameObject* go, GameObject* go2) {
 	switch (go->type) {
 	case Type_Player:
@@ -630,7 +613,6 @@ void CollisionResponse(GameObject* go, GameObject* go2) {
 	
 }
 
-//AABB collision between 2 game objects with hitboxes of rectangles
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 	if (go->type == go2->type)
 		return FALSE;
@@ -644,7 +626,6 @@ CP_BOOL CheckCollision(GameObject* go, GameObject* go2) {
 	return collisionX && collisionY;
 }
 
-//Loops each game object in an array and checks against the next game object for collision
 void ManageCollision() {
 	for (int x = 0; x < GOARRAY_SIZE; ++x) {
 		if ((goPtr + x)->isActive && (goPtr + x)->hasCollider) {
@@ -659,18 +640,16 @@ void ManageCollision() {
 	}
 }
 
-//when escape key is pressed, go back to main menu when in game
 void QuitPressed() {
-	if (CP_Input_KeyDown(KEY_ESCAPE)) {
+	if (CP_Input_KeyDown(KEY_Q)) {
 		shootPressed = FALSE;
 		rightPressed = FALSE;
 		leftPressed = FALSE;
 		isGameOver = FALSE;
-		TransitScene(Main_Menu);
+		CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
 	}
 }
 
-//when R key is pressed, restarts the current level
 void RestartPressed() {
 	if (CP_Input_KeyTriggered(KEY_R)) {
 		projectile->projAlive = FALSE;
