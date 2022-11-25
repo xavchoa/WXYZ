@@ -1,3 +1,17 @@
+//---------------------------------------------------------
+// file:	level10.c
+// author:	[Xavier Choa]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	LEVEL 10 requires many lasers which needs players 
+// to be extra caution and time well to avoid the lasers
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -3,7 +3,9 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 8
+// brief:	LEVEL 8 involves only buttons and dummies without
+// enermies, hence player have to solve the puzzels inorder to
+//  reach the endpoint.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -121,13 +123,6 @@ void Level8Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1720.f, (float)windowHeight * 0.34f), CP_Vector_Set(200.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1660.f, (float)windowHeight * 0.53f), CP_Vector_Set(60.f, (float)windowHeight * 0.63f), PLATFORM_COLOR);
 	
-
-
-
-
-
-
-
 	// AFTER END 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2801.f, 0.f), CP_Vector_Set(1100.f, (float)windowHeight), PLATFORM_COLOR);
 

@@ -3,7 +3,7 @@
 // author:	[TAN ZHI XIN, DARIEN]
 // email:	[t.zhixindarien@digipen.edu]
 //
-// brief:	LEVEL 9
+// brief:	LEVEL 9 requires high reaction time to pass the level.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -170,9 +170,7 @@ void Level9Update() {
 		}
 		else {
 			isGameOver = TRUE;
-			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-			/*player->vel.y = 0.f;
-			isGrounded = TRUE;*/
+
 		}
 
 		PlayerMovement();
@@ -190,7 +188,6 @@ void Level9Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
 
 
 	}

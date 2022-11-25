@@ -3,7 +3,9 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 3
+// brief:	LEVEL 3 has lasers which adds another lose 
+// condition to the players and it increases the difficulty 
+// to players as their range of movement is restricted.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki

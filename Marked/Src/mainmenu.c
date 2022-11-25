@@ -77,13 +77,13 @@ void MainMenuInit()
 
 void MainMenuUpdate()
 {
-	int Width = CP_Image_GetWidth(background);
-	int Height = CP_Image_GetHeight(background);
-	int WindowWidth = CP_System_GetWindowWidth();
-	int WindowHeight = CP_System_GetWindowHeight();
+	int width = CP_Image_GetWidth(background);
+	int height = CP_Image_GetHeight(background);
+	int windowWidth = CP_System_GetWindowWidth();
+	int windowHeight = CP_System_GetWindowHeight();
 
 	CP_Graphics_ClearBackground(CP_Color_Create(255, 255, 255, 255));
-	CP_Image_Draw(background, (float)WindowWidth / 2.f, (float)WindowHeight / 2.f, (float)WindowWidth, (float)WindowHeight, 255);
+	CP_Image_Draw(background, (float)windowWidth / 2.f, (float)windowHeight / 2.f, (float)windowWidth, (float)windowHeight, 255);
 
 	CP_Graphics_ClearBackground(CP_Color_Create(128, 0, 0, 255));
 	CP_Settings_RectMode(CP_POSITION_CENTER);

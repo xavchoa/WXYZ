@@ -3,14 +3,13 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	credits
+// brief:	Roll credits scene.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
 //
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
-
 
 
 #include <stdio.h>
@@ -107,8 +106,6 @@ void CreditsUpdate()
 	CP_Settings_TextSize(textSizeCopy);
 
 	CP_Font_DrawText("All content (C) 2022 DigiPen Institute of Technology Singapore. All Rights Reserved", windowW / 2.f, windowH * 0.98f);
-
-
 
 
 

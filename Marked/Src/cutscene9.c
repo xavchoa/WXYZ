@@ -12,7 +12,7 @@ float time;
 
 void CutScene9Init() {
 	CP_System_SetFrameRate(60);
-	float time = 0;
+	time = 0;
 }
 
 void CutScene9Update() {

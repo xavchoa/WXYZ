@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include "utils.h"
-//#include "mainmenu.h"
-//#include "level.h"
 #include "game.h"
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);
