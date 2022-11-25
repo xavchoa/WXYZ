@@ -1,23 +1,10 @@
-//---------------------------------------------------------
-// file:	render.c
-// author:	[Liu Wan Ting]
-// email:	[wanting.liu@digipen.edu]
-//
-// brief:	Contains render code which displays the graphics
-// using various graphical functions in the CProcessing lib.
-// Contains the code for displaying the game over screen as
-// well.
-//
-// documentation link:
-// https://github.com/DigiPen-Faculty/CProcessing/wiki
-//
-// Copyright © 2022 DigiPen, All rights reserved.
-//---------------------------------------------------------
-
+#include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "cprocessing.h"
+//#include "utils.h"
+//#include "mainmenu.h"
+//#include "level.h"
 #include "game.h"
 void DrawGameElements(GameObject* self) {
 	CP_Settings_Fill(self->color);

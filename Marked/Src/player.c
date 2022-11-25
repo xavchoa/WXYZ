@@ -1,19 +1,6 @@
-//---------------------------------------------------------
-// file:	player.c
-// author:	[Xavier Choa]
-// email:	[k.choa@digipen.edu]
-//
-// brief:	Functions which initialize the player, projectile,
-// set projectile spawn, the projectile's update, player movement,
-// press keys and swap positions.
-// documentation link:
-// https://github.com/DigiPen-Faculty/CProcessing/wiki
-//
-// Copyright © 2022 DigiPen, All rights reserved.
-//---------------------------------------------------------
-
+#include <cprocessing.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include "cprocessing.h"
 #include "game.h"
 
 void InitPlayer(float x, float y) {

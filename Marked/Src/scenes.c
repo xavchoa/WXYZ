@@ -1,18 +1,3 @@
-//---------------------------------------------------------
-// file:	scenes.c
-// author:	[Xavier Choa]
-// email:	[k.choa@digipen.edu]
-//
-// brief:	Functions that manage scenes and levels,
-// restart level and transit to next level. Contains array
-// of function pointers to be used by TransitScene function.
-//
-// documentation link:
-// https://github.com/DigiPen-Faculty/CProcessing/wiki
-//
-// Copyright © 2022 DigiPen, All rights reserved.
-//---------------------------------------------------------
-
 #include "cprocessing.h"
 #include "mainmenu.h"
 #include "level.h"

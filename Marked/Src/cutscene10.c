@@ -1,18 +1,9 @@
-//---------------------------------------------------------
-// file:	cutscene10.c
-// author:	[Xavier Choa]
-// email:	[k.choa@digipen.edu]
-//
-// brief:	Code for cutscene for level 10
-//
-// documentation link:
-// https://github.com/DigiPen-Faculty/CProcessing/wiki
-//
-// Copyright © 2022 DigiPen, All rights reserved.
-//---------------------------------------------------------
-
+#include <cprocessing.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include "cprocessing.h"
+#include <math.h>
+#include "utils.h"
+#include "mainmenu.h"
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
@@ -21,7 +12,7 @@ float time;
 
 void CutScene10Init() {
 	CP_System_SetFrameRate(60);
-	time = 0;
+	float time = 0;
 }
 
 void CutScene10Update() {

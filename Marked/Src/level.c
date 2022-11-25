@@ -1,8 +1,10 @@
-
-
+#include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "cprocessing.h"
+#include <math.h>
+//#include "utils.h"
+//#include "mainmenu.h"
+//#include "level.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
