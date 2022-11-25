@@ -1,3 +1,21 @@
+<<<<<<< Updated upstream
+=======
+//---------------------------------------------------------
+// file:	gameelements.c
+// author:	[Xavier Choa]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	Functions which creates game elements such as
+// platforms, obstacles, buttons and their respective doors,
+// dummies and lasers.
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
+>>>>>>> Stashed changes
 #include "cprocessing.h"
 #include <stdlib.h>
 #include "game.h"
@@ -144,14 +162,4 @@ void UpdateLaser(GameObject* self) {
 		l->dir.y = -l->dir.y;
 	}
 	l->time += CP_System_GetDt();
-}
-void SideScrolling(GameObject* self) {
-	if (player->goPlayer->pos.x >= 800 && rightPressed) {
-		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
-		player->vel.x = 0;
-	}
-	else if (player->goPlayer->pos.x <= 500 && leftPressed) {
-		self->pos.x += player->speed * CP_System_GetDt() * CP_System_GetDt();
-		player->vel.x = 0;
-	}
 }
