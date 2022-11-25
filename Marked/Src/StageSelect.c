@@ -1,3 +1,17 @@
+//---------------------------------------------------------
+// file:	stageselect.c
+// author:	[Darien Tan Zhi Xin]
+// email:	[t.zhixindarien@digipen.edu]
+//
+// brief:	Contains code for level selection and linked to 
+// cutscene code
+// 
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <stdio.h>
 #include "cprocessing.h"
 #include "utils.h"

@@ -1,4 +1,19 @@
-
+//---------------------------------------------------------
+// file:	level.c
+// author:	[Liu Wan Ting]
+// email:	[wanting.liu@digipen.edu]
+//
+// brief:	Contains code which displays the instructions
+// on how to play the game as well as game warnings to players
+// This instructions will appear subsequently when players
+// are at specified spots/ situations during gameplay 
+// 
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>

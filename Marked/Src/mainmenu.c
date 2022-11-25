@@ -1,3 +1,20 @@
+//---------------------------------------------------------
+// file:	mainmenu.c
+// author:	[Liu Wan Ting]
+// email:	[wanting.liu@digipen.edu]
+//
+// brief:	Contains code which displays the mainmenu
+// including background wallpaper, start buttons, exit buttons 
+// level select button, how to play button and credits button
+//
+// 
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <stdio.h>
 #include "cprocessing.h"
 #include "utils.h"
