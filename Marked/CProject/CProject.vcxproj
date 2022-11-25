@@ -121,6 +121,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\level7.c" />
     <ClCompile Include="..\Src\level8.c" />
     <ClCompile Include="..\Src\level9.c" />
+    <ClCompile Include="..\Src\logo.c" />
     <ClCompile Include="..\Src\main.c" />
     <ClCompile Include="..\Src\mainmenu.c" />
     <ClCompile Include="..\Src\player.c" />
@@ -138,6 +139,7 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClInclude Include="..\Inc\level.h" />
     <ClInclude Include="..\Inc\cprocessing.h" />
     <ClInclude Include="..\Inc\cprocessing_common.h" />
+    <ClInclude Include="..\Inc\logo.h" />
     <ClInclude Include="..\Inc\mainmenu.h" />
     <ClInclude Include="..\Inc\player.h" />
     <ClInclude Include="..\Inc\render.h" />

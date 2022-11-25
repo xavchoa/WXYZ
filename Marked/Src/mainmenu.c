@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "level.h"
 #include "scenes.h"
+#include "logo.h"
 
 int windowWidth = 0;
 int windowHeight = 0;

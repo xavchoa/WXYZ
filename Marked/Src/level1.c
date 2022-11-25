@@ -1,3 +1,16 @@
+//---------------------------------------------------------
+// file:	level1.c
+// author:	[CHEONG YU QING]
+// email:	[c.yuqing@digipen.edu]
+//
+// brief:	LEVEL 1
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +24,7 @@
 #include "enemy.h"
 #include "render.h"
 #include "gameelements.h"
+
 
 void Level1Init() {
 	currentLevel = Level1;

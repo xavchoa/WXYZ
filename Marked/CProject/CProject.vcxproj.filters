@@ -99,6 +99,9 @@
     <ClCompile Include="..\Src\cutscene4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\logo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\level.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Inc\gameelements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\logo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

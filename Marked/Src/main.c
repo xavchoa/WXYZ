@@ -14,11 +14,13 @@
 
 #include "cprocessing.h"
 #include "mainmenu.h"
+#include "logo.h"
 
 int main(void)
 {
-	//CP_Engine_SetNextGameState(splash_screen_init, splash_screen_update, splash_screen_exit);
-	CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
+	CP_Engine_SetNextGameState(LogoInit, LogoUpdate, LogoExit);
+
+	//CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
 	CP_Engine_Run();
 	return 0;
 }

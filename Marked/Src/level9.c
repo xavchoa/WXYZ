@@ -1,3 +1,16 @@
+//---------------------------------------------------------
+// file:	level9.c
+// author:	[TAN ZHI XIN, DARIEN]
+// email:	[t.zhixindarien@digipen.edu]
+//
+// brief:	LEVEL 9
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
