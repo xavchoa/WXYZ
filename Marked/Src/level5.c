@@ -3,8 +3,7 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 5 involves strategic ways to eliminate 
-// the enermy.
+// brief:	LEVEL 5
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -142,7 +141,9 @@ void Level5Update() {
 		}
 		else {
 			isGameOver = TRUE;
-
+			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
+			/*player->vel.y = 0.f;
+			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();

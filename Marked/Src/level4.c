@@ -3,9 +3,7 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 4 is a level with a combination of game 
-// components to allow players to expose to the overall 
-// layout of the game.
+// brief:	LEVEL 4
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki

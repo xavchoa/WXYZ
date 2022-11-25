@@ -3,8 +3,7 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 7 requries player to utilise the skills 
-// and game strategies from previous levels
+// brief:	LEVEL 7
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -170,7 +169,9 @@ void Level7Update() {
 		}
 		else {
 			isGameOver = TRUE;
-
+			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
+			/*player->vel.y = 0.f;
+			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();

@@ -3,8 +3,8 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 6 requires the player to time well to make
-//  enermies kill each other inorder to pass the level.
+// brief:	LEVEL 6
+//
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
 //

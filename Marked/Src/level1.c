@@ -3,9 +3,7 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 1 requires the player to master the jumps between 
-// platforms as well as making use to bottons and swapping mechanics 
-// to kill the enermy and pass the level.
+// brief:	LEVEL 1
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki

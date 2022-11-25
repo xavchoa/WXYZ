@@ -3,8 +3,7 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 2 requires the player to make use of 
-// dummies to pass the level.
+// brief:	LEVEL 2
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -127,7 +126,9 @@ void Level2Update() {
 		}
 		else {
 			isGameOver = TRUE;
-
+			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
+			/*player->vel.y = 0.f;
+			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();
