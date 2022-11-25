@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +6,30 @@
 #include "utils.h"
 #include "mainmenu.h"
 #include "level.h"
+=======
+//---------------------------------------------------------
+// file:	game.c
+// author:	[Xavier Choa]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	Functions for the game that handles game objects,
+// checks for AABB collision, and manages what game objects do
+// after colliding. Contains functions that restarts the level
+// and exits back to main menu when the respective buttons are
+// pressed
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
+//#include <stdio.h>
+
+#include <stdlib.h>
+#include <math.h>
+#include "cprocessing.h"
+>>>>>>> Stashed changes
 #include "game.h"
 #include "scenes.h"
 #include <string.h>
@@ -640,6 +665,22 @@ void ManageCollision() {
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+//causes screen to move with plyaer
+void SideScrolling(GameObject* self) {
+	if (player->goPlayer->pos.x >= 800 && rightPressed) {
+		self->pos.x -= player->speed * CP_System_GetDt() * CP_System_GetDt();
+		player->vel.x = 0;
+	}
+	else if (player->goPlayer->pos.x <= 500 && leftPressed) {
+		self->pos.x += player->speed * CP_System_GetDt() * CP_System_GetDt();
+		player->vel.x = 0;
+	}
+}
+
+//when escape key is pressed, go back to main menu when in game
+>>>>>>> Stashed changes
 void QuitPressed() {
 	if (CP_Input_KeyDown(KEY_Q)) {
 		shootPressed = FALSE;

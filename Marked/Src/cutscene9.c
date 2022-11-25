@@ -1,9 +1,18 @@
-#include <cprocessing.h>
-#include <stdio.h>
+//---------------------------------------------------------
+// file:	cutscene9.c
+// author:	[Xavier Choa]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	Code for cutscene for level 9
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
+#include "cprocessing.h"
 #include "level.h"
 #include "game.h"
 #include "scenes.h"
@@ -12,7 +21,7 @@ float time;
 
 void CutScene9Init() {
 	CP_System_SetFrameRate(60);
-	float time = 0;
+	time = 0;
 }
 
 void CutScene9Update() {

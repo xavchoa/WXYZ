@@ -1,3 +1,18 @@
+//---------------------------------------------------------
+// file:	enemy.c
+// author:	[Darien Tan Zhi Xin]
+// email:	[t.zhixindarien@digipen.edu]
+//
+// brief:	Functions which are responsible for the
+// creation of enemies, update of enemy projectiles,
+// enemy shooting and update of enemies.
+// 
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "cprocessing.h"
 #include <stdlib.h>
 #include <math.h>
