@@ -3,7 +3,8 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 8
+// brief:	LEVEL 8 contains only buttons and dummies with no
+// enemies where the player have to purely use logical thinking
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +12,8 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -29,11 +25,7 @@ void Level8Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level8;
 	nextLevel = Cutscene9;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 	
 	InitEndPoint(1840.f, (float)windowHeight*0.25f - 20.f);
 	InitPlayer(200,600);
@@ -63,7 +55,6 @@ void Level8Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(850.f, 0.f), CP_Vector_Set(100, (float)windowHeight * 0.57f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, 0.f), CP_Vector_Set(100, (float)windowHeight * 0.57f), PLATFORM_COLOR);
 
-
 	// platform along with door 1
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(200.f, (float)windowHeight * 0.685f), CP_Vector_Set(400, 50), PLATFORM_COLOR);
 	//door 1 button 1
@@ -75,7 +66,6 @@ void Level8Init() {
 	// top door 1
 	CreateButtonDoorLink(CP_Vector_Set(240.f, (float)windowHeight * 0.91f), CP_Vector_Set(1030, (float)windowHeight * 0.2f), 2);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.2f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
-
 
 	//button 2 door 2
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, (float)windowHeight * 0.2f), CP_Vector_Set(84, 50), PLATFORM_COLOR);
@@ -98,18 +88,15 @@ void Level8Init() {
 	CreateButtonDoorLink(CP_Vector_Set(676.f, (float)windowHeight * 0.19f), CP_Vector_Set(1030.f, (float)windowHeight * 0.685f), 2);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.685f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 
-
 	//button 5 door 5
 	CreateButtonDoorLink(CP_Vector_Set(676.f, (float)windowHeight * 0.5f), CP_Vector_Set(875.f, (float)windowHeight * 0.57f), 1);
 	//platform for button 5
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(575.f, (float)windowHeight * 0.515f), CP_Vector_Set(275, 50), PLATFORM_COLOR);
 
-
 	//button 6 door 6
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.885f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
 	CreateButtonDoorLink(CP_Vector_Set(301.f, (float)windowHeight * 0.19f), CP_Vector_Set(1030.f, (float)windowHeight * 0.885f), 2);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1130.f, (float)windowHeight * 0.885f), CP_Vector_Set(80, 50), PLATFORM_COLOR);
-
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, (float)windowHeight * 0.685f), CP_Vector_Set(200.f, 50.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1210.f, (float)windowHeight * 0.885f), CP_Vector_Set(710.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
@@ -121,20 +108,11 @@ void Level8Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1720.f, (float)windowHeight * 0.34f), CP_Vector_Set(200.f, (float)windowHeight * 0.57f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1660.f, (float)windowHeight * 0.53f), CP_Vector_Set(60.f, (float)windowHeight * 0.63f), PLATFORM_COLOR);
 	
-
-
-
-
-
-
-
 	// AFTER END 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2801.f, 0.f), CP_Vector_Set(1100.f, (float)windowHeight), PLATFORM_COLOR);
 
-
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
-
 
 void Level8Update() {
 	if (isGameOver == FALSE) {
@@ -143,11 +121,7 @@ void Level8Update() {
 
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
-				if ((goPtr + i)->type == Type_Platform) {
-					//SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Enemy) {
-					//SideScrolling(goPtr + i);
+				if ((goPtr + i)->type == Type_Enemy) {
 					UpdateEnemy(goPtr + i);
 					if ((goPtr + i)->pos.y > windowHeight) {
 						DespawnGameObject(goPtr + i);
@@ -155,11 +129,9 @@ void Level8Update() {
 					}
 				}
 				else if ((goPtr + i)->type == Type_EndPoint) {
-					//SideScrolling(goPtr + i);
 					UpdateEndPoint(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Obstacle) {
-					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
@@ -169,17 +141,11 @@ void Level8Update() {
 				}
 				else if ((goPtr + i)->type == Type_Door) {
 					UpdateDoor(goPtr + i);
-					//SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Button) {
-					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Dummy) {
-					//SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Laser) {
-					//SideScrolling(goPtr + i);
 					UpdateLaser(goPtr + i);
 				}
 			}
@@ -187,7 +153,6 @@ void Level8Update() {
 
 		RenderScene();
 
-		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -213,12 +178,8 @@ void Level8Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-
-
 	}
 	else {
-		//gameover screen
 		DisplayGameOver();
 	}
 
@@ -226,9 +187,7 @@ void Level8Update() {
 	RestartPressed();
 }
 
-
 void Level8Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

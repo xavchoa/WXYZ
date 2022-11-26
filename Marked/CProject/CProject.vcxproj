@@ -132,7 +132,6 @@ xcopy "$(SolutionDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
     <ClCompile Include="..\Src\winscreen.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Inc\collision.h" />
     <ClInclude Include="..\Inc\enemy.h" />
     <ClInclude Include="..\Inc\game.h" />
     <ClInclude Include="..\Inc\gameelements.h" />

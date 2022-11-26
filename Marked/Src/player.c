@@ -1,8 +1,12 @@
 //---------------------------------------------------------
 // file:	player.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
-//
+// 
+// co-author:	[TAN ZHI XIN DARIEN]
+// email:		[t.zhixindarien@digipen.edu]
+// -Responsible for the function SwapPositions
+// 
 // brief:	Functions which initialize the player, projectile,
 // set projectile spawn, the projectile's update, player movement,
 // press keys and swap positions.

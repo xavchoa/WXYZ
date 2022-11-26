@@ -3,15 +3,13 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	credits
+// brief:	Display credits scene
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
 //
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
-
-
 
 #include <stdio.h>
 #include "cprocessing.h"
@@ -36,10 +34,8 @@ float textSizeCopy = 30.f;
 CP_BOOL isRectBackClicked = 0;
 CP_Color rectColor;
 
-
 void CreditsInit()
 {
-
 	windowW = (float)CP_System_GetDisplayWidth();
 	windowH = (float)CP_System_GetDisplayHeight();
 	windowW = 1920.f;
@@ -55,13 +51,9 @@ void CreditsInit()
 
 void CreditsUpdate()
 {
-
-
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_NoStroke();
 	CP_Settings_RectMode(CP_POSITION_CENTER);
-
-
 
 	//// BACK 
 	CP_Settings_Fill(rectColor);
@@ -79,7 +71,6 @@ void CreditsUpdate()
 	CP_Font_DrawText("INSTRUCTORS", windowW / 1.5f, windowH * 0.15f);
 	CP_Font_DrawText("PRESIDENT", windowW / 2.f, windowH * 0.55f);
 	CP_Font_DrawText("EXECUTIVES", windowW / 2.f, windowH * 0.7f);
-
 
 	CP_Settings_TextSize(textSize1);
 	CP_Settings_Fill(CP_Color_Create(255,255, 255, 255));
@@ -102,15 +93,9 @@ void CreditsUpdate()
 	CP_Font_DrawTextBox("John Bauer     Samir Abou Samra     Christopher Comair     Michele Comair\nMelvin Gonsalvez     Dr. Charles Duba     Johnny Deek"
 					"Michael Gats\nJason Chu     Ben Ellinger     Prasanna Ghali\nRaymond Yan     Dr. Erik Mohrmann     Angela Kugler", windowW / 22.f, windowH * 0.75f, 1800);
 
-
-
 	CP_Settings_TextSize(textSizeCopy);
 
 	CP_Font_DrawText("All content (C) 2022 DigiPen Institute of Technology Singapore. All Rights Reserved", windowW / 2.f, windowH * 0.98f);
-
-
-
-
 
 	isRectBackClicked = IsAreaClicked(rectBackX, rectBackY, rectBackWidth, rectBackHeight, CP_Input_GetMouseX(), CP_Input_GetMouseY());
 

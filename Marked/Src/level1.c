@@ -3,7 +3,8 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 1
+// brief:	LEVEL 1 introduces the player to find ways to
+// kill the enemy by falling off platforms and swapping
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +12,8 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -25,20 +21,13 @@
 #include "render.h"
 #include "gameelements.h"
 
-
 void Level1Init() {
 	currentLevel = Level1;
 	nextLevel = Level2;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 	
 	CreateGameElement(TRUE, Type_Info, CP_Vector_Set(1000, (float)windowHeight - 100), CP_Vector_Set(1200, 0), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Info2, CP_Vector_Set(1000, 200), CP_Vector_Set(800, 0), PLATFORM_COLOR);
-
-
 
 	InitPlayerProjectile();
 	InitEndPoint(2150.f, (float)windowHeight * 0.55f);
@@ -50,7 +39,6 @@ void Level1Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1898.f, 0.f), CP_Vector_Set(54.f, (float)windowHeight * 0.54f), PLATFORM_COLOR);
 
 	// Platforms
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.9f), CP_Vector_Set(210, 100.f), PLATFORM_COLOR);
@@ -62,12 +50,9 @@ void Level1Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1300.f, (float)windowHeight * 0.4f), CP_Vector_Set(100.f, 90.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1410.f, (float)windowHeight * 0.65f), CP_Vector_Set(200.f, 90.f), PLATFORM_COLOR);
 
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1850.f, (float)windowHeight * 0.65f), CP_Vector_Set(400.f, 90.f), PLATFORM_COLOR);
 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2251.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
-
-
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
@@ -160,9 +145,7 @@ void Level1Update() {
 	RestartPressed();
 }
 
-
 void Level1Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

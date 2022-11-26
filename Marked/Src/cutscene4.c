@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	cutscene4.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Code for cutscene for level 4
@@ -61,11 +61,8 @@ void CutScene4Update() {
 
 
 void CutScene4Exit() {
+	shootPressed = FALSE;
+	rightPressed = FALSE;
+	leftPressed = FALSE;
 	time = 0;
 }
-
-		
-
-
-
-

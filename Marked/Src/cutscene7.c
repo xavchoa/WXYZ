@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	cutscene7.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Code for cutscene for level 7
@@ -72,5 +72,8 @@ void CutScene7Update() {
 
 
 void CutScene7Exit() {
+	shootPressed = FALSE;
+	rightPressed = FALSE;
+	leftPressed = FALSE;
 	time = 0;
 }

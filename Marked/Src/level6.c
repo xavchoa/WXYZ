@@ -3,7 +3,8 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 6
+// brief:	LEVEL 6 introduces players to the fact that enemies
+// are able to kill each other using their own projectiles
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +12,9 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -29,43 +26,27 @@ void Level6Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level6;
 	nextLevel = Cutscene7;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 
 	InitEndPoint(1420.f, (float)windowHeight *0.7f -20.f);
 	InitPlayer(0, 500.f);
 	InitPlayerProjectile();
 
-
-
 	CreateEnemy(1110.f, (float)windowHeight * 0.8f);
 	CreateEnemy(400.f, (float)windowHeight * 0.5f);
 	CreateEnemy(400.f, (float)windowHeight * 0.8f);
 	
-
 	// Platforms
 	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000, (float)windowHeight), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.8f), CP_Vector_Set(400, (float)windowHeight * 0.7f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.72f), CP_Vector_Set(100, 80), PLATFORM_COLOR);
-
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(400.f, (float)windowHeight * 0.9f), CP_Vector_Set(1100, 100), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(350.f, (float)windowHeight * 0.6f), CP_Vector_Set(600, 70), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(870.f, (float)windowHeight * 0.68f), CP_Vector_Set(80, (float)windowHeight * 0.22f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1400.f, (float)windowHeight * 0.79f), CP_Vector_Set(100, 100), PLATFORM_COLOR);
-
-
 	// AFTER END 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1501.f, 0.f), CP_Vector_Set(1100, (float)windowHeight), PLATFORM_COLOR);
-
-
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
 
@@ -142,9 +123,6 @@ void Level6Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-
-
 	}
 	else {
 		//gameover screen
@@ -155,9 +133,7 @@ void Level6Update() {
 	RestartPressed();
 }
 
-
 void Level6Exit() {
+	InitGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

@@ -1,22 +1,14 @@
-<<<<<<< Updated upstream
-#include <cprocessing.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
-=======
 //---------------------------------------------------------
 // file:	game.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Functions for the game that handles game objects,
 // checks for AABB collision, and manages what game objects do
 // after colliding. Contains functions that restarts the level
 // and exits back to main menu when the respective buttons are
-// pressed
+// pressed. Contains functions that handle the game obejects
+// such as allocating memory as well as freeing them.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -27,13 +19,12 @@
 //#include <stdio.h>
 
 #include <stdlib.h>
-#include <math.h>
 #include "cprocessing.h"
->>>>>>> Stashed changes
 #include "game.h"
 #include "scenes.h"
 #include <string.h>
 #include "gameelements.h"
+#include "level.h"
 
 GameObject* GetGameObject() {
 	for (int i = 0; i < GOARRAY_SIZE; ++i) {
@@ -45,13 +36,34 @@ GameObject* GetGameObject() {
 	return NULL;
 }
 
+GameObject* InitGoPtr() {
+	GameObject* goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
+	if (goPtr) {
+		for (int i = 0; i < GOARRAY_SIZE; ++i) {
+			(goPtr + i)->isActive = FALSE;
+			(goPtr + i)->childData = NULL;
+		}
+	}
+	return goPtr;
+}
+
+void FreeGoPtr(GameObject* goPtr) {
+	for (int i = 0; i < GOARRAY_SIZE; ++i) {
+		if ((goPtr + i)->childData != NULL)
+			free((goPtr + i)->childData);
+	}
+}
+
 void DespawnGameObject(GameObject* go) {
 	go->isActive = FALSE;
 	go->hasCollider = FALSE;
 	go->type = Type_None;
 	go->pos = CP_Vector_Set(0, 0);
 	go->size = CP_Vector_Set(0, 0);
-	go->childData = NULL;
+	if (go->childData != NULL) {
+		free(go->childData);
+		go->childData = NULL;
+	}
 }
 
 void CollisionResponse(GameObject* go, GameObject* go2) {
@@ -665,8 +677,7 @@ void ManageCollision() {
 	}
 }
 
-<<<<<<< Updated upstream
-=======
+
 //causes screen to move with plyaer
 void SideScrolling(GameObject* self) {
 	if (player->goPlayer->pos.x >= 800 && rightPressed) {
@@ -680,14 +691,14 @@ void SideScrolling(GameObject* self) {
 }
 
 //when escape key is pressed, go back to main menu when in game
->>>>>>> Stashed changes
+
 void QuitPressed() {
-	if (CP_Input_KeyDown(KEY_Q)) {
+	if (CP_Input_KeyDown(KEY_ESCAPE)) {
 		shootPressed = FALSE;
 		rightPressed = FALSE;
 		leftPressed = FALSE;
 		isGameOver = FALSE;
-		CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
+		TransitScene(Main_Menu);
 	}
 }
 

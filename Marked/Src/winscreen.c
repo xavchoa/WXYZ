@@ -1,8 +1,19 @@
-#include <cprocessing.h>
-#include <stdio.h>
+//---------------------------------------------------------
+// file:	winscreen.c
+// author:	[CHOA KAI RONG, XAVIER]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	Code containing cutscene after player beats the
+// final level
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
+#include "cprocessing.h"
 #include "mainmenu.h"
 #include "level.h"
 #include "game.h"
@@ -12,7 +23,7 @@ float time;
 
 void WinsceneInit() {
 	CP_System_SetFrameRate(60);
-	float time = 0;
+	time = 0;
 }
 
 void WinsceneUpdate() {
@@ -67,13 +78,9 @@ void WinsceneUpdate() {
 		TransitScene(Level10);
 }
 
-
 void WinsceneExit() {
+	shootPressed = FALSE;
+	rightPressed = FALSE;
+	leftPressed = FALSE;
 	time = 0;
 }
-
-		
-
-
-
-

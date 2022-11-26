@@ -1,13 +1,11 @@
 //---------------------------------------------------------
 // file:	mainmenu.c
-// author:	[Liu Wan Ting]
+// author:	[LIU WAN TING]
 // email:	[wanting.liu@digipen.edu]
 //
-// brief:	Contains code which displays the mainmenu
+// brief:	Contains code which displays the main menu
 // including background wallpaper, start buttons, exit buttons 
 // level select button, how to play button and credits button
-//
-// 
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -56,6 +54,7 @@ CP_Image background = NULL;
 
 void MainMenuInit()
 {
+	textSize = 50.f;
 	background = CP_Image_Load("./Assets/marked.png");
 
 	windowWidth = CP_System_GetDisplayWidth();

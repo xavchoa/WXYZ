@@ -3,7 +3,9 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 3
+// brief:	LEVEL 3 utilizes the fact that enemies are immune
+// to lasers and player would need to swap with enemies to
+// pass to the next stage
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +13,8 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -29,32 +26,24 @@ void Level3Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level3;
 	nextLevel = Cutscene1;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 
 	InitEndPoint(1720.f, (float)windowHeight * 0.47f);
 	InitPlayer(200.f, 500.f);
 	InitPlayerProjectile();
 
-
 	CreateEnemy(300.f, (float)windowHeight * 0.7f);
 
 	//              pos         size            vel  timing for rebound
 	CreateLaser(700.f, 0.f, 10, (float)windowHeight, 100, 0, 8.9f);
-	//CreateLaser(1590.f, 0.f, 10, windowHeight, -50, 0, 10);
 
 	// Platforms
 	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, (float)windowHeight * 0.7f), CP_Vector_Set(150.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, (float)windowHeight * 0.8f), CP_Vector_Set(600.f, (float)windowHeight * 0.8f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(700.f, (float)windowHeight * 0.7f), CP_Vector_Set(1100.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1600.f, (float)windowHeight * 0.58f), CP_Vector_Set(200.f, 300.f), PLATFORM_COLOR);
-
 
 	// door 1 button 1
 	CreateButtonDoorLink(CP_Vector_Set(1130.f, (float)windowHeight * 0.69f), CP_Vector_Set(0.f, (float)windowHeight * 0.8f), 2);
@@ -67,7 +56,6 @@ void Level3Init() {
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
 
-
 void Level3Update() {
 	if (isGameOver == FALSE) {
 		CP_Graphics_ClearBackground(CP_Color_Create(240, 200, 200, 255));
@@ -75,11 +63,7 @@ void Level3Update() {
 
 		for (int i = 0; i < GOARRAY_SIZE; ++i) {
 			if ((goPtr + i)->isActive) {
-				if ((goPtr + i)->type == Type_Platform) {
-					//SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Enemy) {
-					//SideScrolling(goPtr + i);
+				if ((goPtr + i)->type == Type_Enemy) {
 					UpdateEnemy(goPtr + i);
 					if ((goPtr + i)->pos.y > windowHeight) {
 						DespawnGameObject(goPtr + i);
@@ -89,9 +73,6 @@ void Level3Update() {
 				else if ((goPtr + i)->type == Type_EndPoint) {
 					UpdateEndPoint(goPtr + i);
 				}
-				else if ((goPtr + i)->type == Type_Obstacle) {
-					//SideScrolling(goPtr + i);
-				}
 				else if ((goPtr + i)->type == Type_Proj && projectile->projAlive) {
 					UpdateProjectile(goPtr + i);
 				}
@@ -100,17 +81,11 @@ void Level3Update() {
 				}
 				else if ((goPtr + i)->type == Type_Door) {
 					UpdateDoor(goPtr + i);
-					//SideScrolling(goPtr + i);
-				}
-				else if ((goPtr + i)->type == Type_Button) {
-					//SideScrolling(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Dummy) {
-					//SideScrolling(goPtr + i);
 					UpdateDummy(goPtr + i);
 				}
 				else if ((goPtr + i)->type == Type_Laser) {
-					//SideScrolling(goPtr + i);
 					UpdateLaser(goPtr + i);
 				}
 			}
@@ -153,9 +128,7 @@ void Level3Update() {
 	RestartPressed();
 }
 
-
 void Level3Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

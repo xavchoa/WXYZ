@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	render.c
-// author:	[Liu Wan Ting]
+// author:	[LIU WAN TING]
 // email:	[wanting.liu@digipen.edu]
 //
 // brief:	Contains render code which displays the graphics

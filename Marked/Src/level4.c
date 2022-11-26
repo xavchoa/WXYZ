@@ -3,7 +3,8 @@
 // author:	[CHEONG YU QING]
 // email:	[c.yuqing@digipen.edu]
 //
-// brief:	LEVEL 4
+// brief:	LEVEL 4 challenges the player with a challenging
+// level layout which contains moving lasers and 4 enemies
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +12,9 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -29,17 +26,11 @@ void Level4Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level4;
 	nextLevel = Level5;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 
 	InitEndPoint(1822.f, (float)windowHeight* 0.59f);
 	InitPlayer(0, 500.f);
 	InitPlayerProjectile();
-
-
 
 	CreateEnemy(750.f, (float)windowHeight * 0.1f);
 	CreateEnemy(1800.f, (float)windowHeight * 0.1f);
@@ -49,7 +40,6 @@ void Level4Init() {
 	CreateDummy(860.f, (float)windowHeight * 0.7f);
 	CreateDummy(2750.f, (float)windowHeight * 0.19f);
 	//                           button                      door
-
 	CreateButtonDoorLink(CP_Vector_Set(1055.f, (float)windowHeight * 0.89f), CP_Vector_Set(1050.f, (float)windowHeight * 0.09f), 1);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1048.f, 0.f), CP_Vector_Set(54.f, 78.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Obstacle, CP_Vector_Set(1090.f, (float)windowHeight * 0.1f), CP_Vector_Set(10.f, 100.f), OBSTACLE_COLOR);
@@ -62,54 +52,34 @@ void Level4Init() {
 	CreateLaser(950.f, (float)windowHeight * 0.72f, 300.f, 10.f, 0.f, 0.f, 0.f);
 	CreateLaser(2440.f, (float)windowHeight * 0.42f, 10.f, (float)windowHeight * 0.6f, -60.f, 0.f, 8.f);
 
-
-
 	// Platforms
 	//BEHIND START 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, (float)windowHeight * 0.7f), CP_Vector_Set(400, (float)windowHeight * 0.7f), PLATFORM_COLOR);
 
 	//STEPS TO GO UP
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(450.f, (float)windowHeight * 0.58f), CP_Vector_Set(200.f, 50.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(250.f, (float)windowHeight * 0.45f), CP_Vector_Set(100.f, 50.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(100.f, (float)windowHeight * 0.32f), CP_Vector_Set(100.f, 50.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(750.f, (float)windowHeight * 0.7f), CP_Vector_Set(200.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(950.f, (float)windowHeight * 0.9f), CP_Vector_Set(300.f, (float)windowHeight * 0.9f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1250.f, (float)windowHeight * 0.7f), CP_Vector_Set(200.f, (float)windowHeight * 0.7f), PLATFORM_COLOR);
-
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(750.f, (float)windowHeight * 0.2f), CP_Vector_Set(450.f, 100.f), PLATFORM_COLOR);
-
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, (float)windowHeight * 0.2f), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, (float)windowHeight * 0.31f), CP_Vector_Set(700.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, (float)windowHeight * 0.2f), CP_Vector_Set(200.f, 100.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1750.f, (float)windowHeight * 0.42f), CP_Vector_Set(50.f, (float)windowHeight * 0.9f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2750.f, (float)windowHeight * 0.2f), CP_Vector_Set(300.f, 100.), PLATFORM_COLOR);
 
-	
 	//after the door
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1800.f, (float)windowHeight * 0.7f), CP_Vector_Set(150.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2050.f, (float)windowHeight * 0.75f), CP_Vector_Set(300.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2450.f, (float)windowHeight * 0.7f), CP_Vector_Set(300.f, 100.f), PLATFORM_COLOR);
-
-
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2900.f, (float)windowHeight * 0.7f), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3020.f, (float)windowHeight * 0.5f), CP_Vector_Set(100.f, 100.f), PLATFORM_COLOR);
 
-
-
 	// AFTER END 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3150.f, 0.f), CP_Vector_Set(1000, (float)windowHeight), PLATFORM_COLOR);
-
-
-
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
@@ -165,8 +135,6 @@ void Level4Update() {
 		}
 
 		RenderScene();
-
-		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -193,9 +161,6 @@ void Level4Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-
-
 	}
 	else {
 		DisplayGameOver();
@@ -203,12 +168,9 @@ void Level4Update() {
 
 	QuitPressed();
 	RestartPressed();
-
 }
 
-
 void Level4Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

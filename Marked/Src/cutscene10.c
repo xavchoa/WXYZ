@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	cutscene10.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Code for cutscene for level 10
@@ -74,11 +74,8 @@ void CutScene10Update() {
 
 
 void CutScene10Exit() {
+	shootPressed = FALSE;
+	rightPressed = FALSE;
+	leftPressed = FALSE;
 	time = 0;
 }
-
-		
-
-
-
-

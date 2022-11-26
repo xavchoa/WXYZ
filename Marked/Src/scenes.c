@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	scenes.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Functions that manage scenes and levels,

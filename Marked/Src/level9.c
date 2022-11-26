@@ -3,7 +3,9 @@
 // author:	[TAN ZHI XIN, DARIEN]
 // email:	[t.zhixindarien@digipen.edu]
 //
-// brief:	LEVEL 9
+// brief:	LEVEL 9 challenges the player's reaction time,
+// and problem solving skills, stacking of dummies are required
+// and certain techniques from previous levels.
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -11,13 +13,8 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <cprocessing.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -29,22 +26,15 @@ void Level9Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level9;
 	nextLevel = Cutscene10;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 
 	InitEndPoint(1100, (float)windowHeight * 0.21f);
 	InitPlayer(800.f, 700.f);
 	InitPlayerProjectile();
-
 	// enemies
-	
 	CreateEnemy(400.f, (float)windowHeight * 0.7f);
 	CreateEnemy(1550.f, (float)windowHeight * 0.7f);
 	CreateEnemy(1750.f, (float)windowHeight * 0.7f);
-	
 	// 4 dummies (1st half)
 	CreateDummy(1.f, (float)windowHeight * 0.7f);
 	CreateDummy(549.f, (float)windowHeight * 0.62f);
@@ -102,13 +92,11 @@ void Level9Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1902.f, (float)windowHeight * 0.43f), CP_Vector_Set(100, 25), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1612.f, (float)windowHeight * 0.32f), CP_Vector_Set(100, 25), PLATFORM_COLOR);
 
-
 	// AFTER END 
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2272.f, 0.f), CP_Vector_Set(1100.f, (float)windowHeight), PLATFORM_COLOR);
 
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 }
-
 
 void Level9Update() {
 	if (isGameOver == FALSE) {
@@ -160,8 +148,6 @@ void Level9Update() {
 		}
 
 		RenderScene();
-
-		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -170,9 +156,6 @@ void Level9Update() {
 		}
 		else {
 			isGameOver = TRUE;
-			//player->goPlayer->pos.y -= player->goPlayer->pos.y + player->goPlayer->size.y - windowHeight;
-			/*player->vel.y = 0.f;
-			isGrounded = TRUE;*/
 		}
 
 		PlayerMovement();
@@ -190,12 +173,8 @@ void Level9Update() {
 		if (CP_Input_KeyReleased(KEY_X)) {
 			shootPressed = FALSE;
 		}
-
-
-
 	}
 	else {
-		//gameover screen
 		DisplayGameOver();
 	}
 
@@ -203,9 +182,7 @@ void Level9Update() {
 	RestartPressed();
 }
 
-
 void Level9Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

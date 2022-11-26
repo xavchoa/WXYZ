@@ -1,3 +1,16 @@
+﻿//---------------------------------------------------------
+// file:	logo.c
+// author:	[CHEONG YU QING]
+// email:	[c.yuqing@digipen.edu]
+//
+// brief:	Splashscreen for digipen logo.
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright ｩ 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "cprocessing.h"
 #include "mainmenu.h"
 

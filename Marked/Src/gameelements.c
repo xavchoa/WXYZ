@@ -1,10 +1,14 @@
-<<<<<<< Updated upstream
-=======
 //---------------------------------------------------------
 // file:	gameelements.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG XAVIER]
 // email:	[k.choa@digipen.edu]
-//
+// 
+// co-author:	[CHEONG YU QING]
+// email:	[c.yuqing@digipen.edu]
+// -Responsible for implementation of the code that is
+// related to doors and buttons, e.g. CreateButtonDoorLink
+// and UpdateDoor functions.
+// 
 // brief:	Functions which creates game elements such as
 // platforms, obstacles, buttons and their respective doors,
 // dummies and lasers.
@@ -15,7 +19,6 @@
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
->>>>>>> Stashed changes
 #include "cprocessing.h"
 #include <stdlib.h>
 #include "game.h"

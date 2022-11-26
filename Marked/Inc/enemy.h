@@ -1,3 +1,4 @@
+#pragma once
 struct GameObject;
 void CreateEnemy(float x, float y);
 void UpdateEnemyProj(GameObject* self);

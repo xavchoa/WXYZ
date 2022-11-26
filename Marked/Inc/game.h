@@ -52,7 +52,6 @@ typedef struct Enemy {
 	CP_Vector vel;
 	CP_Vector dir;
 	float speed;
-	//GameObject* goPlatform;
 	GameObject* goEnemy;
 
 	float bt; //time between bullets
@@ -95,13 +94,10 @@ typedef struct Platform {
 
 typedef struct Door {
 	CP_BOOL isOpened;
-
 } Door;
 
 typedef struct Button {
-	//CP_BOOL isPushed;
 	Door* linkedDoor;
-
 } Button;
 
 typedef struct Laser {
@@ -118,11 +114,11 @@ Projectile* projectile;
 EndPoint* endPoint;
 
 GameObject* GetGameObject();
-
 void DespawnGameObject(GameObject* go);
+GameObject* InitGoPtr();
+void FreeGoPtr(GameObject* goPtr);
 
 void CollisionResponse(GameObject* go, GameObject* go2);
-
 CP_BOOL CheckCollision(GameObject* go, GameObject* go2);
 
 void SideScrolling(GameObject* self);

@@ -1,10 +1,10 @@
 //---------------------------------------------------------
 // file:	main.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
-// brief:	Main entry point for the sample project
-//			of the CProcessing library
+// brief:	Main entry point for the Marked game utilizing the
+//			CProcessing library
 //
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
@@ -19,8 +19,6 @@
 int main(void)
 {
 	CP_Engine_SetNextGameState(LogoInit, LogoUpdate, LogoExit);
-
-	//CP_Engine_SetNextGameState(MainMenuInit, MainMenuUpdate, MainMenuExit);
 	CP_Engine_Run();
 	return 0;
 }

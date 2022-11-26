@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	enemy.c
-// author:	[Darien Tan Zhi Xin]
+// author:	[TAN ZHI XIN DARIEN]
 // email:	[t.zhixindarien@digipen.edu]
 //
 // brief:	Functions which are responsible for the

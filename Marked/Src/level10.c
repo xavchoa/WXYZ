@@ -1,10 +1,20 @@
-#include <cprocessing.h>
-#include <stdio.h>
+//---------------------------------------------------------
+// file:	level10.c
+// author:	[CHOA KAI RONG, XAVIER]
+// email:	[k.choa@digipen.edu]
+//
+// brief:	LEVEL 10 contains many moving lasers which forces the
+// player to complete the level faster, as well as testing their
+// reaction time, precision and jumping skills.
+//
+// documentation link:
+// https://github.com/DigiPen-Faculty/CProcessing/wiki
+//
+// Copyright © 2022 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <stdlib.h>
-#include <math.h>
-#include "utils.h"
-#include "mainmenu.h"
-#include "level.h"
+#include "cprocessing.h"
 #include "game.h"
 #include "scenes.h"
 #include "player.h"
@@ -16,12 +26,7 @@ void Level10Init() {
 	CP_System_SetFrameRate(60);
 	currentLevel = Level10;
 	nextLevel = Winscene;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
-
+	goPtr = InitGoPtr();
 	CP_System_SetWindowSize(windowWidth, windowHeight);
 	
 	InitEndPoint(3400.f, 100.f);
@@ -55,7 +60,6 @@ void Level10Init() {
 
 	// Platforms
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(-1000.f, 0.f), CP_Vector_Set(1000.f , (float)windowHeight), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(0.f, 800.f), CP_Vector_Set(500, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(800.f, 800.f), CP_Vector_Set(250.f, 200.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1240.f, 750.f), CP_Vector_Set(200.f, 25.f), PLATFORM_COLOR);
@@ -66,23 +70,18 @@ void Level10Init() {
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1000.f, 228.f), CP_Vector_Set(200.f, 25.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1450.f, 228.f), CP_Vector_Set(200.f, 25.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(1900.f, 228.f), CP_Vector_Set(100.f, 1000.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 0.f), CP_Vector_Set(350.f, 500.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2330.f, 228.f), CP_Vector_Set(270.f, 400.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 560.f), CP_Vector_Set(350.f, 100.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2250.f, 800.f), CP_Vector_Set(350.f, 500.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2700.f, 870.f), CP_Vector_Set(200.f, 500.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3000.f, 200.f), CP_Vector_Set(500.f, 800.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2875.f, 800.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2715.f, 700.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2875.f, 600.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2715.f, 500.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2875.f, 400.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(2715.f, 300.f), CP_Vector_Set(15.f, 15.f), PLATFORM_COLOR);
-
 	CreateGameElement(TRUE, Type_Platform, CP_Vector_Set(3500.f, 0.f), CP_Vector_Set(1000.f, (float)windowHeight), PLATFORM_COLOR);
 }
 
@@ -171,9 +170,7 @@ void Level10Update() {
 	RestartPressed();
 }
 
-
 void Level10Exit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

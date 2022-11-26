@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	level.c
-// author:	[Liu Wan Ting]
+// author:	[LIU WAN TING]
 // email:	[wanting.liu@digipen.edu]
 //
 // brief:	Contains code which displays the instructions
@@ -8,14 +8,12 @@
 // This instructions will appear subsequently when players
 // are at specified spots/ situations during gameplay 
 // 
-//
 // documentation link:
 // https://github.com/DigiPen-Faculty/CProcessing/wiki
 //
 // Copyright © 2022 DigiPen, All rights reserved.
 //---------------------------------------------------------
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "cprocessing.h"
 #include "game.h"
@@ -38,11 +36,7 @@ CP_BOOL isGameOver = FALSE;
 void LevelInit() {
 	currentLevel = Level0;
 	nextLevel = Level1;
-	goPtr = (GameObject*)malloc(GOARRAY_SIZE * sizeof(GameObject));
-	if (goPtr) {
-		for (int i = 0; i < GOARRAY_SIZE; ++i)
-			(goPtr + i)->isActive = FALSE;
-	}
+	goPtr = InitGoPtr();
 	
 
 	InitPlayerProjectile();
@@ -131,7 +125,6 @@ void LevelUpdate() {
 		CP_Settings_Fill(CP_Color_Create(128, 0, 0, 255));
 		if (player->goPlayer->pos.x > 800) 
 			CP_Font_DrawTextBox("Becareful! Lasers only kill you. Enemies are immune.", 1000, 700, 600);
-		//simulate gravity
 		player->goPlayer->pos.y += player->vel.y * CP_System_GetDt();
 		player->goPlayer->pos.x += player->vel.x * CP_System_GetDt();
 
@@ -156,9 +149,7 @@ void LevelUpdate() {
 			shootPressed = FALSE;
 		}
 
-	
 	} else {
-		//gameover screen
 		DisplayGameOver();
 	}
 
@@ -167,7 +158,6 @@ void LevelUpdate() {
 
 }
 void LevelExit() {
+	FreeGoPtr(goPtr);
 	free(goPtr);
-	free(player);
-	free(projectile);
 }

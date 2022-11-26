@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // file:	cutscene9.c
-// author:	[Xavier Choa]
+// author:	[CHOA KAI RONG, XAVIER]
 // email:	[k.choa@digipen.edu]
 //
 // brief:	Code for cutscene for level 9
@@ -63,11 +63,8 @@ void CutScene9Update() {
 
 
 void CutScene9Exit() {
+	shootPressed = FALSE;
+	rightPressed = FALSE;
+	leftPressed = FALSE;
 	time = 0;
 }
-
-		
-
-
-
-

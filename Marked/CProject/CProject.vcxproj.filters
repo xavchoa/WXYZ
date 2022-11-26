@@ -128,9 +128,6 @@
     <ClInclude Include="..\Inc\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Inc\collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Inc\enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
